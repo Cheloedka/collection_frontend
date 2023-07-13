@@ -1,0 +1,11 @@
+.input {
+    display: none;
+}
+
+.label {
+    user-select: none;
+}
+
+.label:hover {
+    cursor: pointer;
+}

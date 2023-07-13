@@ -1,0 +1,32 @@
+.navButton, .searchButton {
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    color: #211C35;
+    border-bottom: 1px solid white;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navButton:hover, .searchButton:hover{
+    border-color: #211C35;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+}
+
+@media (max-width: 750px) {
+    .navButton{
+        display: none;
+    }
+}
+
+@media(min-width: 992px) {
+    .searchButton {
+        display: none;
+    }
+}

@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    transition: all, 0.05s;
+    word-break: break-word;
+}
+#root {
+
+}
+
+img {
+    user-select: none;
+}

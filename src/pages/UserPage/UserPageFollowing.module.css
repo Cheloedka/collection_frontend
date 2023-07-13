@@ -1,0 +1,32 @@
+.divImgUserFriend {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-top: 6px;
+}
+
+.divImgUserFriend:hover {
+    background-color: #E6E6E6;
+    border-radius: 10px;
+}
+
+.ImgUserFriend {
+    border: 2px solid #211C35;
+    border-radius: 15px;
+    height: 55px;
+    width: 75px;
+    object-fit: cover;
+    margin: 0 8px 0 8px;
+}
+
+.SpanUserFriend {
+    font-size: 14px;
+    text-align: center;
+    width: 91px;
+}
+
+.divFollowing {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}

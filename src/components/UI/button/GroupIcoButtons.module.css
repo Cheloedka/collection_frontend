@@ -1,0 +1,9 @@
+.groupIcons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: right;
+    margin-right: 10px;
+}
+.groupIcons img {
+    margin-right: 6px;
+}

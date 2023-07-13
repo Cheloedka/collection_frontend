@@ -1,0 +1,18 @@
+.buttonAddCollection {
+    border-radius: 10px;
+    background-color: #383156;
+    color: white;
+    line-height: 0;
+    padding-bottom: 12px;
+    font-size: 35px;
+    width: 40px;
+    height: 40px;
+}
+
+.buttonAddCollection:hover {
+    background-color: #403b67;
+}
+
+.buttonAddCollection:active {
+    background-color: #65599a;
+}

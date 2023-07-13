@@ -1,0 +1,42 @@
+.divCollection{
+    height: 350px;
+    width: 200px;
+    border: #211c35 solid 2px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.imageCollection {
+    min-height: 200px;
+    width: 100%;
+    object-fit: cover;
+    background-color: #ece4db;
+    border-bottom: #211c35 dashed 1px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.buttonMoreInformation{
+    padding: 0;
+    width: 100%;
+    background-color: #211c35;
+    color: white;
+    text-align: center;
+}
+.buttonMoreInformation:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.divCollections {
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}

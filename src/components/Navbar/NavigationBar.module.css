@@ -1,0 +1,54 @@
+.NavigationBar {
+    margin-bottom: 30px;
+    background-color: white;
+    font-family: Inter, sans-serif;
+    user-select: none;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+.divNavbar {
+    display: flex;
+}
+.logo {
+    width: 35px;
+    height: 35px;
+}
+.brand {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 22px;
+}
+
+.searchForm {
+    margin: 0 20px;
+}
+
+@media(max-width: 991px) {
+    .searchForm {
+        margin: 0;
+        visibility: hidden;
+        position: absolute;
+    }
+}
+.rightDiv {
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+.leftDiv {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown {
+    margin-left: 10px;
+}
+
+.buttonLogin {
+    margin: 0 20px 5px 0;
+}
+
+

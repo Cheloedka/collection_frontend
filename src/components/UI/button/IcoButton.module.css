@@ -1,0 +1,15 @@
+.IcoDiv {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 3px;
+}
+
+.IcoDiv:hover {
+    backdrop-filter: invert(10%);
+}
+

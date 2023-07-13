@@ -1,0 +1,34 @@
+.MInputSearchNav {
+    padding: 5px 10px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: #EDEEF0;
+    border-radius: 10px;
+    margin-left: -15px;
+}
+
+
+.MInputSearchNav:focus {
+    border-radius: 0;
+    outline: none;
+}
+
+.divFlex {
+    display: flex;
+    align-items: center;
+}
+
+.search{
+    height: 40px;
+    background-color: #EDEEF0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px 10px 10px;
+}
+
+.searchIco {
+    width: 23px;
+    height: 23px;
+}

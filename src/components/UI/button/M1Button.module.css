@@ -1,0 +1,19 @@
+.MButton {
+    font-weight: 600;
+    border-radius: 0;
+    width: 90px;
+    background-color: #383156;
+    color: white;
+    height: 45px;
+    font-size: 17px;
+    transition: all, 0.25s;
+}
+
+.MButton:hover {
+    background-color: #ffe2a6;
+    color: #383156;
+}
+
+.MButton:active  {
+    box-shadow: 0 0 2px 5px #ffe48420;
+}
