@@ -1,0 +1,41 @@
+.userImageBig {
+    width: 230px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #3A325B;
+}
+
+.userImageSm {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid #3A325B;
+}
+
+.divImages {
+    display: flex;
+}
+
+.divSmImage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 15px;
+}
+
+.borderedButton {
+    border: 1px solid #3A325B;
+    height: 45px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.borderedButton:hover {
+    background-color: #E6E6E6;
+}

@@ -2,11 +2,11 @@ import React from 'react';
 import style from "./GroupIcoButtons.module.css";
 import IcoButton from "./IcoButton";
 
-function GroupIcoButtons({firstIco, secondIco}) {
+function GroupIcoButtons({firstIco, secondIco, firstIcoTo, secondIcoTo}) {
     return (
         <div className={style.groupIcons}>
-            <IcoButton to={'/settings'}>{firstIco}</IcoButton>
-            <IcoButton>{secondIco}</IcoButton>
+            <IcoButton to={firstIcoTo}>{firstIco}</IcoButton>
+            <IcoButton to={secondIcoTo}>{secondIco}</IcoButton>
         </div>    );
 }
 

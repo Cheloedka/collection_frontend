@@ -38,13 +38,14 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                         <img
                             src={mainImage}
                             className={imageType === 'user' ? style.userImage : style.collectionImage}
-                            alt="user avatar"
+                            alt="image"
                         />
-                        <div id="myModal" className="modal">
+                        :
+                        <></>
+                        {/*<div id="myModal" className="modal">
                             <span className="close">&times;</span>
                             <img className="modal-content" id="img01"/>
-                            <div id="caption"></div>
-                        </div>
+                        </div>*/}
                         {isEdit === true
                             ?
                             <MFileInput setImage={setMainImage} maxSize={1} setError={setErrorMessage}>

@@ -1,0 +1,12 @@
+.MInput {
+    border-radius: 0;
+    border: 1px solid #211C35;
+    box-shadow: 6px 6px 0 0 #FFB29A;
+    min-width: 400px;
+}
+
+.MInput:focus {
+    box-shadow: none ;
+    border: 1px solid #FFB29A;
+    border-radius: 0;
+}

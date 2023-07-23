@@ -21,6 +21,7 @@ function MFileInput({className, children, maxSize, setError, setImage, ...props}
                 <input
                     {...props}
                     type="file"
+                    accept="image/gif, image/jpeg, image/png"
                     className={style.input}
                     onChange={handleChange}
                 />
