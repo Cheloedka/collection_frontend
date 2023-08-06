@@ -2,6 +2,7 @@ import React from 'react';
 import style from './Banner.module.css'
 import editImgIco from "../../../images/icons/Galleryedit.svg";
 import MFileInput from "../input/MFileInput";
+import defaultCollectionImage from '../../../images/imageNotFound.png'
 
 function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackImage, children, isUser, imageType, isEdit}) {
 
@@ -36,12 +37,10 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                 </div>
                 <div className={style.divContent}>
                         <img
-                            src={mainImage}
+                            src={mainImage ?mainImage :defaultCollectionImage}
                             className={imageType === 'user' ? style.userImage : style.collectionImage}
                             alt="image"
                         />
-                        :
-                        <></>
                         {/*<div id="myModal" className="modal">
                             <span className="close">&times;</span>
                             <img className="modal-content" id="img01"/>

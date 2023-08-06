@@ -102,8 +102,13 @@ function CollectionCreator() {
                 </Banner>
                 <div className={style.divAllInputs}>
                     <div className={style.divInputs}>
-                        <MInput type="name" value={title} onChange={event => setTittle(event.target.value)} placeholder="Tittle" maxLength = "25"/>
-                        <MInput type="name" value={about} onChange={event => setAbout(event.target.value)} placeholder="About" maxLength = "50"/>
+                        <MInput
+                            type="name" value={title} onChange={event => setTittle(event.target.value)}
+                            placeholder="Tittle" maxLength = "25"
+                        />
+                        <MInput type="name" value={about} onChange={event => setAbout(event.target.value)}
+                                placeholder="About" maxLength = "50"
+                        />
                     </div>
                     <div className={style.divInputs}>
                         <MTextarea value={information} onChange={event => setInformation(event.target.value)} placeholder="Info" maxLength = "500"/>

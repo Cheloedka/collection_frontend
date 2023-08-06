@@ -4,6 +4,7 @@ import style from './SettingsPage.module.css'
 import {UserContext} from "../../context";
 import SettingsNavButtons from "./SettingsNavButtons";
 import AccountSettings from "./Account/AccountSettings";
+import SettingsEditButton from "../../components/UI/button/SettingsEditButton";
 
 function SettingsPage() {
     const {username, userImage} = useContext(UserContext)
@@ -15,9 +16,7 @@ function SettingsPage() {
     function contentPage() {
         switch (page) {
             case 1:
-                return <AccountSettings
-                    userImage={userImage}
-                />
+                return <AccountSettings/>
 
             case 2:
                 return <div>Security</div>

@@ -1,0 +1,21 @@
+.borderedButton {
+    border: 1px solid #3A325B;
+    height: 40px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    font-size: 17px;
+    color: #3A325B;
+    user-select: none;
+    cursor: pointer;
+}
+
+.text {
+    margin-left: 15px;
+}
+
+.borderedButton:hover {
+    background-color: #E6E6E6;
+}

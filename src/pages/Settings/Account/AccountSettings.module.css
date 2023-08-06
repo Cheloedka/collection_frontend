@@ -14,6 +14,12 @@
     border: 2px solid #3A325B;
 }
 
+.divCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .divImages {
     display: flex;
 }
@@ -25,17 +31,9 @@
     margin-left: 15px;
 }
 
-.borderedButton {
-    border: 1px solid #3A325B;
-    height: 45px;
-    min-width: 200px;
+.saveChanges {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    margin-top: 15px;
-    font-size: 18px;
-}
-
-.borderedButton:hover {
-    background-color: #E6E6E6;
+    justify-content: flex-end;
+    margin-bottom: 15px;
 }

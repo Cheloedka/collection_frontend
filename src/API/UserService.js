@@ -1,4 +1,4 @@
-import {getRequest, getRequestWithAuth} from "./RequestFunction";
+import {getRequest, getRequestWithAuth, putBodyRequestWithAuth} from "./RequestFunction";
 
 export default class UserService {
 
@@ -8,5 +8,12 @@ export default class UserService {
     static async userPageInfo(username) {
         return await getRequest('/user/' + username)
     }
+    static async userAccountSettings(username, userData) {
+        const formData = new FormData();
+        for (let key in userData) {
+            formData.append(key, userData[key]);
+        }
 
+        return await putBodyRequestWithAuth('/user/' + username +'/edit1', formData)
+    }
 }
