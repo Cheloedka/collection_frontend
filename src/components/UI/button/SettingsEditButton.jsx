@@ -1,13 +1,12 @@
 import React from 'react';
 import style from "./SettingsEditButton.module.css";
-import Edit from "../svg/Edit";
 
-function SettingsEditButton({children ,...props}) {
+function SettingsEditButton({children, text ,...props}) {
     return (
         <div {...props} className={style.borderedButton}>
-            <Edit color='#3A325B'/>
+            {children}
             <div className={style.text}>
-                {children}
+                {text}
             </div>
         </div>
     );

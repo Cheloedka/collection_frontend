@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import style from './AccountSettings.module.css'
 import MInputWithText from "../../../components/UI/input/MInputWithText";
 import SettingsEditButton from "../../../components/UI/button/SettingsEditButton";
@@ -8,59 +8,59 @@ import {UserContext} from "../../../context";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import {Alert} from "react-bootstrap";
 import MFileInput from "../../../components/UI/input/MFileInput";
+import Edit from "../../../components/UI/svg/Edit";
 
-function AccountSettings() {
-    const {username, userImage} = useContext(UserContext)
+function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserSurname}) {
+    const {username, userImage, setUserImage} = useContext(UserContext)
 
     const [image, setImage] = useState('')
-    const [name, setName] = useState('')
-    const [surname, setSurname] = useState('')
+    const [name, setName] = useState(userFirstName)
+    const [surname, setSurname] = useState(userSurname)
 
     const [errorMessage, setErrorMessage] = useState('')
-    const [showImage, setShowImage] = useState(userImage)
+    const [showImage, setShowImage] = useState('')
 
-    const [userData, setUserData] = useState({
-        image: '',
-        name: '',
-        surname: ''
-    })
+    const [isInputsClosed, setIsInputsClosed] = useState(false)
 
     const [fetchSettings, isLoading, error] = useFetching(async () => {
-        let response = await UserService.userAccountSettings(username, userData)
-        console.log(response)
+        let requestData = {}
+        if (image !== '')
+            requestData.image = image
+        if (name !== userFirstName)
+            requestData.name = name
+        if (surname !== userSurname)
+            requestData.surname = surname
+
+        await UserService.userAccountSettings(username, requestData)
+        if (image !== '')
+            setUserImage(URL.createObjectURL(image))
+        if (name !== userFirstName)
+            setUserFirstName(name)
+        if (surname !== userSurname)
+            setUserSurname(surname)
     })
-
-
-    useEffect(() => {
-        if (userData.image !== ''|| userData.name !== '' || userData.surname !== '')
-            fetchSettings()
-    },[userData])
 
     useEffect(() => {
         setErrorMessage(error)
     },[error])
 
     useEffect(() => {
-        if(image !== '')
+        if (image !== '')
             setShowImage(URL.createObjectURL(image))
     },[image])
 
+    useEffect(() => {
+        setShowImage(userImage)
+    },[userImage])
+
+
     function declareUserData(e) {
         e.preventDefault()
-
-        if (image !== '' && name !== '' && surname !== '') {
-            setErrorMessage("Nothing can change")
-        }
-        else {
-            let data = {}
-            if (name)
-                data = {...data, name: name}
-            if (surname)
-                data = {...data, surname: surname}
-            if (image)
-                data = {...data, image: image}
-            setUserData(data)
-        }
+        if (image === '' && name === userFirstName && surname === userSurname)
+            setErrorMessage("Nothing is changed")
+        else
+            fetchSettings()
+        setIsInputsClosed(false)
     }
 
     return (
@@ -85,31 +85,42 @@ function AccountSettings() {
 
                     <MInputWithText
                         type="name"
-                        value={name} onChange={event => setName(event.target.value)}
+                        value={name}
+                        onChange={event => setName(event.target.value)}
+                        onClose={() => setName(userFirstName)}
                         style={{width: "445px"}}
                         placeholder={"Change Name"}
+                        isInputsClosed={isInputsClosed}
+                        defaultValue={userFirstName}
                     />
                     <MInputWithText
                         type="name"
-                        value={surname} onChange={event => setSurname(event.target.value)}
+                        value={surname}
+                        onChange={event => setSurname(event.target.value)}
+                        onClose={() => setSurname(userSurname)}
                         style={{width: "445px"}}
                         placeholder={"Change Surname"}
+                        isInputsClosed={isInputsClosed}
+                        defaultValue={userSurname}
                     />
 
                 </div>
 
                 <div className={style.saveChanges}>
                     <button>
-                        <SettingsEditButton >
-                            {isLoading
-                                ?<MainLoader />
-                                :<>Save Changes</>
+                        <SettingsEditButton
+                            text={"Save Changes"}
+                            onClick={() => setIsInputsClosed(true)}
+                        >
+                            { isLoading
+                                ? <MainLoader />
+                                : <><Edit color='#3A325B'/></>
                             }
                         </SettingsEditButton>
                     </button>
                 </div>
                 <div>
-                    {errorMessage
+                    { errorMessage
                         ? <Alert className="alert-danger"><strong>Error: </strong>{errorMessage}</Alert>
                         : <></>
                     }

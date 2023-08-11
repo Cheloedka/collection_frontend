@@ -5,8 +5,8 @@ import {useFetching} from "../hooks/useFetching";
 import {getUserImage} from "../functions/imageFunctions";
 
 function UserContextProvider({children}) {
-    const [username, setUsername] = useState("hwo")
-    const [userImage, setUserImage] = useState()
+    const [username, setUsername] = useState("")
+    const [userImage, setUserImage] = useState("")
 
     const {isAuth} = useContext(AuthContext)
 

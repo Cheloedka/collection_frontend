@@ -8,6 +8,10 @@ export default class UserService {
     static async userPageInfo(username) {
         return await getRequest('/user/' + username)
     }
+    static async userSettingsInfo(username) {
+        return await getRequestWithAuth('/user/' + username + '/settings')
+    }
+
     static async userAccountSettings(username, userData) {
         const formData = new FormData();
         for (let key in userData) {
