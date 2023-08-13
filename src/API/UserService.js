@@ -18,6 +18,6 @@ export default class UserService {
             formData.append(key, userData[key]);
         }
 
-        return await putBodyRequestWithAuth('/user/' + username +'/edit1', formData)
+        return await putBodyRequestWithAuth('/user/' + username + '/edit1', formData)
     }
 }

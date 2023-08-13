@@ -43,7 +43,9 @@ function SettingsPage() {
                     />
 
                 case 2:
-                    return <SecuritySettings />
+                    return <SecuritySettings
+                        userEmail={data.email}
+                    />
 
                 case 3:
                     return <div>Profile</div>
