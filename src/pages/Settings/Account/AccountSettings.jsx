@@ -19,11 +19,16 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
     const [uUsername, setUUsername] = useState(username)
 
     const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+
     const [showImage, setShowImage] = useState(userImage)
 
     const [isInputsClosed, setIsInputsClosed] = useState(false)
 
     const [fetchSettings, isLoading, error] = useFetching(async () => {
+
+        setIsInputsClosed(true)
+
         let requestData = {}
         if (image !== '')
             requestData.image = image
@@ -32,9 +37,18 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
         if (surname !== userSurname)
             requestData.surname = surname
         if (uUsername !== username)
-            requestData.nickname = uUsername
+            if (uUsername === "") {
+                setErrorMessage("Username can't be empty")
+                setUUsername(username)
+            }
+            else
+                requestData.nickname = uUsername
 
-        await UserService.userAccountSettings(username, requestData)
+        const response = await UserService.userAccountSettings(username, requestData)
+
+        setIsInputsClosed(true)
+
+        setSuccessMessage(response)
 
         if (!error) {
             if (requestData.image)
@@ -64,10 +78,9 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
     function declareUserData(e) {
         e.preventDefault()
         if (image === '' && name === userFirstName && surname === userSurname && uUsername === username)
-            setErrorMessage("Nothing is changed")
+            setErrorMessage("Nothing are changed")
         else
             fetchSettings()
-        setIsInputsClosed(false)
     }
 
     const inputsList = [
@@ -116,7 +129,7 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
                     <button>
                         <SettingsEditButton
                             text={"Save Changes"}
-                            onClick={() => setIsInputsClosed(true)}
+                            onClick={() => setIsInputsClosed(false)}
                         >
                             { isLoading
                                 ? <MainLoader />
@@ -126,8 +139,18 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
                     </button>
                 </div>
                 <div>
-                    { errorMessage
-                        ? <Alert className="alert-danger"><strong>Error: </strong>{errorMessage}</Alert>
+                    { errorMessage ?
+                        <Alert className="alert-danger">
+                            <strong>Error: </strong>
+                            {errorMessage}
+                        </Alert>
+                        : <></>
+                    }
+                    { successMessage ?
+                        <Alert className="alert-success">
+                            <strong>Message: </strong>
+                            {successMessage}
+                        </Alert>
                         : <></>
                     }
                 </div>

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import MInputWithText from "../../../components/UI/input/MInputWithText";
 import style from "./SecuritySettings.module.css";
 import SettingsEditButton from "../../../components/UI/button/SettingsEditButton";
@@ -6,30 +6,73 @@ import {useFetching} from "../../../hooks/useFetching";
 import {Alert} from "react-bootstrap";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import Edit from "../../../components/UI/svg/Edit";
-import MInput from "../../../components/UI/input/MInput";
+import UserService from "../../../API/UserService";
+import {checkTittleFunction} from "../../../functions/stringFunctions";
+import inputStyle from "../../../components/UI/input/MInputWithText.module.css"
 
-function SecuritySettings({userEmail}) {
+function SecuritySettings({userEmail, setUserEmail}) {
 
 
-    const [isInputsClosed, setIsInputsClosed] = useState(false)
+    const [isPasswordClosed, setIsPasswordClosed] = useState(false)
+    const [isEmailClosed, setIsEmailClosed] = useState(false)
+
     const [email, setEmail] = useState(userEmail)
-    const [oldPassword, setOldPassword] = useState("******************")
+    const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
 
-    const data = {}
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
 
 
-    const [fetchSecurity, isLoading, error] = useFetching(async () => {
-
+    const [fetchEmail, isLoading, error] = useFetching(async () => {
+        const response = await UserService.changeEmail({email: email})
+        setUserEmail(email)
+        setSuccessMessage(response)
+        setIsEmailClosed(true)
     })
-
-
-    function declareUserData(value) {
-        data.value = value
-        fetchSecurity()
-        setIsInputsClosed(false)
+    function changeEmail() {
+        if (email === userEmail)
+            setErrorMessage("Nothing is changed")
+        else if (email === "")
+            setErrorMessage("Email can't be empty")
+        else
+        if (checkTittleFunction(userEmail)) {
+            fetchEmail()
+        }
+        else {
+            setErrorMessage("Invalid email address")
+        }
+        setIsEmailClosed(false)
     }
 
+
+
+    const [fetchPassword, isLoadingPass, errorPass] = useFetching(async () => {
+        const data = {
+            oldPassword: oldPassword,
+            newPassword: newPassword
+        }
+        const response = await UserService.changePassword(data)
+        setErrorMessage("")
+        setOldPassword("")
+        setNewPassword("")
+        setSuccessMessage(response)
+        setIsPasswordClosed(true)
+    })
+    function changePassword() {
+        if (newPassword === "")
+            setErrorMessage("Password can't be empty") //todo add function change password
+        else
+            fetchPassword()
+    }
+
+    useEffect(() => {
+        setErrorMessage(error)
+    },[error])
+
+    useEffect(() => {
+        setErrorMessage(errorPass)
+    },[errorPass])
 
     return (
         <>
@@ -41,43 +84,59 @@ function SecuritySettings({userEmail}) {
                     value={email}
                     onChange={event => setEmail(event.target.value)}
                     onClose={() => setEmail(userEmail)}
-                    isInputsClosed={isInputsClosed}
+                    isInputsClosed={isEmailClosed}
                     defaultValue={userEmail}
                 >
                     <SettingsEditButton
                         text={"Change Email"}
                         onClick={() => {
-                            setIsInputsClosed(true)
+                            setIsEmailClosed(false)
+                            changeEmail()
                         }}
                     >
                         { isLoading
-                            ? <MainLoader />
-                            : <><Edit color='#3A325B'/></>
+                            ? <MainLoader color='#3A325B' />
+                            : <Edit color='#3A325B' />
                         }
                     </SettingsEditButton>
                 </MInputWithText>
 
+
                 <MInputWithText
-                    type="name"
+                    type="password"
                     placeholder={"Change Password"}
                     value={oldPassword}
                     onChange={event => setOldPassword(event.target.value)}
-                    onClose={() => setOldPassword("")}
-                    isInputsClosed={isInputsClosed}
-                    defaultValue={oldPassword}
+                    onClose={() => {
+                        setOldPassword("")
+                        setNewPassword("")
+                    }}
+                    isInputsClosed={isPasswordClosed}
+                    defaultValue={"******************"}
                 >
+                    <div className={inputStyle.divLabel}>
+                        <label className={inputStyle.label}>New Password</label>
+                    </div>
+                    <input
+                        type="password"
+                        className={inputStyle.MInput + " form-control"}
+                        value={newPassword}
+                        onChange={event => setNewPassword(event.target.value)}
+                    />
                     <SettingsEditButton
                         text={"Change Password"}
                         onClick={() => {
-                            setIsInputsClosed(true)
+                            setIsPasswordClosed(false)
+                            changePassword()
                         }}
                     >
-                        { isLoading
-                            ? <MainLoader />
-                            : <><Edit color='#3A325B'/></>
+                        { isLoadingPass
+                            ? <MainLoader color='#3A325B'/>
+                            : <Edit color='#3A325B'/>
                         }
                     </SettingsEditButton>
                 </MInputWithText>
+
 
             </div>
             <div className={style.saveChanges}>
@@ -91,8 +150,18 @@ function SecuritySettings({userEmail}) {
                 </button>
             </div>
             <div>
-                { error
-                    ? <Alert className="alert-danger"><strong>Error: </strong>{error}</Alert>
+                { errorMessage  ?
+                    <Alert className="alert-danger">
+                        <strong>Error: </strong>
+                        {errorMessage}
+                    </Alert>
+                    : <></>
+                }
+                { successMessage ?
+                    <Alert className="alert-success">
+                        <strong> Message: </strong>
+                        {successMessage}
+                    </Alert>
                     : <></>
                 }
             </div>

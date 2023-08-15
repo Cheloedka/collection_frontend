@@ -69,7 +69,7 @@ function Register() {
                     <MInput type="name" value={surname} onChange={event => setSurname(event.target.value)} placeholder="Surname"/>
                     <MInput type="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="Email"/>
                     <MInput type="password" value={pwd} onChange={event => setPwd(event.target.value)} placeholder="Password">
-                        Password should be: min 8 symbols, min 2 numbers and 1 special symbol(like:  @ $ ^)
+                        Password should be: min 8 symbols, min 2 numbers and 1 special symbol(like:  @ $ ^) //todo add function change password
                     </MInput>
 
 

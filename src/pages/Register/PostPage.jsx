@@ -8,9 +8,11 @@ import MainLoader from "../../components/UI/loader/MainLoader";
 function PostPage() {
     const params = useParams()
     const [token, setToken] = useState({token: ""})
+    const [successResponse, setSuccessResponse] = useState('')
 
     const [fetchConfirmation, isLoading, postError] = useFetching(async () => {
-        await AuthService.confirmation(token)
+        const response = await AuthService.confirmation(token)
+        setSuccessResponse(response)
     })
 
     useEffect( () => {
@@ -34,8 +36,14 @@ function PostPage() {
                         <strong>Error: </strong>
                         {postError}
                     </Alert>
-                    :<Alert variant="success"><strong>Message:</strong> Email confirmed</Alert>
+                    : <>
+                        {successResponse !== ""
+                            ?<Alert variant="success"><strong>Message: </strong>{successResponse}</Alert>
+                            :<></>
+                        }
+                    </>
                 }
+
                 </>
             }
             

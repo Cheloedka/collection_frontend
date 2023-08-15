@@ -45,6 +45,9 @@ function SettingsPage() {
                 case 2:
                     return <SecuritySettings
                         userEmail={data.email}
+                        setUserEmail={newEmail => {
+                            setData(prev => ({...prev, email: newEmail}))
+                        }}
                     />
 
                 case 3:

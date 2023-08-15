@@ -18,13 +18,17 @@ function MInputWithText({placeholder, defaultValue, children, isInputsClosed, on
     return (
         <div className={style.divInput}>
             <label className={style.label}>{placeholder}</label>
-            <div className={visible === false ? style.divLabel : style.unVisible}>
-                <div className={style.defaultValue}>{defaultValue}</div>
+
+            <div className={visible ? style.unVisible : style.divLabel}>
+                <div className={style.defaultValue}>
+                    {defaultValue}
+                </div>
                 <div className={style.setVisibility} onClick={() => setVisibility()}>
                     <Edit color='#3A325B'/>
                 </div>
             </div>
-            <div className={visible === true ? style.visible : style.unVisible}>
+
+            <div className={visible ? style.visible : style.unVisible}>
                 <div className={style.divLabel}>
                     <input
                         className={style.MInput + " form-control"}

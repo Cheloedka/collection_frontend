@@ -9,3 +9,27 @@
     justify-content: flex-end;
     margin-bottom: 15px;
 }
+
+.passwordInput {
+    border-radius: 0;
+    border: 1px solid #211C35;
+    box-shadow: 6px 6px 0 0 #FFB29A;
+    width: 400px;
+    height: 35px;
+}
+
+.MInput:focus {
+    box-shadow: none ;
+    border: 1px solid #FFB29A;
+    border-radius: 0;
+}
+
+.label {
+    font-size: 16px;
+    text-decoration: underline 1px;
+    margin-bottom: 10px;
+}
+.divLabel {
+    display: flex;
+    justify-content: space-between;
+}

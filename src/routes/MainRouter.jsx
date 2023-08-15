@@ -31,7 +31,6 @@ function MainRoutes() {
             <Route path='' element={<OnlyPublicRotes auth={isAuth} />}>
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Register /> } />
-                <Route path='/confirmation/:id' element={<PostPage/>} />
             </Route>
 
             {/*Only Private Routes*/}
@@ -41,6 +40,10 @@ function MainRoutes() {
             </Route>
 
             {/*All Routes*/}
+
+            <Route path='/confirmation/:id' element={<PostPage/>} />
+            <Route path='/resetMail/:id' element={<PostPage/>} />
+            <Route path='/newMail/:id' element={<PostPage/>} />
 
             <Route path='/:username'>
                 <Route index element={<UserPage />} />

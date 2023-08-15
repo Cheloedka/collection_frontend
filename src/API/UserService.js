@@ -20,4 +20,12 @@ export default class UserService {
 
         return await putBodyRequestWithAuth('/user/' + username + '/edit1', formData)
     }
+
+    static async changeEmail(email) {
+        return await putBodyRequestWithAuth("/user/changeEmail", email)
+    }
+
+    static async changePassword(pass) {
+        return await putBodyRequestWithAuth("/user/changePassword", pass)
+    }
 }
