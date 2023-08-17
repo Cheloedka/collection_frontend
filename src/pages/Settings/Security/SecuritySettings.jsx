@@ -7,7 +7,7 @@ import {Alert} from "react-bootstrap";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import Edit from "../../../components/UI/svg/Edit";
 import UserService from "../../../API/UserService";
-import {checkTittleFunction} from "../../../functions/stringFunctions";
+import {checkEmailFunction, checkTittleFunction} from "../../../functions/stringFunctions";
 import inputStyle from "../../../components/UI/input/MInputWithText.module.css"
 
 function SecuritySettings({userEmail, setUserEmail}) {
@@ -79,7 +79,7 @@ function SecuritySettings({userEmail, setUserEmail}) {
             <div className={style.divCenter}>
 
                 <MInputWithText
-                    type="name"
+                    type="email"
                     placeholder={"Change Email"}
                     value={email}
                     onChange={event => setEmail(event.target.value)}

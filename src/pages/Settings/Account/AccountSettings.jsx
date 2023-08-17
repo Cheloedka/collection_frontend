@@ -19,6 +19,7 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
     const [uUsername, setUUsername] = useState(username)
 
     const [errorMessage, setErrorMessage] = useState('')
+
     const [successMessage, setSuccessMessage] = useState('')
 
     const [showImage, setShowImage] = useState(userImage)
@@ -77,8 +78,9 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
 
     function declareUserData(e) {
         e.preventDefault()
-        if (image === '' && name === userFirstName && surname === userSurname && uUsername === username)
+        if (image === '' && name === userFirstName && surname === userSurname && uUsername === username) {
             setErrorMessage("Nothing are changed")
+        }
         else
             fetchSettings()
     }

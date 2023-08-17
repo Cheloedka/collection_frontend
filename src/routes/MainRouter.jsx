@@ -15,6 +15,8 @@ import MainLoader from "../components/UI/loader/MainLoader";
 import CollectionCreator from "../pages/Collections/CollectionCreator";
 import CollectionPage from "../pages/Collections/Collection/CollectionPage";
 import FollowingPage from "../pages/Following/FollowingPage";
+import PasswordReset from "../pages/Login/PasswordReset";
+import PostPasswordPage from "../pages/Register/PostPasswordPage";
 
 function MainRoutes() {
 
@@ -31,6 +33,7 @@ function MainRoutes() {
             <Route path='' element={<OnlyPublicRotes auth={isAuth} />}>
                 <Route path='/login' element={<Login />} />
                 <Route path='/registration' element={<Register /> } />
+                <Route path='/resetPassword' element={<PasswordReset />} />
             </Route>
 
             {/*Only Private Routes*/}
@@ -44,6 +47,7 @@ function MainRoutes() {
             <Route path='/confirmation/:id' element={<PostPage/>} />
             <Route path='/resetMail/:id' element={<PostPage/>} />
             <Route path='/newMail/:id' element={<PostPage/>} />
+            <Route path='/resetPwd/:id' element={<PostPasswordPage/>} />
 
             <Route path='/:username'>
                 <Route index element={<UserPage />} />

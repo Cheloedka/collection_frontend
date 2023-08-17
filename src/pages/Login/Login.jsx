@@ -3,7 +3,7 @@ import M1Button from "../../components/UI/button/M1Button";
 import {useState} from 'react';
 import {useFetching} from "../../hooks/useFetching"
 import {AuthContext} from "../../context";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Alert} from "react-bootstrap";
 import MInput from "../../components/UI/input/MInput";
 import MDiv from "../../components/UI/div/MDiv";
@@ -52,26 +52,46 @@ function Login() {
                 <form onSubmit={declareLoginData}>
 
                     <h3 className="mb-4">Login</h3>
-                    { loginError
-                        ? <Alert className="alert-danger"><strong>Error: </strong>{loginError}</Alert>
+                    { loginError ?
+                        <Alert className="alert-danger">
+                            <strong>Error: </strong>
+                            {loginError}
+                        </Alert>
                         : <></>
                     }
 
-                    <MInput type="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="Email"/>
-                    <MInput type="password" value={pwd} onChange={event => setPwd(event.target.value)} placeholder="Password" />
+                    <MInput
+                        type="email"
+                        value={email}
+                        onChange={event => setEmail(event.target.value)}
+                        placeholder="Email"
+                    />
+                    <MInput
+                        type="password"
+                        value={pwd}
+                        onChange={event => setPwd(event.target.value)}
+                        placeholder="Password"
+                    />
+                    <div className={style.divButton}>
+                        <M1Button>
+                            { isLoading
+                                ? <MainLoader />
+                                : <>Submit</>
+                            }
+                        </M1Button>
+                        <Link
+                            className={style.passwordLink}
+                            to={"/resetPassword"}>
+                            Forgot your password?
+                        </Link>
+                    </div>
 
-                    <M1Button>
-                        { isLoading
-                            ? <MainLoader />
-                            : <>Submit</>
-                        }
-                    </M1Button>
                 </form>
             </MDiv>
             <MDiv className={style.mDiv}>
                 <div className={style.registerDiv}>
                     First time here?
-                    <button onClick={BRegister} style={{color: "blue"}}>
+                    <button onClick={BRegister} className={style.passwordLink}>
                         Register
                     </button>
                 </div>

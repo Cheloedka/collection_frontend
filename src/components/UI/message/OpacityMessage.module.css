@@ -1,0 +1,12 @@
+.message {
+    transition: opacity 150ms ease-in-out;
+    position: absolute;
+    top: 20px;
+    width: 60%;
+    margin-top: 20px;
+}
+
+.message:hover {
+    opacity: 1 !important;
+}
+

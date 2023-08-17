@@ -27,3 +27,7 @@ export async function deleteRequestWithAuth(link) {
 export async function putBodyRequestWithAuth(link, data) {
     return (await api.put('/auth' + link, data)).data
 }
+
+export async function putBodyRequest(link, data) {
+    return (await api.put(link, data)).data
+}
