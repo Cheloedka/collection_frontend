@@ -8,9 +8,15 @@ function MInputSearchNav({className}) {
         <div className={className}>
             <div className={style.divFlex}>
                 <div className={style.search}>
-                    <img src={Search} className={style.searchIco} />
+                    <img
+                        src={Search}
+                        className={style.searchIco}
+                    />
                 </div>
-                <input placeholder="Search" className={style.MInputSearchNav} />
+                <input
+                    placeholder="Search"
+                    className={style.MInputSearchNav}
+                />
             </div>
         </div>
     );

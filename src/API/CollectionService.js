@@ -12,11 +12,11 @@ export default class CollectionService {
     }
 
     static async getCollection(id, username) {
-        return await getRequest('/collection/' + username + '/' + id)
+        return await getRequest('/collection/' + username + '/' + id);
     }
 
     static async getAllCollections(username) {
-        return await getRequest('/collections/' + username)
+        return await getRequest('/collections/' + username);
     }
 
 }

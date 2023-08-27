@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FollowingPage(props) {
+function FollowingPage() {
     return (
         <div>
             following page

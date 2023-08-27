@@ -1,0 +1,16 @@
+.modalBody {
+    border: 1px solid #383156;
+    border-radius: 8px;
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding-top: 0;
+}
+
+.span {
+    display: block;
+    padding-bottom: 10px;
+}
+
+.closeBtn {
+    margin-left: 5px;
+}

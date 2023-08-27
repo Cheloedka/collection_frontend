@@ -42,9 +42,14 @@ function OpacityMessage({type, text, showElement, setShowElement}) {
     return (
         <>
             { showElement ?
-                <div className={style.message} style={{opacity: opacity}}>
+                <div
+                    className={style.message}
+                    style={{opacity: opacity}}
+                >
                     <Alert className={classes}>
-                        <strong>{strongType}</strong>
+                        <strong>
+                            {strongType}
+                        </strong>
                         {text}
                     </Alert>
                 </div>

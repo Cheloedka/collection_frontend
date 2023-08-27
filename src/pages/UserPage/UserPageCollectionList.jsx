@@ -1,12 +1,12 @@
-import React from 'react';
 import UserPageCollectionItem from "./UserPageCollectionItem";
 import {Link} from "react-router-dom";
 import style from './UserPageCollectionItem.module.css'
 function UserPageCollectionList({collections, username}) {
 
-    if(!collections.length){
+    if (!collections.length) {
         return (
             <div>
+                No any collections
             </div>
         )
     }

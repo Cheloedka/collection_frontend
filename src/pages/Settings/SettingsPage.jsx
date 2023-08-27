@@ -7,14 +7,14 @@ import AccountSettings from "./Account/AccountSettings";
 import SecuritySettings from "./Security/SecuritySettings";
 import {useFetching} from "../../hooks/useFetching";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import {Alert} from "react-bootstrap";
 import UserService from "../../API/UserService";
+import BooleanDiv from "../../components/UI/div/BooleanDiv";
+import MainMessage from "../../components/UI/message/MainMessage";
 
 function SettingsPage() {
     const {username, userImage} = useContext(UserContext)
 
     const [page, setPage] = useState(1)
-
     const [data, setData] = useState()
 
     const[fetchUserInfo, isLoading, error] = useFetching(async () => {
@@ -33,10 +33,10 @@ function SettingsPage() {
                 case 1:
                     return <AccountSettings
                         userFirstName={data.name}
-                        userSurname={data.surname}
                         setUserFirstName={newName => {
                             setData(prev => ({...prev, name: newName}))
                         }}
+                        userSurname={data.surname}
                         setUserSurname={newSurname => {
                             setData(prev => ({...prev, surname: newSurname}))
                         }}
@@ -72,21 +72,16 @@ function SettingsPage() {
                 </div>
 
                 <div className={style.divContent}>
-                    { isLoading
-                        ? <MainLoader />
-                        : <>{contentPage()}</>
-                    }
-
+                    <BooleanDiv bool={isLoading} ifFalse={contentPage()}>
+                        <MainLoader />
+                    </BooleanDiv>
                 </div>
-                <div>
-                    { error
-                        ? <Alert className="alert-danger">
-                            <strong>Error: </strong>
-                            {error}
-                        </Alert>
-                        : <></>
-                    }
-                </div>
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if error
+                        type="error"
+                        text={error}
+                    />
+                </BooleanDiv>
             </MDiv>
         </div>
     );

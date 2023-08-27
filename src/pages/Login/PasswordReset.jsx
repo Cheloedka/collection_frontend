@@ -1,65 +1,62 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import style from "./PasswordReset.module.css";
 import MDiv from "../../components/UI/div/MDiv";
 import MInput from "../../components/UI/input/MInput";
 import M1Button from "../../components/UI/button/M1Button";
 import {useFetching} from "../../hooks/useFetching";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import {Alert} from "react-bootstrap";
 import AuthService from "../../API/AuthService";
+import BooleanDiv from "../../components/UI/div/BooleanDiv";
+import MessageModal from "../../components/UI/modal/MessageModal";
+import MainMessage from "../../components/UI/message/MainMessage";
 
 function PasswordReset() {
 
     const [email, setEmail] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
-    const [isErrorMessage, setIsErrorMessage] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
 
-    const [successMessage, setSuccessMessage] = useState("")
+    const successMessage = useRef()
 
     const [fetchReset, isLoading, error] = useFetching(async () => {
-        const response = await AuthService.resetPassword({email: email})
-        setSuccessMessage(response)
+        successMessage.current = await AuthService.resetPassword({email: email})
+        setModalVisible(true)
     })
 
     useEffect(() => {
         setErrorMessage(error)
-        setIsErrorMessage(true)
     }, [error])
 
 
     function declareData(e) {
         e.preventDefault()
-        if (email === "") {
+        if (email === "")
             setErrorMessage("Email can't be empty")
-            setIsErrorMessage(true)
-        }
-        else {
+        else
             fetchReset()
-        }
     }
 
     return (
         <div className={style.MReset} >
             <MDiv className={style.mDiv}>
-                <h3 className="mb-4">
-                    Password Reset
-                </h3>
+                <h3>Password Reset</h3>
+                <p>Please give your email address to reset password</p>
 
-                { errorMessage ?
-                    <Alert className="alert-danger">
-                        <strong>Error: </strong>
-                        {errorMessage}
-                    </Alert>
-                    : <></>
-                }
+                <MessageModal              //if success modal, navigate to login page
+                    to={"/login"}
+                    visible={modalVisible}
+                    setVisible={setModalVisible}
+                >
+                    {successMessage.current}
+                </MessageModal>
 
-                { successMessage ?
-                    <Alert className="alert-success">
-                        <strong>Message: </strong>
-                        {successMessage}
-                    </Alert>
-                    : <></>
-                }
+
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if error
+                        type="error"
+                        text={errorMessage}
+                    />
+                </BooleanDiv>
 
                 <form onSubmit={declareData}>
                     <MInput
@@ -69,11 +66,9 @@ function PasswordReset() {
                         placeholder="Your email to sent verification"
                     />
                     <M1Button>
-                        { isLoading ?
+                        <BooleanDiv bool={isLoading} ifFalse="Submit">
                             <MainLoader />
-                            : <>Submit</>
-                        }
-
+                        </BooleanDiv>
                     </M1Button>
                 </form>
             </MDiv>

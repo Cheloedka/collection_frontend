@@ -25,13 +25,22 @@ function SettingsNavButtons({pageNumber}) {
 
     return (
         <div className={style.navDivButtons}>
-            <div className={activePage[1]} onClick={() => changeActivePage(1)}>
+            <div
+                className={activePage[1]}
+                onClick={() => changeActivePage(1)}
+            >
                 Account
             </div>
-            <div className={activePage[2]} onClick={() => changeActivePage(2)}>
+            <div
+                className={activePage[2]}
+                onClick={() => changeActivePage(2)}
+            >
                 Security
             </div>
-            <div className={activePage[3]} onClick={() => changeActivePage(3)}>
+            <div
+                className={activePage[3]}
+                onClick={() => changeActivePage(3)}
+            >
                 Profile
             </div>
         </div>

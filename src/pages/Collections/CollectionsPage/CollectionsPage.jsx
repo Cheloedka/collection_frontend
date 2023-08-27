@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import style from './CollectionsPage.module.css'
 import {useNavigate, useParams} from "react-router-dom";
 import CollectionItemsList from "./CollectionItemsList";
-import {useFetching} from "../../hooks/useFetching";
-import CollectionService from "../../API/CollectionService";
-import MainLoader from "../../components/UI/loader/MainLoader";
-import {Alert} from "react-bootstrap";
+import {useFetching} from "../../../hooks/useFetching";
+import CollectionService from "../../../API/CollectionService";
+import MainLoader from "../../../components/UI/loader/MainLoader";
+import MainMessage from "../../../components/UI/message/MainMessage";
+import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 
 function CollectionsPage() {
     const params = useParams()
@@ -27,17 +28,23 @@ function CollectionsPage() {
             <div>
                 Collections
             </div>
-            <button className={style.buttonAddCollection} onClick={() => navigate('/collections/create')}>
+            <button
+                className={style.buttonAddCollection}
+                onClick={() => navigate('/collections/create')}
+            >
                 +
             </button>
-            {isLoading
-                ?<MainLoader />
-                :<CollectionItemsList username={params.username} collections={collections}/>
+            { isLoading
+                ? <MainLoader />
+                : <CollectionItemsList username={params.username} collections={collections}/>
             }
-            {error
-                ?<Alert className="alert-danger"><strong>Error: </strong>{error}</Alert>
-                :<></>
-            }
+
+            <BooleanDiv bool={!isLoading}>
+                <MainMessage
+                    type="error"
+                    text={error}
+                />
+            </BooleanDiv>
         </div>
     );
 }

@@ -5,6 +5,7 @@ export default class AuthService {
     static async login(loginData) {
         return postBodyRequest('/user/login', loginData);
     }
+
     static async register(registerData) {
         return postBodyRequest('/user/register', registerData);
     }
@@ -14,8 +15,7 @@ export default class AuthService {
     }
 
     static async resetPassword(resetData) {
-        console.log(resetData.pwd)
-        return putBodyRequest('/user/resetPassword', resetData)
+        return putBodyRequest('/user/resetPassword', resetData);
     }
 
 }

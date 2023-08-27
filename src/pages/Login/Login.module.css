@@ -5,7 +5,7 @@
     justify-content: space-between;
 }
 .mDiv {
-    max-width: 500px;
+    width: 450px;
     margin-top: 20px;
     padding: 40px;
     border-radius: 15px;
@@ -22,6 +22,7 @@
 }
 
 .passwordLink {
+    margin-left: 10px;
     text-decoration: underline;
     color: #383156;
 }

@@ -5,7 +5,9 @@ function MCheckbox({span, ...props}) {
     return (
         <label className={style.label}>
             <input type="checkbox" {...props}/>
-            <span>{span}</span>
+            <span>
+                {span}
+            </span>
         </label>
     );
 }

@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Banner from "../../../components/UI/div/Banner";
 import {useFetching} from "../../../hooks/useFetching";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import CollectionService from "../../../API/CollectionService";
-import {getCollectionImage, getImage} from "../../../functions/imageFunctions";
+import {getCollectionImage, getImage, getUserImage} from "../../../functions/imageFunctions";
 import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
 import BannerInfo from "../../../components/UI/div/BannerInfo";
 import GroupIcoButtons from "../../../components/UI/button/GroupIcoButtons";
@@ -13,20 +13,17 @@ import Tag from "../../../components/UI/div/Tag";
 import Settings from "../../../components/UI/svg/Settings";
 import Edit from "../../../components/UI/svg/Edit";
 import MainLoader from "../../../components/UI/loader/MainLoader";
+import BooleanDiv from "../../../components/UI/div/BooleanDiv";
+import RightInfo from "./RightInfo/RightInfo";
+import CollectionElementList from "./CollectionElementList";
 
-function CollectionPage(props) {
+function CollectionPage() {
     let params = useParams()
     let navigate = useNavigate()
     const isUser = useIsCurrentUser()
 
-    const [collection, setCollection] = useState({
-        name: '',
-        about: '',
-        information: '',
-        image: '1686935268303qtKmZs1.jpg',
-        backgroundImage: '',
-        private: ''
-    })
+    const [collection, setCollection] = useState({})
+    const [collectionUser, setCollectionUser] = useState({})
 
     const [collectionPageFetch, isLoading, error] = useFetching( async () => {
         let response = await CollectionService.getCollection(params.id, params.username)
@@ -39,7 +36,12 @@ function CollectionPage(props) {
                 information: response.information,
                 image: getCollectionImage(response.image),
                 backgroundImage: getImage(response.backgroundImage),
-                private: response.private
+                private: response.private,
+            })
+            setCollectionUser({
+                name: response.userFirstName,
+                surname: response.userSurname,
+                image: getUserImage(response.userImage)
             })
         }
     })
@@ -58,50 +60,110 @@ function CollectionPage(props) {
 
 
     return (
-    <>
-        {isLoading
-            ?<MainLoader></MainLoader>
-            :
-            <div>
-                <Banner
-                    imageType={"collection"}
-                    backImage={collection.backgroundImage}
-                    mainImage={collection.image}
-                    isUser={isUser}
-                >
-                    <MDiv className={style.divCollectionContent}>
-                        <div className={style.divMainContent}>
-                            <BannerInfo tittle={collection.name} secondText={collection.about} themes={'dark'}/>
-                            {isUser
-                                ?
-                                <GroupIcoButtons
-                                firstIco={<Settings color={'white'} width={'35px'} height={'35px'}/>}
-                                secondIco={<Edit color={'white'}/>}
-                                />
-                               :<></>
-                            }
-                        </div>
-                        <div className={style.divInfoContent}>
-                            {collection.information}
-                        </div>
-                        <div className={style.divTagsContent}>
-                            {collection.private === true
-                                ?<Tag>Private</Tag>
-                                :<Tag color={'green'}>Public</Tag>
-                            }
-                        </div>
-                    </MDiv>
-                </Banner>
-                <MDiv>
-                    Collections Items
+        <div>
+
+            <Banner
+                imageType={"collection"}
+                backImage={collection.backgroundImage}
+                mainImage={collection.image}
+                isUser={isUser}
+            >
+
+                <BooleanDiv bool={isLoading} >
+                    <MainLoader />
+                </BooleanDiv>
+
+                <MDiv className={style.divCollectionContent}>
+                    <div className={style.divMainContent}>
+
+                        <BannerInfo
+                            tittle={collection.name}
+                            secondText={collection.about}
+                            themes={'dark'}
+                        />
+
+                        <BooleanDiv bool={isUser}>
+                            <GroupIcoButtons
+                                firstIco={
+                                    <Settings color={"white"} width={"35px"} height={"35px"} />
+                                }
+                                secondIco={
+                                    <Edit color={"white"} />
+                                }
+                            />
+                        </BooleanDiv>
+
+                    </div>
+                    <div className={style.divInfoContent}>
+                        {collection.information}
+                    </div>
+                    <div className={style.divTagsContent}>
+                        { collection.private === true
+                            ? <Tag>Private</Tag>
+                            : <Tag color={"green"}>
+                                Public
+                              </Tag>
+                        }
+                    </div>
                 </MDiv>
+            </Banner>
+
+            <div className={style.OtherContent}>
                 <MDiv>
-                    Collections Update
+                    <div className={style.divSpanButtonCollections}>
+                        <div>
+                        <span className={style.spanMainSpan}>
+                            Collections Items
+                        </span>
+                            <span className={style.spanSecondSpan}>
+                            9
+                        </span>
+                        </div>
+                        <BooleanDiv bool={!!isUser}>
+                            <Link
+                                //to={}
+                                className={style.buttonAddCollection}
+                            >
+                                +
+                            </Link>
+                        </BooleanDiv>
+                    </div>
+
+                    <CollectionElementList collection={collection}/>
+
                 </MDiv>
 
+                <MDiv>
+                    <span className={style.spanMainSpan}>
+                        Collections Posts
+                    </span>
+                </MDiv>
+
+
+                <div className={style.bottomSection}>
+                    <MDiv className={style.leftPosts}>
+                        <span className={style.spanMainSpan}>
+                            Collections Posts
+                        </span>
+                    </MDiv>
+
+                    <div className={style.divRightInfo}>
+                       <RightInfo
+                           image={collectionUser.image}
+                           text1={params.username}
+                           text2={collectionUser.name + " " + collectionUser.surname}
+                       />
+                        <RightInfo
+                            image={collection.image}
+                            text1={collection.name}
+                            text2={collection.about}
+                        />
+                    </div>
+                </div>
+
             </div>
-        }
-    </>
+
+        </div>
     );
 }
 

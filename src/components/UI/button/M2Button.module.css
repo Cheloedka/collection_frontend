@@ -1,0 +1,26 @@
+.button {
+    padding: 4px 7px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 17px;
+    transition: all, 0.25s;
+}
+
+.green {
+    border-color: green;
+    color: green;
+}
+
+.green:hover {
+    box-shadow: 0 0 1px 1px rgba(0, 128, 0, 0.6);
+}
+
+.red {
+    border-color: red;
+    color: red;
+}
+
+.red:hover {
+    box-shadow: 0 0 1px 1px rgba(255, 0, 0, 0.6);
+
+}

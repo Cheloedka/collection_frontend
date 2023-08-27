@@ -6,30 +6,27 @@ import {useFetching} from "../../../hooks/useFetching";
 import UserService from "../../../API/UserService";
 import {UserContext} from "../../../context";
 import MainLoader from "../../../components/UI/loader/MainLoader";
-import {Alert} from "react-bootstrap";
 import MFileInput from "../../../components/UI/input/MFileInput";
 import Edit from "../../../components/UI/svg/Edit";
+import BooleanDiv from "../../../components/UI/div/BooleanDiv";
+import MainMessage from "../../../components/UI/message/MainMessage";
 
-function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserSurname}) {
+function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserSurname}) {
     const {username, setUsername, userImage, setUserImage} = useContext(UserContext)
 
-    const [image, setImage] = useState('')
+    const [image, setImage] = useState("")
+    const [showImage, setShowImage] = useState(userImage)
+
     const [name, setName] = useState(userFirstName)
     const [surname, setSurname] = useState(userSurname)
     const [uUsername, setUUsername] = useState(username)
 
-    const [errorMessage, setErrorMessage] = useState('')
-
-    const [successMessage, setSuccessMessage] = useState('')
-
-    const [showImage, setShowImage] = useState(userImage)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
 
     const [isInputsClosed, setIsInputsClosed] = useState(false)
 
     const [fetchSettings, isLoading, error] = useFetching(async () => {
-
-        setIsInputsClosed(true)
-
         let requestData = {}
         if (image !== '')
             requestData.image = image
@@ -44,23 +41,20 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
             }
             else
                 requestData.nickname = uUsername
-
         const response = await UserService.userAccountSettings(username, requestData)
-
+        setErrorMessage("")
+        setSuccessMessage(response)
         setIsInputsClosed(true)
 
-        setSuccessMessage(response)
+        if (requestData.image)
+            setUserImage(URL.createObjectURL(image))
+        if (requestData.name)
+            setUserFirstName(name)
+        if (requestData.surname)
+            setUserSurname(surname)
+        if (requestData.nickname)
+            setUsername(uUsername)
 
-        if (!error) {
-            if (requestData.image)
-                setUserImage(URL.createObjectURL(image))
-            if (requestData.name)
-                setUserFirstName(name)
-            if (requestData.surname)
-                setUserSurname(surname)
-            if (requestData.nickname)
-                setUsername(uUsername)
-        }
     })
 
     useEffect(() => {
@@ -69,6 +63,12 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
         setSurname(userSurname)
         setUUsername(username)
     },[error])
+
+
+    useEffect(() => {
+        setSuccessMessage("")
+    }, [errorMessage])
+
 
     useEffect(() => {
         if (image !== '')
@@ -92,72 +92,75 @@ function AccountSettings({userFirstName, userSurname, setUserFirstName, setUserS
     ]
 
     return (
-        <div>
-            <form onSubmit={declareUserData}>
-                <div className={style.divCenter}>
-                    <div className={style.divImages}>
-                        <img src={showImage} className={style.userImageBig} alt={"user Big"}/>
-                        <div className={style.divSmImage}>
-                            <img src={showImage} className={style.userImageSm} alt={"user Small"}/>
-                            <MFileInput
-                                setImage={setImage}
-                                maxSize={1}
-                                setError={setErrorMessage}
-                            >
-                                <SettingsEditButton>
-                                    Choose image
-                                </SettingsEditButton>
-                            </MFileInput>
-                        </div>
-                    </div>
-
-
-                    {inputsList.map((c, index) =>
-                        <MInputWithText
-                            key={index}
-                            type="name"
-                            placeholder={c.placeholder}
-                            value={c.text}
-                            onChange={event => c.onChange(event.target.value)}
-                            onClose={() => c.onChange(c.text)}
-                            isInputsClosed={isInputsClosed}
-                            defaultValue={c.text}
+        <form onSubmit={declareUserData}>
+            <div className={style.divCenter}>
+                <div className={style.divImages}>
+                    <img
+                        src={showImage}
+                        className={style.userImageBig}
+                        alt={"user Big"}
+                    />
+                    <div className={style.divSmImage}>
+                        <img
+                            src={showImage}
+                            className={style.userImageSm}
+                            alt={"user Small"}
                         />
-                    )}
-
-                </div>
-
-                <div className={style.saveChanges}>
-                    <button>
-                        <SettingsEditButton
-                            text={"Save Changes"}
-                            onClick={() => setIsInputsClosed(false)}
+                        <MFileInput
+                            setImage={setImage}
+                            maxSize={1}
+                            setError={setErrorMessage}
                         >
-                            { isLoading
-                                ? <MainLoader />
-                                : <><Edit color='#3A325B'/></>
-                            }
-                        </SettingsEditButton>
-                    </button>
+                            <SettingsEditButton>
+                                Choose image
+                            </SettingsEditButton>
+                        </MFileInput>
+                    </div>
                 </div>
-                <div>
-                    { errorMessage ?
-                        <Alert className="alert-danger">
-                            <strong>Error: </strong>
-                            {errorMessage}
-                        </Alert>
-                        : <></>
-                    }
-                    { successMessage ?
-                        <Alert className="alert-success">
-                            <strong>Message: </strong>
-                            {successMessage}
-                        </Alert>
-                        : <></>
-                    }
-                </div>
-            </form>
-        </div>
+
+                {inputsList.map((c, index) =>
+                    <MInputWithText
+                        key={index}
+                        type="name"
+                        placeholder={c.placeholder}
+                        value={c.text}
+                        onChange={event => c.onChange(event.target.value)}
+                        onClose={() => c.onChange(c.text)}
+                        isInputsClosed={isInputsClosed}
+                        defaultValue={c.text}
+                    />
+                )}
+            </div>
+
+            <div className={style.saveChanges}>
+                <button>
+                    <SettingsEditButton
+                        text={"Save Changes"}
+                        onClick={() => setIsInputsClosed(false)}
+                    >
+                        <BooleanDiv bool={isLoading} ifFalse={<Edit color='#3A325B'/>}>
+                            <MainLoader />
+                        </BooleanDiv>
+                    </SettingsEditButton>
+                </button>
+            </div>
+            <div>
+
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if error
+                        type="error"
+                        text={errorMessage}
+                    />
+                </BooleanDiv>
+
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if success
+                        type="success"
+                        text={successMessage}
+                    />
+                </BooleanDiv>
+            </div>
+        </form>
     );
 }
 

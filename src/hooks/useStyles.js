@@ -1,4 +1,3 @@
-
 export function useStyles(mainClass, addClass){
 
     const classes = [mainClass]

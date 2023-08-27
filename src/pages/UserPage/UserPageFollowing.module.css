@@ -28,5 +28,6 @@
 .divFollowing {
     display: flex;
     flex-wrap: wrap;
+    justify-content: left;
     margin-top: 14px;
 }

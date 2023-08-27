@@ -9,16 +9,19 @@
 .divContent {
     display: flex;
     flex: 1;
+    gap: 30px;
+    margin-top: 20px;
 }
 
-.divContent1 {
+.divContentLeft {
     flex: 1;
+    display: flex;
     flex-direction: column;
     min-width: 156px;
-    margin-right: 40px;
+    gap: 20px;
 }
 
-.divContent2 {
+.divContentRight {
     flex: 2;
     display: flex;
     flex-direction: column;
@@ -45,9 +48,6 @@
 @media(max-width: 991px) {
     .divContent {
         flex-direction: column;
-    }
-    .divContent1 {
-        margin: 0;
     }
 }
 

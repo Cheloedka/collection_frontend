@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.navButton:hover, .searchButton:hover{
+.navButton:hover, .searchButton:hover {
     border-color: #211C35;
 }
 

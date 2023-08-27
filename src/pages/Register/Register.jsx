@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import style from "../Login/Login.module.css";
 import MDiv from "../../components/UI/div/MDiv";
-import {Alert} from "react-bootstrap";
 import MInput from "../../components/UI/input/MInput";
 import M1Button from "../../components/UI/button/M1Button";
 import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
 import {checkTittleFunction} from "../../functions/stringFunctions";
 import MainLoader from "../../components/UI/loader/MainLoader";
+import BooleanDiv from "../../components/UI/div/BooleanDiv";
+import MainMessage from "../../components/UI/message/MainMessage";
+import MessageModal from "../../components/UI/modal/MessageModal";
 
 function Register() {
 
@@ -16,36 +18,53 @@ function Register() {
     const [name, setName] = useState("")
     const [uName, setUName] = useState("")
     const [surname, setSurname] = useState("")
-    const [registerData, setRegisterData] = useState({})
 
-    const [errorMessage, setErrorMessage] = useState('')
-    const [confirmMessage, setConfirmMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState("")
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const successMessage = useRef()
 
 
     const [fetchRegister, isLoading, postError] = useFetching(async () => {
-        let response = await AuthService.register(registerData)
-        setConfirmMessage(response)
+        setErrorMessage("")
+        const registerData = {
+            username: uName,
+            name: name,
+            surname: surname,
+            email: email,
+            password: pwd
+        }
+
+        successMessage.current = await AuthService.register(registerData)
+        setModalVisible(true)
     })
-
-    function declareLoginData(e) {
-        e.preventDefault()
-        if (checkTittleFunction(uName)) {
-            setRegisterData({username: uName, name: name, surname: surname, email: email, password: pwd})
-        }
-        else {
-            setErrorMessage(" In username available only characters 'a-z', 'A-Z', '0-9', - _  .")
-        }
-    }
-
-    useEffect(() => {
-        if (email !== "" && pwd !== "" && uName !== "" && surname !== "") {
-            fetchRegister()
-        }
-    }, [registerData])
 
     useEffect(() => {
         setErrorMessage(postError)
     }, [postError])
+
+
+    function declareLoginData(e) {
+        e.preventDefault()
+        if (checkTittleFunction(uName)) {
+            if (email !== "" && pwd !== "" && uName !== "")
+                fetchRegister()
+            else
+                setErrorMessage("Email, username and password can't be empty")
+        }
+        else
+            setErrorMessage(" In username available only characters 'a-z', 'A-Z', '0-9', - _  .")
+    }
+
+    const inputs = [
+        {type : "name",  value: uName, onChange: setUName, placeholder: "Username", maxLength: 25},
+        {type : "name",  value: name, onChange: setName, placeholder: "Name"},
+        {type : "name",  value: surname, onChange: setSurname, placeholder: "Surname"},
+        {type : "email",  value: email, onChange: setEmail, placeholder: "Email"},
+        {type : "password",  value: pwd, onChange: setPwd, placeholder: "Password",
+            children: "Password should be: min 8 symbols, min 2 numbers and 1 special symbol(like:  @ $ ^)"
+        }
+    ]
 
 
     return (
@@ -53,32 +72,42 @@ function Register() {
             <MDiv className={style.mDiv}>
                 <form onSubmit={declareLoginData}>
 
-                    <h3 className="mb-4">Register</h3>
+                    <h3>Register</h3>
                     <p>On this page you can register on our website</p>
-                    {errorMessage
-                        ? <Alert className="alert-danger"><strong>Error: </strong>{errorMessage}</Alert>
-                        : <></>
-                    }
-                    {confirmMessage
-                        ? <Alert className="alert-success"><strong>Message: </strong>{confirmMessage}</Alert>
-                        : <></>
-                    }
 
-                    <MInput type="name" value={uName} onChange={event => setUName(event.target.value)} placeholder="Username" maxLength = "25"/>
-                    <MInput type="name" value={name} onChange={event => setName(event.target.value)} placeholder="Name"/>
-                    <MInput type="name" value={surname} onChange={event => setSurname(event.target.value)} placeholder="Surname"/>
-                    <MInput type="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="Email"/>
-                    <MInput type="password" value={pwd} onChange={event => setPwd(event.target.value)} placeholder="Password">
-                        Password should be: min 8 symbols, min 2 numbers and 1 special symbol(like:  @ $ ^) //todo add function change password
-                    </MInput>
+                    <MessageModal              //if success modal, navigate to login page
+                        to={"/login"}
+                        visible={modalVisible}
+                        setVisible={setModalVisible}
+                    >
+                        {successMessage.current}
+                    </MessageModal>
 
 
+                    <BooleanDiv bool={!isLoading}>
+                        <MainMessage                  //if error
+                            type="error"
+                            text={errorMessage}
+                        />
+                    </BooleanDiv>
+
+                    {inputs.map((c, index) =>
+                        <MInput
+                            key={index}
+                            type={c.type}
+                            value={c.value}
+                            onChange={event => c.onChange(event.target.value)}
+                            placeholder={c.placeholder}
+                            maxLength = {c.maxLength}
+                        >
+                            {c.children}
+                        </MInput>
+                    )}
 
                     <M1Button>
-                        { isLoading
-                            ? <MainLoader/>
-                            : <>Submit</>
-                        }
+                        <BooleanDiv bool={isLoading} ifFalse="Submit">
+                            <MainLoader/>
+                        </BooleanDiv>
                     </M1Button>
 
                 </form>

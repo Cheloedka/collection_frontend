@@ -22,8 +22,12 @@ function BannerInfo({tittle, secondText, themes}) {
 
     return (
         <div className={style.divInfo}>
-            <div className={classes.join(" ")}>{tittle}</div>
-            <div className={secondClasses.join(" ")}>{secondText}</div>
+            <div className={classes.join(" ")}>
+                {tittle}
+            </div>
+            <div className={secondClasses.join(" ")}>
+                {secondText}
+            </div>
         </div>
     );
 }

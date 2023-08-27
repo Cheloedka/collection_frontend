@@ -27,28 +27,40 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
             <div className={style.divBackImg}>
                 {coverContent()}
                 <div className={style.divOpacity}>
-                    {!!isUser
+                    { !!isUser
                         ?
-                        <MFileInput setImage={setBackImage} maxSize={2} setError={setErrorMessage}>
-                            <img src={editImgIco} className={style.editImg}  alt={"edit"}/>
+                        <MFileInput
+                            setImage={setBackImage}
+                            maxSize={1}
+                            setError={setErrorMessage}
+                        >
+                            <img
+                                src={editImgIco}
+                                className={style.editImg}
+                                alt={"edit"}
+                            />
                         </MFileInput>
                         : <></>
                     }
                 </div>
                 <div className={style.divContent}>
                         <img
-                            src={mainImage ?mainImage :defaultCollectionImage}
-                            className={imageType === 'user' ? style.userImage : style.collectionImage}
+                            src={ mainImage ? mainImage : defaultCollectionImage}
+                            className={ imageType === 'user' ? style.userImage : style.collectionImage}
                             alt="image"
                         />
-                        {/*<div id="myModal" className="modal">
-                            <span className="close">&times;</span>
-                            <img className="modal-content" id="img01"/>
-                        </div>*/}
-                        {isEdit === true
+                        { isEdit === true
                             ?
-                            <MFileInput setImage={setMainImage} maxSize={1} setError={setErrorMessage}>
-                                <img src={editImgIco} className={style.editImg2}  alt={"edit"}/>
+                            <MFileInput
+                                setImage={setMainImage}
+                                maxSize={1}
+                                setError={setErrorMessage}
+                            >
+                                <img
+                                    src={editImgIco}
+                                    className={style.editImg2}
+                                    alt={"edit"}
+                                />
                             </MFileInput>
                             : <></>
                         }

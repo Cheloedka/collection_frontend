@@ -13,7 +13,6 @@ import Friends from "../../UI/svg/Friends";
 
 function NavDrop() {
     const logout = useLogout()
-
     const {username, userImage} = useContext(UserContext)
 
     const buttons = [
@@ -28,9 +27,19 @@ function NavDrop() {
 
         <div className={style.dropdown}>
             <button className={style.toggle}>
-                <img className={style.imgUser} src={userImage} alt={username}/>
-                <div className={style.divUsername}>{username}</div>
-                <img className={style.polygon} src={polygon} alt={""}/>
+                <img
+                    className={style.imgUser}
+                    src={userImage}
+                    alt={username}
+                />
+                <div className={style.divUsername}>
+                    {username}
+                </div>
+                <img
+                    className={style.polygon}
+                    src={polygon}
+                    alt={""}
+                />
             </button>
 
             <div className={style.menu}>

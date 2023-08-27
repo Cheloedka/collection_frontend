@@ -3,14 +3,14 @@ import {deleteRequestWithAuth, getRequestWithAuth, postRequestWithAuth} from "./
 export default class FriendshipService {
 
     static async newFollowing(username) {
-        return await postRequestWithAuth('/friendships/' + username)
+        return await postRequestWithAuth('/friendships/' + username);
     }
 
     static async deleteFollowing(username) {
-        return await deleteRequestWithAuth('/friendships/delete/' + username)
+        return await deleteRequestWithAuth('/friendships/delete/' + username);
     }
 
     static async isFollowingExist(username) {
-        return await getRequestWithAuth('/friendships/isexist/' + username)
+        return await getRequestWithAuth('/friendships/isexist/' + username);
     }
 }

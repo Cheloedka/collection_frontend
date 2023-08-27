@@ -1,17 +1,16 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MInputWithText from "../../../components/UI/input/MInputWithText";
 import style from "./SecuritySettings.module.css";
 import SettingsEditButton from "../../../components/UI/button/SettingsEditButton";
 import {useFetching} from "../../../hooks/useFetching";
-import {Alert} from "react-bootstrap";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import Edit from "../../../components/UI/svg/Edit";
 import UserService from "../../../API/UserService";
-import {checkEmailFunction, checkTittleFunction} from "../../../functions/stringFunctions";
 import inputStyle from "../../../components/UI/input/MInputWithText.module.css"
+import BooleanDiv from "../../../components/UI/div/BooleanDiv";
+import MainMessage from "../../../components/UI/message/MainMessage";
 
 function SecuritySettings({userEmail, setUserEmail}) {
-
 
     const [isPasswordClosed, setIsPasswordClosed] = useState(false)
     const [isEmailClosed, setIsEmailClosed] = useState(false)
@@ -27,21 +26,18 @@ function SecuritySettings({userEmail, setUserEmail}) {
     const [fetchEmail, isLoading, error] = useFetching(async () => {
         const response = await UserService.changeEmail({email: email})
         setUserEmail(email)
+        setErrorMessage("")
         setSuccessMessage(response)
         setIsEmailClosed(true)
     })
+
     function changeEmail() {
         if (email === userEmail)
             setErrorMessage("Nothing is changed")
         else if (email === "")
             setErrorMessage("Email can't be empty")
         else
-        if (checkTittleFunction(userEmail)) {
             fetchEmail()
-        }
-        else {
-            setErrorMessage("Invalid email address")
-        }
         setIsEmailClosed(false)
     }
 
@@ -61,9 +57,10 @@ function SecuritySettings({userEmail, setUserEmail}) {
     })
     function changePassword() {
         if (newPassword === "")
-            setErrorMessage("Password can't be empty") //todo add function change password
+            setErrorMessage("Password can't be empty")
         else
             fetchPassword()
+        setIsEmailClosed(false)
     }
 
     useEffect(() => {
@@ -73,6 +70,10 @@ function SecuritySettings({userEmail, setUserEmail}) {
     useEffect(() => {
         setErrorMessage(errorPass)
     },[errorPass])
+
+    useEffect(() => {
+        setSuccessMessage("")
+    }, [errorPass, error, errorMessage])
 
     return (
         <>
@@ -94,8 +95,8 @@ function SecuritySettings({userEmail, setUserEmail}) {
                             changeEmail()
                         }}
                     >
-                        { isLoading
-                            ? <MainLoader color='#3A325B' />
+                        { isLoading ?
+                            <MainLoader color='#3A325B' />
                             : <Edit color='#3A325B' />
                         }
                     </SettingsEditButton>
@@ -150,20 +151,18 @@ function SecuritySettings({userEmail, setUserEmail}) {
                 </button>
             </div>
             <div>
-                { errorMessage  ?
-                    <Alert className="alert-danger">
-                        <strong>Error: </strong>
-                        {errorMessage}
-                    </Alert>
-                    : <></>
-                }
-                { successMessage ?
-                    <Alert className="alert-success">
-                        <strong> Message: </strong>
-                        {successMessage}
-                    </Alert>
-                    : <></>
-                }
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if error
+                        type="error"
+                        text={errorMessage}
+                    />
+                </BooleanDiv>
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if success
+                        type="success"
+                        text={successMessage}
+                    />
+                </BooleanDiv>
             </div>
         </>
     );

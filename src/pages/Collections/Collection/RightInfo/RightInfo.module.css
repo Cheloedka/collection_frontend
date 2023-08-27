@@ -1,0 +1,26 @@
+.mainDiv {
+    display: flex;
+    gap: 10px;
+}
+
+.divRightInfoImg {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+.divRightInfoDivSpan {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+}
+
+.divRightInfoMainSpan {
+    font-size: 22px;
+    font-family: Inter, serif;
+}
+
+.divRightInfoSecondSpan {
+    font-size: 19px;
+    font-family: Inter, serif;
+    color: #706B6B;
+}

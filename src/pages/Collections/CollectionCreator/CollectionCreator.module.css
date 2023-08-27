@@ -1,8 +1,9 @@
 .MDiv {
     border-radius: 10px;
-    padding: 1% 7%;
 }
-
+.marginDiv {
+    margin: 0 20px;
+}
 .divCollectionContent {
     background-color: rgba(56, 49, 86, 0.7);
     backdrop-filter: blur(5px);
@@ -15,41 +16,38 @@
     min-height: 90px;
 }
 .divTagsContent {
-    padding: 0 30px 15px 30px;
+    display: flex;
+    gap: 5px;
+    margin: 0 30px;
     min-height: 40px;
 }
 
 .divInputs{
-    padding-right: 20px;
     flex: 1;
 }
 
 .divSelect {
-    margin-top: 10px;
-    margin-bottom: 15px;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+    margin-bottom: 15px;
 }
 
 .divAllInputs {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    margin-top: 30px;
+    gap: 20px;
 }
 
 
 @media (max-width: 1200px) {
     .divAllInputs {
-        display: flex;
         flex-direction: column;
     }
     .divSelect {
         flex-direction: row;
-    }
-    .divInputs {
-        padding: 0;
     }
 }

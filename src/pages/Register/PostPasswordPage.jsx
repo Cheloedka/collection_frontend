@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import {Alert} from "react-bootstrap";
 import MInput from "../../components/UI/input/MInput";
 import MDiv from "../../components/UI/div/MDiv";
 import style from "../Login/PasswordReset.module.css"
 import M1Button from "../../components/UI/button/M1Button";
+import BooleanDiv from "../../components/UI/div/BooleanDiv";
+import MessageModal from "../../components/UI/modal/MessageModal";
+import MainMessage from "../../components/UI/message/MainMessage";
 
 function PostPasswordPage() {
     const params = useParams()
@@ -15,11 +17,12 @@ function PostPasswordPage() {
     const [pwd, setPwd] = useState("")
 
     const [errorMessage, setErrorMessage] = useState("")
-    const [successMessage, setSuccessMessage] = useState("")
+    const [modalVisible, setModalVisible] = useState(false)
+    const successMessage = useRef("")
 
     const [fetchConfirmation, isLoading, postError] = useFetching(async () => {
-        const response = await AuthService.confirmation({token: token, info :pwd})
-        setSuccessMessage(response)
+        successMessage.current = await AuthService.confirmation({token: token, info :pwd})
+        setModalVisible(true)
     })
 
     useEffect( () => {
@@ -43,22 +46,24 @@ function PostPasswordPage() {
     return (
         <div className={style.MReset}>
             <MDiv className={style.mDiv}>
-                <h3 className="mb-4">
-                    New Password
-                </h3>
+                <h3>New Password</h3>
+                <p>Please give new password for your account</p>
 
-                { errorMessage
-                    ?<Alert variant="danger">
-                        <strong>Error: </strong>
-                        {errorMessage}
-                    </Alert>
-                    : <>
-                        { successMessage !== ""
-                            ?<Alert variant="success"><strong>Message: </strong>{successMessage}</Alert>
-                            :<></>
-                        }
-                    </>
-                }
+                <MessageModal              //if success modal, navigate to login page
+                    to={"/login"}
+                    visible={modalVisible}
+                    setVisible={setModalVisible}
+                >
+                    {successMessage.current}
+                </MessageModal>
+
+
+                <BooleanDiv bool={!isLoading}>
+                    <MainMessage                  //if error
+                        type="error"
+                        text={errorMessage}
+                    />
+                </BooleanDiv>
 
                 <form onSubmit={declareData}>
                     <MInput
@@ -68,10 +73,9 @@ function PostPasswordPage() {
                         placeholder="Password"
                     />
                     <M1Button>
-                        {isLoading ?
-                            <MainLoader color={"black"}/>
-                            :<>Submit</>
-                        }
+                        <BooleanDiv bool={isLoading} ifFalse="Change">
+                            <MainLoader />
+                        </BooleanDiv>
                     </M1Button>
                 </form>
             </MDiv>

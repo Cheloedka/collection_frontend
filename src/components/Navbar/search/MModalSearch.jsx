@@ -6,7 +6,10 @@ function MModalSearch({children, visible, setShowModal}) {
 
 
     return (
-        <Modal show={visible} onHide={() => setShowModal(false)}>
+        <Modal
+            show={visible}
+            onHide={() => setShowModal(false)}
+        >
             <Modal.Body classname={style.body}>
                 {children}
             </Modal.Body>

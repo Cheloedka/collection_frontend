@@ -1,25 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
-import {Alert} from "react-bootstrap";
 import MainLoader from "../../components/UI/loader/MainLoader";
+import BooleanDiv from "../../components/UI/div/BooleanDiv";
+import MessageModal from "../../components/UI/modal/MessageModal";
+import MainMessage from "../../components/UI/message/MainMessage";
 
 function PostPage() {
     const params = useParams()
-    const [token, setToken] = useState({token: ""})
-    const [successResponse, setSuccessResponse] = useState('')
+
+    const [token, setToken] = useState("")
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const successMessage = useRef("")
 
     const [fetchConfirmation, isLoading, postError] = useFetching(async () => {
-        const response = await AuthService.confirmation(token)
-        setSuccessResponse(response)
+        successMessage.current = await AuthService.confirmation({token: token})
+        setModalVisible(true)
     })
 
     useEffect( () => {
-        setToken({token: params.id})
+        setToken(params.id)
     }, [params.id])
 
-   useEffect(() => {
+    useEffect(() => {
         if (token.token !== "") {
             fetchConfirmation()
         }
@@ -27,26 +32,26 @@ function PostPage() {
 
     return (
         <div>
-            {isLoading
-                ?<MainLoader />
-                :
-                <>
-                {postError
-                    ?<Alert variant="danger">
-                        <strong>Error: </strong>
-                        {postError}
-                    </Alert>
-                    : <>
-                        {successResponse !== ""
-                            ?<Alert variant="success"><strong>Message: </strong>{successResponse}</Alert>
-                            :<></>
-                        }
-                    </>
-                }
+            <BooleanDiv bool={isLoading}>
+                <MainLoader />
+            </BooleanDiv>
 
-                </>
-            }
-            
+            <MessageModal              //if success modal, navigate to login page
+                to={"/login"}
+                visible={modalVisible}
+                setVisible={setModalVisible}
+            >
+                {successMessage.current}
+            </MessageModal>
+
+
+            <BooleanDiv bool={!isLoading}>
+                <MainMessage                  //if error
+                    type="error"
+                    text={postError}
+                />
+            </BooleanDiv>
+
         </div>
     );
 }

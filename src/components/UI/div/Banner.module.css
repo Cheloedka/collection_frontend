@@ -15,6 +15,11 @@
     background-color: rgba(56, 49, 86, 0.5);
 }
 
+.divBackImg:hover .editText {
+    transition: opacity 0.3s;
+    opacity: 1;
+}
+
 .divOpacity {
     height: 156px;
     position: relative;
@@ -36,6 +41,8 @@
     right: 60px;
     top: 20px;
     padding: 5px;
+    transition: opacity 0.3s;
+    opacity: 0;
 }
 
 .divOpacity:hover .editImg{
@@ -48,7 +55,6 @@
 }
 
 .editImg {
-    transition: opacity 0.3s;
     position: absolute;
     right: 20px;
     top: 20px;
@@ -58,6 +64,7 @@
     backdrop-filter: blur(15px);
     border-radius: 10px;
     cursor: pointer;
+    transition: opacity 0.3s;
     opacity: 0;
 }
 

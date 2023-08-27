@@ -4,12 +4,13 @@ import {useState} from 'react';
 import {useFetching} from "../../hooks/useFetching"
 import {AuthContext} from "../../context";
 import {Link, useNavigate} from "react-router-dom";
-import {Alert} from "react-bootstrap";
 import MInput from "../../components/UI/input/MInput";
 import MDiv from "../../components/UI/div/MDiv";
 import style from "./Login.module.css"
 import AuthService from "../../API/AuthService";
 import MainLoader from "../../components/UI/loader/MainLoader";
+import BooleanDiv from "../../components/UI/div/BooleanDiv";
+import MainMessage from "../../components/UI/message/MainMessage";
 
 function Login() {
 
@@ -19,81 +20,90 @@ function Login() {
 
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
-    const [loginData, setLoginData] = useState({email: "", password: ""})
+    const [errorMessage, setErrorMessage] = useState("")
 
 
     const [fetchLogin, isLoading, loginError] = useFetching(async () => {
+        const loginData = {
+            email: email,
+            password: pwd
+        }
         const response = await AuthService.login(loginData)
         setIsAuth(true)
         localStorage.setItem('auth', 'true')
         localStorage.setItem('authToken', 'Bearer '  + response.token)
-        navigate('/')
+
+        navigate('/')  //todo navigate to main page
     })
+
+    useEffect(() => {
+        setErrorMessage(loginError)
+    },[loginError])
+
 
     function declareLoginData(e) {
         e.preventDefault()
-        setLoginData({email: email, password: pwd})
-    }
-
-    useEffect(() => {
-        if (email !== "" && pwd !== "")
+        if (email === "")
+            setErrorMessage("Email can't be empty")
+        else if (pwd === "")
+            setErrorMessage("Password can't be empty")
+        else
             fetchLogin()
 
-    },[loginData])
-
-    function BRegister(e){
-        e.preventDefault()
-        navigate('/registration')
     }
+
+
+    const inputs = [
+        {type : "email",  value: email, onChange: setEmail, placeholder: "Email"},
+        {type : "password",  value: pwd, onChange: setPwd, placeholder: "Password"}
+    ]
 
     return (
         <div className={style.Login}>
             <MDiv className={style.mDiv}>
                 <form onSubmit={declareLoginData}>
 
-                    <h3 className="mb-4">Login</h3>
-                    { loginError ?
-                        <Alert className="alert-danger">
-                            <strong>Error: </strong>
-                            {loginError}
-                        </Alert>
-                        : <></>
-                    }
+                    <h3>Login</h3>
+                    <p>On this page you can login on our website</p>
 
-                    <MInput
-                        type="email"
-                        value={email}
-                        onChange={event => setEmail(event.target.value)}
-                        placeholder="Email"
-                    />
-                    <MInput
-                        type="password"
-                        value={pwd}
-                        onChange={event => setPwd(event.target.value)}
-                        placeholder="Password"
-                    />
+                    <BooleanDiv bool={!isLoading}>
+                        <MainMessage                  //if error
+                            type="error"
+                            text={errorMessage}
+                        />
+                    </BooleanDiv>
+
+                    {inputs.map((c, index) =>
+                        <MInput
+                            key={index}
+                            type={c.type}
+                            value={c.value}
+                            onChange={event => c.onChange(event.target.value)}
+                            placeholder={c.placeholder}
+                        />
+                    )}
+
+
                     <div className={style.divButton}>
                         <M1Button>
-                            { isLoading
-                                ? <MainLoader />
-                                : <>Submit</>
-                            }
+                            <BooleanDiv bool={isLoading} ifFalse="Submit">
+                                <MainLoader />
+                            </BooleanDiv>
                         </M1Button>
-                        <Link
-                            className={style.passwordLink}
-                            to={"/resetPassword"}>
+
+                        <Link className={style.passwordLink} to={"/resetPassword"}>
                             Forgot your password?
                         </Link>
                     </div>
-
                 </form>
             </MDiv>
+
             <MDiv className={style.mDiv}>
                 <div className={style.registerDiv}>
                     First time here?
-                    <button onClick={BRegister} className={style.passwordLink}>
+                    <Link to={"/registration"} className={style.passwordLink}>
                         Register
-                    </button>
+                    </Link>
                 </div>
             </MDiv>
         </div>
