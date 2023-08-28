@@ -2,7 +2,7 @@ import React from 'react';
 import style from "./Banner.module.css";
 
 
-function BannerInfo({tittle, secondText, themes}) {
+function BannerInfo({tittle, secondText, themes, ...props}) {
 
     const classes = [style.divTittle]
     const secondClasses = [style.divSecondText]
@@ -21,7 +21,7 @@ function BannerInfo({tittle, secondText, themes}) {
     secondClasses.push(secondThemes[themes] ?? secondThemes.light)
 
     return (
-        <div className={style.divInfo}>
+        <div {...props} className={style.divInfo}>
             <div className={classes.join(" ")}>
                 {tittle}
             </div>

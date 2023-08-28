@@ -1,12 +1,15 @@
 .mainDiv {
     display: flex;
     gap: 10px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .divRightInfoImg {
     width: 100px;
     height: 100px;
     border-radius: 10px;
+    object-fit: cover;
 }
 .divRightInfoDivSpan {
     display: flex;

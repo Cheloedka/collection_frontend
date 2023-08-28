@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './MFileInput.module.css'
 
-function MFileInput({className, children, maxSize, setError, setImage, ...props}) {
+function MFileInput({className, children, maxSize, setError, setShowError, accept, setImage, maxFiles, ...props}) {
 
     function handleChange(e) {
         let file = e.target.files[0]
@@ -13,6 +13,32 @@ function MFileInput({className, children, maxSize, setError, setImage, ...props}
         }
     }
 
+    function handleChangeMore(e) {
+        const files = e.target.files
+        let pulFiles = []
+        for (let i = 0; i < files.length; i++) {
+            if (maxSize * 1000000 > files[i].size)
+                pulFiles.push(files[i])
+            else
+                setError("File is too big")
+                setShowError(true)
+
+        }
+        setImage(prev => {
+            let prevLen = prev.length
+            if (prevLen + pulFiles.length > maxFiles) {
+                let arr = []
+                for (let i = 0; i < maxFiles - prevLen; i++) {
+                    arr.push(pulFiles[i])
+                }
+                setError("More than 10 files")
+                setShowError(true)
+                return [...prev, ...arr]
+            }
+            return [...prev, ...pulFiles]
+        })
+    }
+
 
 
     return (
@@ -21,9 +47,11 @@ function MFileInput({className, children, maxSize, setError, setImage, ...props}
                 <input
                     {...props}
                     type="file"
-                    accept="image/gif, image/jpeg, image/png"
+                    accept={accept ? accept : "image/png, image/jpeg, image/gif"}
                     className={style.input}
-                    onChange={handleChange}
+                    multiple={maxFiles && maxFiles > 1}
+                    onChange={maxFiles ? handleChangeMore : handleChange}
+                    onClick={ event => {event.target.value = null} }
                 />
                 {children}
             </label>

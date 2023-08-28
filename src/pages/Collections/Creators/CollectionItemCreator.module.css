@@ -1,0 +1,69 @@
+.divItemContent {
+    display: flex;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgba(56, 49, 86, 0.7);
+    backdrop-filter: blur(5px);
+    color: white;
+}
+
+.itemImage {
+    width: 240px;
+    height: 240px;
+    margin: 20px 20px;
+}
+
+.buttonAddImages {
+    border-radius: 10px;
+    background-color: rgba(56, 49, 86, 0.8);
+    color: white;
+    font-size: 35px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 8px;
+    user-select: none;
+}
+
+.buttonAddImages:hover {
+    background-color: #403b67;
+}
+
+.addedImg {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    border: #383156 2px dotted;
+}
+
+.imagesAddDiv {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.removeImageDiv {
+    color: white;
+    width: 20px;
+    height: 18px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(33, 28, 53, 0.6);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2px;
+}
+
+@media (max-width: 1200px) {
+    .divItemContent {
+        flex-direction: column;
+    }
+}

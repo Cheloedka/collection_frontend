@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Banner from "../../../components/UI/div/Banner";
 import {useFetching} from "../../../hooks/useFetching";
 import {Link, useNavigate, useParams} from "react-router-dom";
@@ -24,6 +24,14 @@ function CollectionPage() {
 
     const [collection, setCollection] = useState({})
     const [collectionUser, setCollectionUser] = useState({})
+
+
+    const topRef = useRef(null);
+    const focusDiv = () => {              //scroll to top page useRef
+        window.scrollTo({
+            top: topRef.current.offsetTop
+        });
+    }
 
     const [collectionPageFetch, isLoading, error] = useFetching( async () => {
         let response = await CollectionService.getCollection(params.id, params.username)
@@ -74,7 +82,7 @@ function CollectionPage() {
                 </BooleanDiv>
 
                 <MDiv className={style.divCollectionContent}>
-                    <div className={style.divMainContent}>
+                    <div className={style.divMainContent} ref = {topRef}>  {/*scroll to top page useRef*/}
 
                         <BannerInfo
                             tittle={collection.name}
@@ -94,7 +102,9 @@ function CollectionPage() {
                         </BooleanDiv>
 
                     </div>
-                    <div className={style.divInfoContent}>
+                    <div
+                        className={style.divInfoContent}
+                    >
                         {collection.information}
                     </div>
                     <div className={style.divTagsContent}>
@@ -121,7 +131,7 @@ function CollectionPage() {
                         </div>
                         <BooleanDiv bool={!!isUser}>
                             <Link
-                                //to={}
+                                to={"/" + params.id + "/item/create"}
                                 className={style.buttonAddCollection}
                             >
                                 +
@@ -152,11 +162,13 @@ function CollectionPage() {
                            image={collectionUser.image}
                            text1={params.username}
                            text2={collectionUser.name + " " + collectionUser.surname}
+                           onClick={() => {navigate("/" + params.username)}}
                        />
                         <RightInfo
                             image={collection.image}
                             text1={collection.name}
                             text2={collection.about}
+                            onClick={() => focusDiv()}  /*scroll to top page useRef*/
                         />
                     </div>
                 </div>

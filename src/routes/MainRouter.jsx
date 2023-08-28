@@ -12,11 +12,12 @@ import Error404 from "../pages/Error404";
 import SettingsPage from "../pages/Settings/SettingsPage";
 import CollectionsPage from "../pages/Collections/CollectionsPage/CollectionsPage";
 import MainLoader from "../components/UI/loader/MainLoader";
-import CollectionCreator from "../pages/Collections/CollectionCreator/CollectionCreator";
+import CollectionCreator from "../pages/Collections/Creators/CollectionCreator";
 import CollectionPage from "../pages/Collections/Collection/CollectionPage";
 import FollowingPage from "../pages/Following/FollowingPage";
 import PasswordReset from "../pages/Login/PasswordReset";
 import PostPasswordPage from "../pages/Register/PostPasswordPage";
+import CollectionItemCreator from "../pages/Collections/Creators/CollectionItemCreator";
 
 function MainRoutes() {
 
@@ -40,6 +41,7 @@ function MainRoutes() {
             <Route path='' element={<PrivateRoutes auth={isAuth} />}>
                 <Route path='/settings' element={<SettingsPage />}/>
                 <Route path='/collections/create' element={<CollectionCreator />} />
+                <Route path='/:id/item/create' element={<CollectionItemCreator />} />
             </Route>
 
             {/*All Routes*/}

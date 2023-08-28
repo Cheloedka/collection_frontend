@@ -2,9 +2,9 @@ import React from 'react';
 import MDiv from "../../../../components/UI/div/MDiv";
 import style from "./RightInfo.module.css";
 
-function RightInfo({image, text1, text2}) {
+function RightInfo({image, text1, text2, ...props}) {
     return (
-        <MDiv className={style.mainDiv}>
+        <MDiv className={style.mainDiv} {...props}>
             <img
                 className={style.divRightInfoImg}
                 src={image}

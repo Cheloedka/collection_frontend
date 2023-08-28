@@ -1,9 +1,10 @@
 import React from 'react';
 import CollectionElement from "./CollectionElement";
+import style from "./CollectionElementList.module.css"
 
 function CollectionElementList({collection}) {
     return (
-        <div style={{display: "flex", gap: "30px"}}>
+        <div className={style.mainDivList}>
             <CollectionElement
                 img={collection.image}
                 text1={collection.name}

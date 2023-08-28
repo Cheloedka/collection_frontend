@@ -2,7 +2,7 @@ import {Alert} from "react-bootstrap";
 import style from './OpacityMessage.module.css'
 import {useEffect, useState} from "react";
 
-function OpacityMessage({type, text, showElement, setShowElement}) {
+function OpacityMessage({type, text, showElement, setShowElement, setError}) {
 
     const [opacity, setOpacity] = useState(1)
 
@@ -12,12 +12,11 @@ function OpacityMessage({type, text, showElement, setShowElement}) {
     
     useEffect(() => {
         setTimeout(function() {
-            if (opacity > 0.6)
+            if (opacity > 0)
                 setOpacity(prev => (prev - 0.2))
-            else if (opacity > 0)
-                setOpacity(prev => (prev - 0.6))
             else {
                 setShowElement(false)
+                setError("")
                 setOpacity(1)
             }
         }, 1000);

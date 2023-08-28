@@ -4,7 +4,7 @@
 .marginDiv {
     margin: 0 20px;
 }
-.divCollectionContent {
+.divCollectionContent{
     background-color: rgba(56, 49, 86, 0.7);
     backdrop-filter: blur(5px);
     color: white;
@@ -12,7 +12,7 @@
 }
 
 .divInfoContent {
-    padding: 30px 30px;
+    margin: 30px 30px;
     min-height: 90px;
 }
 .divTagsContent {
@@ -23,7 +23,7 @@
 }
 
 .divInputs{
-    flex: 1;
+    flex: 2;
 }
 
 .divSelect {
@@ -33,6 +33,14 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 15px;
+}
+
+.divButton {
+    margin-bottom: 15px;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
 }
 
 .divAllInputs {
@@ -49,5 +57,8 @@
     }
     .divSelect {
         flex-direction: row;
+    }
+    .divItemContent {
+        flex-direction: column;
     }
 }

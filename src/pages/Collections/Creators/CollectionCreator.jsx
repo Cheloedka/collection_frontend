@@ -1,11 +1,9 @@
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MDiv from "../../../components/UI/div/MDiv";
 import style from './CollectionCreator.module.css';
 import Banner from "../../../components/UI/div/Banner";
 import BannerInfo from "../../../components/UI/div/BannerInfo";
-import MInput from "../../../components/UI/input/MInput";
 import M1Button from "../../../components/UI/button/M1Button";
-import MTextarea from "../../../components/UI/input/MTextarea";
 import Tag from "../../../components/UI/div/Tag";
 import MCheckbox from "../../../components/UI/input/MCheckbox";
 import {useFetching} from "../../../hooks/useFetching";
@@ -15,12 +13,13 @@ import {useNavigate} from "react-router-dom";
 import {UserContext} from "../../../context";
 import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 import MainMessage from "../../../components/UI/message/MainMessage";
+import CreationInputs from "./CreationInputs";
 
 function CollectionCreator() {
     const navigate = useNavigate()
     const {username} = useContext(UserContext)
 
-    const [title, setTittle] = useState("")
+    const [tittle, setTittle] = useState("")
     const [about, setAbout] = useState("")
     const [information, setInformation] = useState("")
     const [isPrivate, setIsPrivate] = useState(false)
@@ -32,7 +31,7 @@ function CollectionCreator() {
 
     const [fetchCollection, isLoading, collectionError] = useFetching(async () => {
         let data = {
-            name: title,
+            name: tittle,
             about: about,
             information: information,
             isPrivate: isPrivate
@@ -53,8 +52,8 @@ function CollectionCreator() {
 
     function declareCollectionData(e) {
         e.preventDefault()
-        if (title === "" || about === "") {
-            if (title === "")
+        if (tittle === "" || about === "") {
+            if (tittle === "")
                 setErrorMessage("Title can't be empty")
             else
                 setErrorMessage("About can't be empty")
@@ -63,11 +62,6 @@ function CollectionCreator() {
             fetchCollection()
         }
     }
-
-    const inputs = [
-        { value: title, onChange: setTittle, placeholder: "Tittle", maxLength: 25},
-        { value: about, onChange: setAbout, placeholder: "About", maxLength: 50}
-    ]
 
     return (
         <MDiv className={style.MDiv}>
@@ -87,7 +81,7 @@ function CollectionCreator() {
                         isEdit={true}
                     >
                         <div className={style.divCollectionContent}>
-                            <BannerInfo tittle={title} secondText={about} themes={'dark'}/>
+                            <BannerInfo tittle={tittle} secondText={about} themes={'dark'}/>
 
                             <div className={style.divInfoContent}>
                                 {information}
@@ -101,30 +95,15 @@ function CollectionCreator() {
                         </div>
                     </Banner>
 
-                    <div className={style.divAllInputs}>
-                        <div className={style.divInputs}>
-                            { inputs.map((c, index) =>
-                                <MInput
-                                    key={index}
-                                    type="name"
-                                    value={c.value}
-                                    onChange={event => c.onChange(event.target.value)}
-                                    placeholder={c.placeholder}
-                                    maxLength = {c.maxLength}
-                                />
-                            )}
-                        </div>
 
-                        <div className={style.divInputs}>
-                            <MTextarea
-                                style={{minHeight: "136px"}}
-                                value={information}
-                                onChange={event => setInformation(event.target.value)}
-                                placeholder="Info"
-                                maxLength = "500"
-                            />
-                        </div>
-
+                    <CreationInputs
+                        tittle={tittle}
+                        setTitle={setTittle}
+                        about={about}
+                        setAbout={setAbout}
+                        information={information}
+                        setInformation={setInformation}
+                    >
                         <div className={style.divSelect}>
                             <MCheckbox
                                 span={'Private'}
@@ -138,7 +117,7 @@ function CollectionCreator() {
                             </M1Button>
 
                         </div>
-                    </div>
+                    </CreationInputs>
                 </form>
 
                 <div>
