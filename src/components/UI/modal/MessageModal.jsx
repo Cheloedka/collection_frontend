@@ -2,7 +2,6 @@ import {useNavigate} from "react-router-dom";
 import {Modal} from "react-bootstrap";
 import style from "./MessageModal.module.css"
 import M2Button from "../button/M2Button";
-import BooleanDiv from "../div/BooleanDiv";
 
 function MessageModal({visible, setVisible, children, acceptCallback, to}) {
 
@@ -39,16 +38,15 @@ function MessageModal({visible, setVisible, children, acceptCallback, to}) {
                     >
                         Close
                     </M2Button>
-
-                    <BooleanDiv bool={acceptCallback}>
+                    {acceptCallback ?
                         <M2Button
                             onClick={onAccept}
                             style={{float: "right"}}
                         >
                             Accept
                         </M2Button>
-                    </BooleanDiv>
-
+                        :<></>
+                    }
                 </Modal.Body>
 
 

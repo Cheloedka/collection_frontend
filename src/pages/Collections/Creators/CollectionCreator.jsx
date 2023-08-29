@@ -11,7 +11,6 @@ import CollectionService from "../../../API/CollectionService";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../../../context";
-import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 import MainMessage from "../../../components/UI/message/MainMessage";
 import CreationInputs from "./CreationInputs";
 
@@ -111,9 +110,10 @@ function CollectionCreator() {
                                 onChange={() => setIsPrivate(!isPrivate)}
                             />
                             <M1Button>
-                                <BooleanDiv bool={isLoading} ifFalse="Create">
-                                    <MainLoader/>
-                                </BooleanDiv>
+                                {isLoading
+                                    ?<MainLoader/>
+                                    :"Create"
+                                }
                             </M1Button>
 
                         </div>
@@ -121,12 +121,13 @@ function CollectionCreator() {
                 </form>
 
                 <div>
-                    <BooleanDiv bool={!isLoading}>
+                    { !isLoading ?
                         <MainMessage                  //if error
                             type="error"
                             text={errorMessage}
                         />
-                    </BooleanDiv>
+                        :<></>
+                    }
                 </div>
             </div>
         </MDiv>

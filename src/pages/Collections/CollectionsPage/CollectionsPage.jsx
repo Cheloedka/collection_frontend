@@ -6,7 +6,6 @@ import {useFetching} from "../../../hooks/useFetching";
 import CollectionService from "../../../API/CollectionService";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import MainMessage from "../../../components/UI/message/MainMessage";
-import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 
 function CollectionsPage() {
     const params = useParams()
@@ -39,12 +38,13 @@ function CollectionsPage() {
                 : <CollectionItemsList username={params.username} collections={collections}/>
             }
 
-            <BooleanDiv bool={!isLoading}>
+            {!isLoading ?
                 <MainMessage
                     type="error"
                     text={error}
                 />
-            </BooleanDiv>
+                :<></>
+            }
         </div>
     );
 }

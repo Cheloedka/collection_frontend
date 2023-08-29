@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import MDiv from "../../components/UI/div/MDiv";
 import {useFetching} from "../../hooks/useFetching";
@@ -19,7 +19,6 @@ import Unfollowing from "../../components/UI/svg/Unfollowing";
 import FriendshipService from "../../API/FriendshipService";
 import {AuthContext} from "../../context";
 import UserPageFollowingList from "./UserPageFollowingList";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MessageModal from "../../components/UI/modal/MessageModal";
 
 function UserPage() {
@@ -109,9 +108,10 @@ function UserPage() {
                 isUser={isUser}
                 imageType={"user"}
             >
-                <BooleanDiv bool={isLoading} >
-                    <MainLoader />
-                </BooleanDiv>
+                { isLoading
+                    ?<MainLoader />
+                    :<></>
+                }
                 <MDiv className={style.divUserContent}>
                     <BannerInfo
                         tittle={user.username}
@@ -176,14 +176,16 @@ function UserPage() {
                                     </span>
                                 </div>
                             </Link>
-                            <BooleanDiv bool={!!isUser}>
+                            {!!isUser ?
                                 <Link
                                     to={'/collections/create'}
                                     className={style.buttonAddCollection}
                                 >
                                     +
                                 </Link>
-                            </BooleanDiv>
+                                :<></>
+
+                            }
                         </div>
                         <UserPageCollectionList
                             collections={user.collections}

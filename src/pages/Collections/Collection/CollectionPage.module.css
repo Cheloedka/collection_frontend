@@ -57,6 +57,7 @@
 }
 .buttonAddCollection:hover {
     background-color: #403b67;
+    color: white;
 }
 
 .buttonAddCollection:active {

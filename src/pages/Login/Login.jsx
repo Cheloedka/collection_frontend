@@ -9,7 +9,6 @@ import MDiv from "../../components/UI/div/MDiv";
 import style from "./Login.module.css"
 import AuthService from "../../API/AuthService";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MainMessage from "../../components/UI/message/MainMessage";
 
 function Login() {
@@ -66,12 +65,14 @@ function Login() {
                     <h3>Login</h3>
                     <p>On this page you can login on our website</p>
 
-                    <BooleanDiv bool={!isLoading}>
+                    { !isLoading ?
                         <MainMessage                  //if error
                             type="error"
                             text={errorMessage}
                         />
-                    </BooleanDiv>
+                        :<></>
+
+                    }
 
                     {inputs.map((c, index) =>
                         <MInput
@@ -86,9 +87,10 @@ function Login() {
 
                     <div className={style.divButton}>
                         <M1Button>
-                            <BooleanDiv bool={isLoading} ifFalse="Submit">
-                                <MainLoader />
-                            </BooleanDiv>
+                            { isLoading
+                                ? <MainLoader />
+                                :"Submit"
+                            }
                         </M1Button>
 
                         <Link className={style.passwordLink} to={"/resetPassword"}>

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import style from "./PasswordReset.module.css";
 import MDiv from "../../components/UI/div/MDiv";
 import MInput from "../../components/UI/input/MInput";
@@ -6,7 +6,6 @@ import M1Button from "../../components/UI/button/M1Button";
 import {useFetching} from "../../hooks/useFetching";
 import MainLoader from "../../components/UI/loader/MainLoader";
 import AuthService from "../../API/AuthService";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MessageModal from "../../components/UI/modal/MessageModal";
 import MainMessage from "../../components/UI/message/MainMessage";
 
@@ -51,12 +50,14 @@ function PasswordReset() {
                 </MessageModal>
 
 
-                <BooleanDiv bool={!isLoading}>
+                { !isLoading ?
                     <MainMessage                  //if error
                         type="error"
                         text={errorMessage}
                     />
-                </BooleanDiv>
+                    :<></>
+
+                }
 
                 <form onSubmit={declareData}>
                     <MInput
@@ -66,9 +67,10 @@ function PasswordReset() {
                         placeholder="Your email to sent verification"
                     />
                     <M1Button>
-                        <BooleanDiv bool={isLoading} ifFalse="Submit">
-                            <MainLoader />
-                        </BooleanDiv>
+                        { isLoading
+                            ?<MainLoader />
+                            :"Submit"
+                        }
                     </M1Button>
                 </form>
             </MDiv>

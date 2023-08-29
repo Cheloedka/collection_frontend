@@ -1,14 +1,12 @@
 .mainDiv {
     border: 2px #3A325B dotted;
     width: 225px;
-    height: 250px;
+    height: 260px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px 0;
-    text-align: center;
     position: relative;
-    flex-shrink: 0
 }
 
 .itemImg {
@@ -32,8 +30,8 @@
 
 .like {
     position: absolute;
-    right: 8px;
-    bottom: 5px;
+    right: 4px;
+    bottom: 0;
     cursor: pointer;
 }
 

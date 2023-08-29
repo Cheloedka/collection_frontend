@@ -1,10 +1,10 @@
 import style from './CollectionElement.module.css'
+import ellipsis from "../../../styles/Ellipsis.module.css"
 import Like from "../../../components/UI/svg/Like";
 import LikeFill from "../../../components/UI/svg/LikeFill";
 import {useState} from "react";
-import image from "../../../images/fumo.jpg"
 
-function CollectionElement({img, text1, text2, like}) {
+function CollectionElement({img, text1, text2, like, ...pros}) {
 
     const [isLike, setIsLike] = useState(false)
 
@@ -21,10 +21,12 @@ function CollectionElement({img, text1, text2, like}) {
     }
 
     return (
-        <div className={style.mainDiv}>
-            <img src={image} className={style.itemImg}/>
-            <span className={style.mainSpan}>My cute small fumo</span>
-            <span className={style.secondSpan}>Some info about this fumo and more info about</span>
+        <div className={style.mainDiv} {...pros}>
+            <img src={img} className={style.itemImg}/>
+            <span className={style.mainSpan}>{text1}</span>
+            <div className={ellipsis.main}>
+                <span className={style.secondSpan + " " + ellipsis.childrenClamp2}>{text2}</span>
+            </div>
             <button className={style.like} onClick={() => manageLikes()}>
                 {isLike
                     ?<LikeFill />

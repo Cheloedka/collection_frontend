@@ -8,7 +8,6 @@ import {UserContext} from "../../../context";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import MFileInput from "../../../components/UI/input/MFileInput";
 import Edit from "../../../components/UI/svg/Edit";
-import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 import MainMessage from "../../../components/UI/message/MainMessage";
 
 function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserSurname}) {
@@ -138,27 +137,28 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
                         text={"Save Changes"}
                         onClick={() => setIsInputsClosed(false)}
                     >
-                        <BooleanDiv bool={isLoading} ifFalse={<Edit color='#3A325B'/>}>
-                            <MainLoader />
-                        </BooleanDiv>
+                        { isLoading
+                            ?<MainLoader />
+                            :<Edit color='#3A325B'/>
+                        }
                     </SettingsEditButton>
                 </button>
             </div>
             <div>
-
-                <BooleanDiv bool={!isLoading}>
+                { !isLoading ?
                     <MainMessage                  //if error
                         type="error"
                         text={errorMessage}
                     />
-                </BooleanDiv>
-
-                <BooleanDiv bool={!isLoading}>
+                    :<></>
+                }
+                { !isLoading ?
                     <MainMessage                  //if success
                         type="success"
                         text={successMessage}
                     />
-                </BooleanDiv>
+                    :<></>
+                }
             </div>
         </form>
     );

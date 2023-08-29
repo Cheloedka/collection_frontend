@@ -13,7 +13,6 @@ import Tag from "../../../components/UI/div/Tag";
 import Settings from "../../../components/UI/svg/Settings";
 import Edit from "../../../components/UI/svg/Edit";
 import MainLoader from "../../../components/UI/loader/MainLoader";
-import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 import RightInfo from "./RightInfo/RightInfo";
 import CollectionElementList from "./CollectionElementList";
 
@@ -24,6 +23,7 @@ function CollectionPage() {
 
     const [collection, setCollection] = useState({})
     const [collectionUser, setCollectionUser] = useState({})
+    const [items, setItems] = useState([])
 
 
     const topRef = useRef(null);
@@ -45,12 +45,14 @@ function CollectionPage() {
                 image: getCollectionImage(response.image),
                 backgroundImage: getImage(response.backgroundImage),
                 private: response.private,
+                countItems: response.countItems
             })
             setCollectionUser({
                 name: response.userFirstName,
                 surname: response.userSurname,
                 image: getUserImage(response.userImage)
             })
+            setItems(response.items)
         }
     })
 
@@ -76,10 +78,10 @@ function CollectionPage() {
                 mainImage={collection.image}
                 isUser={isUser}
             >
-
-                <BooleanDiv bool={isLoading} >
-                    <MainLoader />
-                </BooleanDiv>
+                {isLoading
+                    ?<MainLoader />
+                    :<></>
+                }
 
                 <MDiv className={style.divCollectionContent}>
                     <div className={style.divMainContent} ref = {topRef}>  {/*scroll to top page useRef*/}
@@ -89,17 +91,17 @@ function CollectionPage() {
                             secondText={collection.about}
                             themes={'dark'}
                         />
-
-                        <BooleanDiv bool={isUser}>
+                        {isUser ?
                             <GroupIcoButtons
-                                firstIco={
-                                    <Settings color={"white"} width={"35px"} height={"35px"} />
-                                }
-                                secondIco={
-                                    <Edit color={"white"} />
-                                }
+                            firstIco={
+                            <Settings color={"white"} width={"35px"} height={"35px"} />
+                            }
+                            secondIco={
+                            <Edit color={"white"} />
+                            }
                             />
-                        </BooleanDiv>
+                            :<></>
+                        }
 
                     </div>
                     <div
@@ -126,20 +128,21 @@ function CollectionPage() {
                             Collections Items
                         </span>
                             <span className={style.spanSecondSpan}>
-                            9
+                            {collection.countItems}
                         </span>
                         </div>
-                        <BooleanDiv bool={!!isUser}>
+                        {!!isUser ?
                             <Link
                                 to={"/" + params.id + "/item/create"}
                                 className={style.buttonAddCollection}
                             >
                                 +
                             </Link>
-                        </BooleanDiv>
+                            :<></>
+                        }
                     </div>
 
-                    <CollectionElementList collection={collection}/>
+                    <CollectionElementList items={items}/>
 
                 </MDiv>
 

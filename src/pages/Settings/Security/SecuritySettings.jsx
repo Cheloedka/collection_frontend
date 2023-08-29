@@ -7,7 +7,6 @@ import MainLoader from "../../../components/UI/loader/MainLoader";
 import Edit from "../../../components/UI/svg/Edit";
 import UserService from "../../../API/UserService";
 import inputStyle from "../../../components/UI/input/MInputWithText.module.css"
-import BooleanDiv from "../../../components/UI/div/BooleanDiv";
 import MainMessage from "../../../components/UI/message/MainMessage";
 
 function SecuritySettings({userEmail, setUserEmail}) {
@@ -151,18 +150,20 @@ function SecuritySettings({userEmail, setUserEmail}) {
                 </button>
             </div>
             <div>
-                <BooleanDiv bool={!isLoading}>
+                { !isLoading ?
                     <MainMessage                  //if error
                         type="error"
                         text={errorMessage}
                     />
-                </BooleanDiv>
-                <BooleanDiv bool={!isLoading}>
+                    :<></>
+                }
+                { !isLoading ?
                     <MainMessage                  //if success
                         type="success"
                         text={successMessage}
                     />
-                </BooleanDiv>
+                    :<></>
+                }
             </div>
         </>
     );

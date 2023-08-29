@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import MDiv from "../../components/UI/div/MDiv";
 import style from './SettingsPage.module.css'
 import {UserContext} from "../../context";
@@ -8,7 +8,6 @@ import SecuritySettings from "./Security/SecuritySettings";
 import {useFetching} from "../../hooks/useFetching";
 import MainLoader from "../../components/UI/loader/MainLoader";
 import UserService from "../../API/UserService";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MainMessage from "../../components/UI/message/MainMessage";
 
 function SettingsPage() {
@@ -72,16 +71,18 @@ function SettingsPage() {
                 </div>
 
                 <div className={style.divContent}>
-                    <BooleanDiv bool={isLoading} ifFalse={contentPage()}>
-                        <MainLoader />
-                    </BooleanDiv>
+                    { isLoading
+                        ?<MainLoader />
+                        :contentPage()
+                    }
                 </div>
-                <BooleanDiv bool={!isLoading}>
+                { !isLoading ?
                     <MainMessage                  //if error
                         type="error"
                         text={error}
                     />
-                </BooleanDiv>
+                    :<></>
+                }
             </MDiv>
         </div>
     );

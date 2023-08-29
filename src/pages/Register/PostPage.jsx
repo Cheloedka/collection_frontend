@@ -1,9 +1,8 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MessageModal from "../../components/UI/modal/MessageModal";
 import MainMessage from "../../components/UI/message/MainMessage";
 
@@ -32,9 +31,10 @@ function PostPage() {
 
     return (
         <div>
-            <BooleanDiv bool={isLoading}>
-                <MainLoader />
-            </BooleanDiv>
+            { isLoading
+                ?<MainLoader />
+                :<></>
+            }
 
             <MessageModal              //if success modal, navigate to login page
                 to={"/login"}
@@ -45,12 +45,13 @@ function PostPage() {
             </MessageModal>
 
 
-            <BooleanDiv bool={!isLoading}>
+            { !isLoading ?
                 <MainMessage                  //if error
                     type="error"
                     text={postError}
                 />
-            </BooleanDiv>
+                :<></>
+            }
 
         </div>
     );

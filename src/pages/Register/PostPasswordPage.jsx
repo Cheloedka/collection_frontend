@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
@@ -7,7 +7,6 @@ import MInput from "../../components/UI/input/MInput";
 import MDiv from "../../components/UI/div/MDiv";
 import style from "../Login/PasswordReset.module.css"
 import M1Button from "../../components/UI/button/M1Button";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MessageModal from "../../components/UI/modal/MessageModal";
 import MainMessage from "../../components/UI/message/MainMessage";
 
@@ -58,12 +57,13 @@ function PostPasswordPage() {
                 </MessageModal>
 
 
-                <BooleanDiv bool={!isLoading}>
+                { !isLoading ?
                     <MainMessage                  //if error
                         type="error"
                         text={errorMessage}
                     />
-                </BooleanDiv>
+                    :<></>
+                }
 
                 <form onSubmit={declareData}>
                     <MInput
@@ -73,9 +73,10 @@ function PostPasswordPage() {
                         placeholder="Password"
                     />
                     <M1Button>
-                        <BooleanDiv bool={isLoading} ifFalse="Change">
-                            <MainLoader />
-                        </BooleanDiv>
+                        { isLoading
+                            ?<MainLoader />
+                            :<></>
+                        }
                     </M1Button>
                 </form>
             </MDiv>

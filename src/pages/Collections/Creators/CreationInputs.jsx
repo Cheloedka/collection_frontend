@@ -6,7 +6,7 @@ function CreationInputs({children, tittle, setTitle, about, setAbout, informatio
 
     const inputs = [
         { value: tittle, onChange: setTitle, placeholder: "Title", maxLength: 25},
-        { value: about, onChange: setAbout, placeholder: "About", maxLength: 50}
+        { value: about, onChange: setAbout, placeholder: "About", maxLength: 100}
     ]
     return (
         <div className={style.divAllInputs}>

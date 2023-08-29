@@ -119,9 +119,15 @@
 }
 
 .divTittle, .divSecondText{
-    font-size: 22px;
     font-family: Inter, serif;
     min-height: 33px;
+}
+
+.divTittle {
+    font-size: 22px;
+}
+.divSecondText {
+    font-size: 20px;
 }
 .divTittleDark, .divSecondTextDark{
     color: white;

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import style from "../Login/Login.module.css";
 import MDiv from "../../components/UI/div/MDiv";
 import MInput from "../../components/UI/input/MInput";
@@ -7,7 +7,6 @@ import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
 import {checkTittleFunction} from "../../functions/stringFunctions";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import BooleanDiv from "../../components/UI/div/BooleanDiv";
 import MainMessage from "../../components/UI/message/MainMessage";
 import MessageModal from "../../components/UI/modal/MessageModal";
 
@@ -84,12 +83,13 @@ function Register() {
                     </MessageModal>
 
 
-                    <BooleanDiv bool={!isLoading}>
+                    { !isLoading ?
                         <MainMessage                  //if error
                             type="error"
                             text={errorMessage}
                         />
-                    </BooleanDiv>
+                        :<></>
+                    }
 
                     {inputs.map((c, index) =>
                         <MInput
@@ -105,9 +105,10 @@ function Register() {
                     )}
 
                     <M1Button>
-                        <BooleanDiv bool={isLoading} ifFalse="Submit">
-                            <MainLoader/>
-                        </BooleanDiv>
+                        { isLoading
+                            ?<MainLoader />
+                            :"Submit"
+                        }
                     </M1Button>
 
                 </form>
