@@ -126,9 +126,6 @@ function UserPage() {
                                 height={'35px'}
                             />
                         }
-                            secondIco={
-                            <Edit color={'#3A325B'}/>
-                        }
                             firstIcoTo={'/settings'}
                         /> :
                         <GroupIcoButtons

@@ -1,4 +1,4 @@
-import style from "./CollectionCreator.module.css";
+import style from "./Creators/CollectionCreator.module.css";
 import MInput from "../../../components/UI/input/MInput";
 import MTextarea from "../../../components/UI/input/MTextarea";
 

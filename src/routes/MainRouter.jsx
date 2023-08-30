@@ -12,12 +12,13 @@ import Error404 from "../pages/Error404";
 import SettingsPage from "../pages/Settings/SettingsPage";
 import CollectionsPage from "../pages/Collections/CollectionsPage/CollectionsPage";
 import MainLoader from "../components/UI/loader/MainLoader";
-import CollectionCreator from "../pages/Collections/Creators/CollectionCreator";
+import CollectionCreator from "../pages/Collections/CreatorsEditors/Creators/CollectionCreator";
 import CollectionPage from "../pages/Collections/Collection/CollectionPage";
 import FollowingPage from "../pages/Following/FollowingPage";
 import PasswordReset from "../pages/Login/PasswordReset";
 import PostPasswordPage from "../pages/Register/PostPasswordPage";
-import CollectionItemCreator from "../pages/Collections/Creators/CollectionItemCreator";
+import CollectionItemCreator from "../pages/Collections/CreatorsEditors/Creators/CollectionItemCreator";
+import CollectionEditor from "../pages/Collections/CreatorsEditors/Editors/CollectionEditor";
 
 function MainRoutes() {
 
@@ -42,6 +43,7 @@ function MainRoutes() {
                 <Route path='/settings' element={<SettingsPage />}/>
                 <Route path='/collections/create' element={<CollectionCreator />} />
                 <Route path='/:id/item/create' element={<CollectionItemCreator />} />
+                <Route path={'/:username/:idCollection/edit'} element={<CollectionEditor />} />
             </Route>
 
             {/*All Routes*/}

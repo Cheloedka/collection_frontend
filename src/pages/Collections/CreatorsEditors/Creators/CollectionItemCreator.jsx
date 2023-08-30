@@ -1,17 +1,17 @@
 import React, {useContext, useEffect, useState} from 'react';
 import style2 from "./CollectionCreator.module.css";
 import style from "./CollectionItemCreator.module.css";
-import M1Button from "../../../components/UI/button/M1Button";
-import MainLoader from "../../../components/UI/loader/MainLoader";
-import MDiv from "../../../components/UI/div/MDiv";
-import BannerInfo from "../../../components/UI/div/BannerInfo";
-import CreationInputs from "./CreationInputs";
-import MFileInput from "../../../components/UI/input/MFileInput";
-import OpacityMessage from "../../../components/UI/message/OpacityMessage";
-import {useFetching} from "../../../hooks/useFetching";
+import M1Button from "../../../../components/UI/button/M1Button";
+import MainLoader from "../../../../components/UI/loader/MainLoader";
+import MDiv from "../../../../components/UI/div/MDiv";
+import BannerInfo from "../../../../components/UI/div/BannerInfo";
+import CreationInputs from "../CreationInputs";
+import MFileInput from "../../../../components/UI/input/MFileInput";
+import OpacityMessage from "../../../../components/UI/message/OpacityMessage";
+import {useFetching} from "../../../../hooks/useFetching";
 import {useNavigate, useParams} from "react-router-dom";
-import ItemService from "../../../API/ItemService";
-import {UserContext} from "../../../context";
+import ItemService from "../../../../API/ItemService";
+import {UserContext} from "../../../../context";
 
 function CollectionItemCreator() {
     const params = useParams()

@@ -38,6 +38,7 @@
 }
 
 .spanCollectionSecondSpan {
+    max-width: 260px;
     font-size: 14px;
     color: #706B6B;
 }

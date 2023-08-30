@@ -3,7 +3,7 @@
     padding: 8px 0 0 0;
     width: 100%;
     min-height: 128px;
-    background-color: rgba(56, 49, 86, 0.7);
+    background-color: rgba(56, 49, 86, 0.8);
     backdrop-filter: blur(5px);
     color: white;
 }

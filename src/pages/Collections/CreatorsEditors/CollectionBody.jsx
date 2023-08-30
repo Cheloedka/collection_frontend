@@ -1,81 +1,52 @@
-import React, {useContext, useEffect, useState} from 'react';
-import MDiv from "../../../components/UI/div/MDiv";
-import style from './CollectionCreator.module.css';
+import React from 'react';
+import style from "./Creators/CollectionCreator.module.css";
 import Banner from "../../../components/UI/div/Banner";
 import BannerInfo from "../../../components/UI/div/BannerInfo";
-import M1Button from "../../../components/UI/button/M1Button";
 import Tag from "../../../components/UI/div/Tag";
-import MCheckbox from "../../../components/UI/input/MCheckbox";
-import {useFetching} from "../../../hooks/useFetching";
-import CollectionService from "../../../API/CollectionService";
-import MainLoader from "../../../components/UI/loader/MainLoader";
-import {useNavigate} from "react-router-dom";
-import {UserContext} from "../../../context";
-import MainMessage from "../../../components/UI/message/MainMessage";
 import CreationInputs from "./CreationInputs";
+import MCheckbox from "../../../components/UI/input/MCheckbox";
+import M1Button from "../../../components/UI/button/M1Button";
+import MainLoader from "../../../components/UI/loader/MainLoader";
+import MainMessage from "../../../components/UI/message/MainMessage";
+import MDiv from "../../../components/UI/div/MDiv";
 
-function CollectionCreator() {
-    const navigate = useNavigate()
-    const {username} = useContext(UserContext)
-
-    const [tittle, setTittle] = useState("")
-    const [about, setAbout] = useState("")
-    const [information, setInformation] = useState("")
-    const [isPrivate, setIsPrivate] = useState(false)
-
-    const [backImage, setBackImage] = useState()
-    const [mainImage, setMainImage] = useState()
-
-    const [errorMessage, setErrorMessage] = useState('')
-
-    const [fetchCollection, isLoading, collectionError] = useFetching(async () => {
-        let data = {
-            name: tittle,
-            about: about,
-            information: information,
-            isPrivate: isPrivate
-        }
-        if (mainImage)
-            data = {...data, image: mainImage}
-        if (backImage)
-            data = {...data, backgroundImage: backImage}
-
-        await CollectionService.createCollection(data)
-        navigate('/' + username + '/collections')
-    })
-
-
-    useEffect(() => {
-        setErrorMessage(collectionError)
-    },[collectionError])
-
-    function declareCollectionData(e) {
-        e.preventDefault()
-        if (tittle === "" || about === "") {
-            if (tittle === "")
-                setErrorMessage("Title can't be empty")
-            else
-                setErrorMessage("About can't be empty")
-        }
-        else {
-            fetchCollection()
-        }
-    }
+function CollectionBody({declareCollectionData,
+                            errorMessage, setErrorMessage,
+                            tittle, setTittle,
+                            about, setAbout,
+                            information, setInformation,
+                            mainImage, setMainImage,
+                            backImage, setBackImage,
+                            isPrivate, setIsPrivate,
+                            isLoading,
+                            isEdit  //for edit
+}) {
 
     return (
         <MDiv className={style.MDiv}>
             <div className={style.marginDiv}>
-                <h3>Collection Creator</h3>
-                <p>On this page you can create your collection</p>
+                { isEdit ?
+                    <>
+                        <h3>Collection Editor</h3>
+                        <p>On this page you can change your collection</p>
+                    </>
+                    :
+                    <>
+                        <h3>Collection Creator</h3>
+                        <p>On this page you can create your collection</p>
+                    </>
+
+                }
+
 
                 <form onSubmit={declareCollectionData}>
 
                     <Banner
                         isUser={true}
                         setErrorMessage={setErrorMessage}
-                        mainImage={mainImage ? URL.createObjectURL(mainImage) : null}
+                        mainImage={mainImage ? mainImage : null}
                         setMainImage={setMainImage}
-                        backImage={backImage ? URL.createObjectURL(backImage) : null}
+                        backImage={backImage ? backImage : null}
                         setBackImage={setBackImage}
                         isEdit={true}
                     >
@@ -134,4 +105,4 @@ function CollectionCreator() {
     );
 }
 
-export default CollectionCreator;
+export default CollectionBody;

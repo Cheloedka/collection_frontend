@@ -93,12 +93,8 @@ function CollectionPage() {
                         />
                         {isUser ?
                             <GroupIcoButtons
-                            firstIco={
-                            <Settings color={"white"} width={"35px"} height={"35px"} />
-                            }
-                            secondIco={
-                            <Edit color={"white"} />
-                            }
+                            secondIcoTo={"edit"}
+                            secondIco={<Edit color={"white"} />}
                             />
                             :<></>
                         }

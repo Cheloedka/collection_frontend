@@ -31,7 +31,7 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                         ?
                         <MFileInput
                             setImage={setBackImage}
-                            maxSize={1}
+                            maxSize={2}
                             setError={setErrorMessage}
                         >
                             <img
@@ -53,7 +53,7 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                             ?
                             <MFileInput
                                 setImage={setMainImage}
-                                maxSize={1}
+                                maxSize={2}
                                 setError={setErrorMessage}
                             >
                                 <img

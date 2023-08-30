@@ -19,4 +19,13 @@ export default class CollectionService {
         return await getRequest('/collections/' + username);
     }
 
+    static async editCollection(id, collectionData) {
+        const formData = new FormData();
+        for (let key in collectionData) {
+            formData.append(key, collectionData[key]);
+            console.log(formData.get(key))
+        }
+        return await postBodyRequestWithAuth("/collection/" + id + "/edit", formData);
+    }
+
 }

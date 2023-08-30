@@ -27,7 +27,7 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
 
     const [fetchSettings, isLoading, error] = useFetching(async () => {
         let requestData = {}
-        if (image !== '')
+        if (image !== "")
             requestData.image = image
         if (name !== userFirstName)
             requestData.name = name

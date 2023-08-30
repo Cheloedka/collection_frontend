@@ -10,7 +10,6 @@ function MFileInput({className, children, maxSize, setError, setShowError, accep
                 setImage(file);
             else
                 setError("File is too big")
-                setShowError(true)
         }
     }
 

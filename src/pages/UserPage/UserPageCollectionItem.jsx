@@ -1,4 +1,5 @@
 import style from "./UserPageCollectionItem.module.css";
+import ellipsis from "../../styles/Ellipsis.module.css"
 import {getCollectionImage} from "../../functions/imageFunctions";
 
 function UserPageCollectionItem({img, about, name}) {
@@ -13,9 +14,11 @@ function UserPageCollectionItem({img, about, name}) {
                 <span className={style.spanCollectionMainSpan}>
                     {name}
                 </span>
-                <span className={style.spanCollectionSecondSpan}>
+                <div className={ellipsis.main}>
+                    <span className={style.spanCollectionSecondSpan + " " + ellipsis.childrenClamp1}>
                     {about}
                 </span>
+                </div>
             </div>
         </div>
     );
