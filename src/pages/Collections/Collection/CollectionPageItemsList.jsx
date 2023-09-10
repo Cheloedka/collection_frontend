@@ -1,22 +1,23 @@
 import React from 'react';
-import CollectionElement from "./CollectionElement";
-import style from "./CollectionElementList.module.css"
+import CollectionPageItem from "./CollectionPageItem";
+import style from "./CollectionPageItemsList.module.css"
 import {getCollectionImage} from "../../../functions/imageFunctions";
 
-function CollectionElementList({items}) {
+function CollectionPageItemsList({items}) {
     return (
         <div className={style.mainDivList}>
 
             {items.map((c, index) =>
-                <CollectionElement
+                <CollectionPageItem
                     key={index}
                     img={getCollectionImage(c.itemImage)}
                     text1={c.itemName}
                     text2={c.itemAbout}
+                    id={c.itemId}
                 />
             )}
         </div>
     );
 }
 
-export default CollectionElementList;
+export default CollectionPageItemsList;

@@ -1,4 +1,4 @@
-import {deleteRequestWithAuth, getRequestWithAuth, postRequestWithAuth} from "./RequestFunction";
+import {deleteRequestWithAuth, postRequestWithAuth} from "./RequestFunction";
 
 export default class FriendshipService {
 
@@ -8,9 +8,5 @@ export default class FriendshipService {
 
     static async deleteFollowing(username) {
         return await deleteRequestWithAuth('/friendships/delete/' + username);
-    }
-
-    static async isFollowingExist(username) {
-        return await getRequestWithAuth('/friendships/isexist/' + username);
     }
 }

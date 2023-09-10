@@ -14,7 +14,7 @@ import Settings from "../../../components/UI/svg/Settings";
 import Edit from "../../../components/UI/svg/Edit";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import RightInfo from "./RightInfo/RightInfo";
-import CollectionElementList from "./CollectionElementList";
+import CollectionPageItemsList from "./CollectionPageItemsList";
 
 function CollectionPage() {
     let params = useParams()
@@ -138,7 +138,7 @@ function CollectionPage() {
                         }
                     </div>
 
-                    <CollectionElementList items={items}/>
+                    <CollectionPageItemsList items={items}/>
 
                 </MDiv>
 
