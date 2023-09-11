@@ -19,6 +19,7 @@ import PasswordReset from "../pages/Login/PasswordReset";
 import PostPasswordPage from "../pages/Register/PostPasswordPage";
 import CollectionItemCreator from "../pages/Collections/CreatorsEditors/Creators/CollectionItemCreator";
 import CollectionEditor from "../pages/Collections/CreatorsEditors/Editors/CollectionEditor";
+import ItemPage from "../pages/CollectionItem/ItemPage";
 
 function MainRoutes() {
 
@@ -56,7 +57,10 @@ function MainRoutes() {
             <Route path='/:username'>
                 <Route index element={<UserPage />} />
                 <Route path='collections' element={<CollectionsPage />} />
-                <Route path=':id' element={<CollectionPage />} />
+                <Route path=':id' >
+                    <Route index element={<CollectionPage />} />
+                    <Route path=':idItem' element={<ItemPage />} />
+                </Route>
                 <Route path='following' element={<FollowingPage />} />
             </Route>
 

@@ -10,7 +10,6 @@ import GroupIcoButtons from "../../../components/UI/button/GroupIcoButtons";
 import MDiv from "../../../components/UI/div/MDiv";
 import style from './CollectionPage.module.css'
 import Tag from "../../../components/UI/div/Tag";
-import Settings from "../../../components/UI/svg/Settings";
 import Edit from "../../../components/UI/svg/Edit";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import RightInfo from "./RightInfo/RightInfo";
@@ -71,7 +70,6 @@ function CollectionPage() {
 
     return (
         <div>
-
             <Banner
                 imageType={"collection"}
                 backImage={collection.backgroundImage}
@@ -138,7 +136,7 @@ function CollectionPage() {
                         }
                     </div>
 
-                    <CollectionPageItemsList items={items}/>
+                    <CollectionPageItemsList items={items} idCollection={params.id}/>
 
                 </MDiv>
 

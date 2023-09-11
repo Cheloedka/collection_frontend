@@ -3,42 +3,32 @@ import style from "./SettingsNavButtons.module.css";
 
 function SettingsNavButtons({pageNumber}) {
 
-    const[activePage, setActivePage] = useState({
-        1: style.ButtonActive,
-        2: '',
-        3: ''
-    })
-
+    const [activePage, setActivePage] = useState(1)
     function changeActivePage(page) {
-        let empty = {
-            1: '',
-            2: '',
-            3: ''
-        }
+        setActivePage(page)
         pageNumber(page)
-        empty[page] = style.ButtonActive
-        setActivePage(empty)
     }
 
-
-
+    const styles = (page) => {
+        return page === activePage ? style.ButtonActive : "";
+    }
 
     return (
         <div className={style.navDivButtons}>
             <div
-                className={activePage[1]}
+                className={styles(1)}
                 onClick={() => changeActivePage(1)}
             >
                 Account
             </div>
             <div
-                className={activePage[2]}
+                className={styles(2)}
                 onClick={() => changeActivePage(2)}
             >
                 Security
             </div>
             <div
-                className={activePage[3]}
+                className={styles(3)}
                 onClick={() => changeActivePage(3)}
             >
                 Profile

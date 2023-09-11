@@ -1,0 +1,77 @@
+.opacityBannerDiv {
+    background-color: rgba(56, 49, 86, 0.8);
+    backdrop-filter: blur(5px);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.divMainContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.imagesDiv {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.imageDiv {
+    padding-bottom: 5px;
+    border-bottom: 1px rgba(255, 255, 255, 0) solid;
+}
+
+.imageDiv:hover {
+    border-bottom: 1px white solid;
+    cursor: pointer;
+}
+
+.imageSm {
+    width: 70px;
+    height: 55px;
+    border: #ffffff dotted 1px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.imageBg {
+    width: 270px;
+    height: 270px;
+    border: #ffffff dotted 1px;
+    object-fit: cover;
+    margin: 0 10px 0 20px;
+}
+
+.divInfo {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 15px;
+}
+
+.span1 {
+    font-size: 20px;
+}
+
+.span2 {
+    font-size: 17px;
+}
+
+.span3 {
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.absoluteEdit {
+    margin-top: -15px;
+    margin-right: -20px;
+}
+
+
+

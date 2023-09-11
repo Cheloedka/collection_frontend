@@ -1,4 +1,4 @@
-import {postBodyRequestWithAuth} from "./RequestFunction";
+import {getRequest, postBodyRequestWithAuth} from "./RequestFunction";
 
 export default class ItemService {
 
@@ -11,6 +11,10 @@ export default class ItemService {
             formData.append("images", images[i])
         }
         return await postBodyRequestWithAuth("/item/new", formData)
+    }
+
+    static async getItem(idCollection, idItem) {
+        return await getRequest("/item/" + idCollection + "/" + idItem)
     }
 
 }

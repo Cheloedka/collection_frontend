@@ -83,7 +83,13 @@ function CollectionBody({declareCollectionData,
                             <M1Button>
                                 {isLoading
                                     ?<MainLoader/>
-                                    :"Create"
+                                    :
+                                    <>
+                                    { isEdit
+                                        ? "Edit"
+                                        : "Create"
+                                    }
+                                    </>
                                 }
                             </M1Button>
 
