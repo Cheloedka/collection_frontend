@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
@@ -8,7 +8,9 @@ import GroupIcoButtons from "../../components/UI/button/GroupIcoButtons";
 import Edit from "../../components/UI/svg/Edit";
 import useIsCurrentUser from "../../hooks/useIsCurrentUser";
 import MDiv from "../../components/UI/div/MDiv";
-import {getCollectionImage} from "../../functions/imageFunctions";
+import ItemImagesMap from "./ItemImagesMap";
+import Like from "../../components/UI/svg/Like";
+import RightDivsBlock from "../Collections/Collection/RightInfo/RightDivsBlock";
 
 function ItemPage() {
     const params = useParams()
@@ -16,16 +18,22 @@ function ItemPage() {
     const isUser = useIsCurrentUser()
 
     const [item, setItem] = useState()
-    const [image, setImage] = useState("")
 
     const [itemFetch, isLoading, error] = useFetching(async () => {
-        const response = await ItemService.getItem(params.id, params.idItem)
-        setItem(response)
-        setImage(response.images[0].name)
+        const response = await ItemService.getItem(params.idCollection, params.idItem)
+
+        if (response.private === true && isUser === false)
+            navigate("/error")
+        else {
+            setItem(response)
+        }
     })
 
+
+    const topRef = useRef(null);
+
     useEffect(() => {
-        if (params.id >= 0) //checks if entered in link id is a number, not string
+        if (params.idCollection >= 0 && params.idItem >=0) //checks if entered in link id is a number, not string
             itemFetch()
         else
             navigate("/error")
@@ -36,53 +44,46 @@ function ItemPage() {
             navigate("/error")
     }, [error])
 
-    function setImageById(id) {
-        console.log(id + " " + item.images[id])
-        setImage(() => item.images[id].name)
-    }
+
 
     if (item)
-    return (
-        <MDiv className={style.opacityBannerDiv}>
-            <div>
-                <div className={style.divMainContent}>  {/*scroll to top page useRef*/}
+        return (
+            <>
+                <MDiv className={style.opacityBannerDiv} ref={topRef}>
+                    <div className={style.divMainContent}>
 
-                    <div className={style.imagesDiv}>
-                        { item.images
-                            .map((c, index) =>
-                                <div className={style.imageDiv}
-                                     key={index}
-                                     onClick={() => setImageById(index)}
-                                >
-                                    <img className={style.imageSm} src={getCollectionImage(c.name)} alt={"something"}/>
-                                </div>
-                        )}
+                        <ItemImagesMap images={item.images} defaultImage={item.images[0].name}/>
+
+                        <div className={style.divInfo}>
+                            <span className={style.span1}> {item.name} </span>
+                            <span className={style.span2}> {item.about} </span>
+                            <span className={style.span3}>{item.information} </span>
+                        </div>
+                        <div className={style.absoluteEdit}>
+                            { isUser ?
+                                <GroupIcoButtons
+                                    secondIcoTo={"/" + params.username + "/" + params.idCollection + "/" + params.idItem + "/edit"}
+                                    secondIco={<Edit color={"white"} />}
+                                />
+                                : <></>
+                            }
+                        </div>
+
                     </div>
-
-                    <div>
-                        <img className={style.imageBg} src={getCollectionImage(image)} alt={"something"}/>
+                    <div className={style.likesCount}>
+                        <span className={style.span2}>{item.likesCount}</span>
+                        <Like width={"14px"}/>
                     </div>
+                </MDiv>
+                <div className={style.bottomSection}>
+                    <MDiv className={style.leftComments}>
 
+                    </MDiv>
 
-                    <div className={style.divInfo}>
-                        <span className={style.span1}> {item.name} </span>
-                        <span className={style.span2}> {item.about} </span>
-                        <span className={style.span3}>{item.information} </span>
-                    </div>
-                    <div className={style.absoluteEdit}>
-                        { isUser ?
-                            <GroupIcoButtons
-                                secondIcoTo={"edit"}
-                                secondIco={<Edit color={"white"} />}
-                            />
-                            : <></>
-                        }
-                    </div>
-
+                    <RightDivsBlock link={"/" + params.username + "/" + params.idCollection}/>
                 </div>
-            </div>
-        </MDiv>
-    );
+            </>
+        );
     else return <MainLoader />
 }
 

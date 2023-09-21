@@ -28,4 +28,8 @@ export default class CollectionService {
         return await postBodyRequestWithAuth("/collection/" + id + "/edit", formData);
     }
 
+    static async getRightInfo(id) {
+        return await getRequest("/collection/" + id +"/getRightInfo")
+    }
+
 }

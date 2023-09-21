@@ -70,12 +70,7 @@
     margin-bottom: 20px;
 }
 
-.divRightInfo {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+
 
 .leftPosts {
     flex: 4;
@@ -91,9 +86,5 @@
 @media(max-width: 991px) {
     .bottomSection {
         flex-direction: column-reverse;
-    }
-    .divRightInfo {
-        flex-direction: row;
-        justify-content: space-between;
     }
 }

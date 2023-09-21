@@ -2,10 +2,13 @@ import style from './CollectionPageItem.module.css'
 import ellipsis from "../../../styles/Ellipsis.module.css"
 import Like from "../../../components/UI/svg/Like";
 import LikeFill from "../../../components/UI/svg/LikeFill";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import LikeService from "../../../API/LikeService";
+import {UserContext} from "../../../context";
+import {Link} from "react-router-dom";
 
-function CollectionPageItem({img, text1, text2, like, id, isLiked, ...props}) {
+function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCollection, ...props}) {
+    const {username} = useContext(UserContext)
 
     const [isLike, setIsLike] = useState(isLiked)
 
@@ -24,11 +27,13 @@ function CollectionPageItem({img, text1, text2, like, id, isLiked, ...props}) {
 
     return (
         <div className={style.mainDiv} {...props}>
-            <img src={img} className={style.itemImg}/>
-            <span className={style.mainSpan}>{text1}</span>
-            <div className={ellipsis.main}>
-                <span className={style.secondSpan + " " + ellipsis.childrenClamp2}>{text2}</span>
-            </div>
+            <Link to={"/" + username + "/" + idCollection + "/" + countID} className={style.linkDiv}>
+                <img src={img} className={style.itemImg}/>
+                <span className={style.mainSpan}>{text1}</span>
+                <div className={ellipsis.main}>
+                    <span className={style.secondSpan + " " + ellipsis.childrenClamp2}>{text2}</span>
+                </div>
+            </Link>
                 <button className={style.like}>
                     {isLike
                         ?<div onClick={() => manageLikes(true)}>

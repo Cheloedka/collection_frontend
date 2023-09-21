@@ -9,6 +9,12 @@
     position: relative;
 }
 
+.linkDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .itemImg {
     width: 170px;
     height: 150px;

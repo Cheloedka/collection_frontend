@@ -5,12 +5,14 @@ import {useFetching} from "../../../../hooks/useFetching";
 import MainLoader from "../../../../components/UI/loader/MainLoader";
 import CollectionService from "../../../../API/CollectionService";
 import {getCollectionImage, getImage} from "../../../../functions/imageFunctions";
+import useIsCurrentUser from "../../../../hooks/useIsCurrentUser";
 
 function CollectionEditor() {
     const navigate = useNavigate()
     const params = useParams()
+    const isUser = useIsCurrentUser()
 
-    const [tittle, setTittle] = useState("")
+    const [title, setTitle] = useState("")
     const [about, setAbout] = useState("")
     const [information, setInformation] = useState("")
     const [isPrivate, setIsPrivate] = useState(false)
@@ -28,7 +30,7 @@ function CollectionEditor() {
     const [fetchCollectionData, isLoadingData, errorData] = useFetching(async () => {
         const response = await CollectionService.getCollection(params.idCollection, params.username)
         setReturnedData(response)
-        setTittle(response.name)
+        setTitle(response.name)
         setAbout(response.about)
         setInformation(response.information)
         setIsPrivate(response.private)
@@ -38,8 +40,8 @@ function CollectionEditor() {
 
     const [fetchCollection, isLoading, error] = useFetching(async () => {
         let requestData = {}
-        if (tittle !== returnedData.name)
-            requestData.name = tittle
+        if (title !== returnedData.name)
+            requestData.name = title
         if (about !== returnedData.about)
             requestData.about = about
         if (information !== "" && information !== returnedData.information)
@@ -56,9 +58,13 @@ function CollectionEditor() {
     })
 
     useEffect(() => {
-        if (errorData) {
+        if (!isUser && isUser != null)
             navigate("/error")
-        }
+    }, [isUser])
+
+    useEffect(() => {
+        if (errorData)
+            navigate("/error")
     }, [errorData])
 
 
@@ -83,61 +89,47 @@ function CollectionEditor() {
 
     function declareCollection(e) {
         e.preventDefault()
-        if (tittle === "")
+        if (title === "")
             setErrorMessage("Title can't be empty")
         else if (about === "")
             setErrorMessage("About can't be empty")
-        else if (
-            tittle === returnedData.name &&
-            about === returnedData.about &&
-            information === returnedData.information &&
-            isPrivate === returnedData.private &&
-            !mainImage &&
-            !backImage
-        )  {
-            setErrorMessage("Nothing Is Changed")
-        }
         else {
             fetchCollection()
         }
     }
 
+    if (returnedData)
+        return (
+            <CollectionBody
+                declareCollectionData={declareCollection}
 
-    return (
-        <>
-            {isLoadingData ?
-                <MainLoader />
-                :
-                <CollectionBody
-                    declareCollectionData={declareCollection}
+                errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
 
-                    errorMessage={errorMessage}
-                    setErrorMessage={setErrorMessage}
+                title={title}
+                setTitle={setTitle}
 
-                    tittle={tittle}
-                    setTittle={setTittle}
+                about={about}
+                setAbout={setAbout}
 
-                    about={about}
-                    setAbout={setAbout}
+                information={information}
+                setInformation={setInformation}
 
-                    information={information}
-                    setInformation={setInformation}
+                mainImage={images.main}
+                setMainImage={setMainImage}
 
-                    mainImage={images.main}
-                    setMainImage={setMainImage}
+                backImage={images.background}P
+                setBackImage={setBackImage}
 
-                    backImage={images.background}
-                    setBackImage={setBackImage}
+                isPrivate={isPrivate}
+                setIsPrivate={setIsPrivate}
 
-                    isPrivate={isPrivate}
-                    setIsPrivate={setIsPrivate}
-
-                    isLoading={isLoading}
-                    isEdit={true}
-                />
-            }
-        </>
-    );
+                isLoading={isLoading}
+                isEdit={true}
+            />
+        );
+    else
+        return <MainLoader />
 }
 
 export default CollectionEditor;

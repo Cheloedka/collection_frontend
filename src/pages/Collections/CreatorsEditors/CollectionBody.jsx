@@ -12,7 +12,7 @@ import MDiv from "../../../components/UI/div/MDiv";
 
 function CollectionBody({declareCollectionData,
                             errorMessage, setErrorMessage,
-                            tittle, setTittle,
+                            title, setTitle,
                             about, setAbout,
                             information, setInformation,
                             mainImage, setMainImage,
@@ -51,7 +51,7 @@ function CollectionBody({declareCollectionData,
                         isEdit={true}
                     >
                         <div className={style.divCollectionContent}>
-                            <BannerInfo tittle={tittle} secondText={about} themes={'dark'}/>
+                            <BannerInfo tittle={title} secondText={about} themes={'dark'}/>
 
                             <div className={style.divInfoContent}>
                                 {information}
@@ -67,8 +67,8 @@ function CollectionBody({declareCollectionData,
 
 
                     <CreationInputs
-                        tittle={tittle}
-                        setTitle={setTittle}
+                        tittle={title}
+                        setTitle={setTitle}
                         about={about}
                         setAbout={setAbout}
                         information={information}

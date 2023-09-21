@@ -9,7 +9,7 @@ function CollectionCreator() {
     const navigate = useNavigate()
     const {username} = useContext(UserContext)
 
-    const [tittle, setTittle] = useState("")
+    const [title, setTitle] = useState("")
     const [about, setAbout] = useState("")
     const [information, setInformation] = useState("")
     const [isPrivate, setIsPrivate] = useState(false)
@@ -21,7 +21,7 @@ function CollectionCreator() {
 
     const [fetchCollection, isLoading, collectionError] = useFetching(async () => {
         let data = {
-            name: tittle,
+            name: title,
             about: about,
             information: information,
             isPrivate: isPrivate
@@ -42,8 +42,8 @@ function CollectionCreator() {
 
     function declareCollectionData(e) {
         e.preventDefault()
-        if (tittle === "" || about === "") {
-            if (tittle === "")
+        if (title === "" || about === "") {
+            if (title === "")
                 setErrorMessage("Title can't be empty")
             else
                 setErrorMessage("About can't be empty")
@@ -60,8 +60,8 @@ function CollectionCreator() {
             errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
 
-            tittle={tittle}
-            setTittle={setTittle}
+            title={title}
+            setTitle={setTitle}
 
             about={about}
             setAbout={setAbout}

@@ -1,0 +1,42 @@
+.imagesDiv {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-y: auto;
+    direction: rtl;
+    max-height: 280px;
+    min-width: 110px;
+}
+
+.imageDivActive {
+    padding-bottom: 5px;
+    border-bottom: 1px white solid;
+    width: 75px;
+}
+
+.imageDiv {
+    padding-bottom: 5px;
+    border-bottom: 1px rgba(255, 255, 255, 0) solid;
+    width: 75px;
+}
+
+.imageDiv:hover {
+    border-bottom: 1px white solid;
+    cursor: pointer;
+}
+
+.imageSm {
+    height: 55px;
+    object-fit: cover;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.imageBg {
+    width: 270px;
+    height: 270px;
+    object-fit: cover;
+    margin: 0 10px 0 20px;
+}

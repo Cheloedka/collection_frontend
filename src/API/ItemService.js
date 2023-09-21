@@ -17,4 +17,8 @@ export default class ItemService {
         return await getRequest("/item/" + idCollection + "/" + idItem)
     }
 
+    static async getItemForEditor(idCollection, idItem) {
+        return await getRequest("/auth/itemForEditor/" + idCollection + "/" + idItem)
+    }
+
 }

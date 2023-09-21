@@ -20,6 +20,7 @@ import PostPasswordPage from "../pages/Register/PostPasswordPage";
 import CollectionItemCreator from "../pages/Collections/CreatorsEditors/Creators/CollectionItemCreator";
 import CollectionEditor from "../pages/Collections/CreatorsEditors/Editors/CollectionEditor";
 import ItemPage from "../pages/CollectionItem/ItemPage";
+import CollectionItemEditor from "../pages/Collections/CreatorsEditors/Editors/CollectionItemEditor";
 
 function MainRoutes() {
 
@@ -43,8 +44,9 @@ function MainRoutes() {
             <Route path='' element={<PrivateRoutes auth={isAuth} />}>
                 <Route path='/settings' element={<SettingsPage />}/>
                 <Route path='/collections/create' element={<CollectionCreator />} />
-                <Route path='/:id/item/create' element={<CollectionItemCreator />} />
-                <Route path={'/:username/:idCollection/edit'} element={<CollectionEditor />} />
+                <Route path='/:username/:idCollection/item/create' element={<CollectionItemCreator />} />
+                <Route path='/:username/:idCollection/edit' element={<CollectionEditor />} />
+                <Route path='/:username/:idCollection/:idItem/edit' element={<CollectionItemEditor />} />
             </Route>
 
             {/*All Routes*/}
@@ -57,10 +59,9 @@ function MainRoutes() {
             <Route path='/:username'>
                 <Route index element={<UserPage />} />
                 <Route path='collections' element={<CollectionsPage />} />
-                <Route path=':id' >
-                    <Route index element={<CollectionPage />} />
-                    <Route path=':idItem' element={<ItemPage />} />
-                </Route>
+                <Route path=':idCollection' element={<CollectionPage />} />
+                <Route path=':idCollection/:idItem' element={<ItemPage />} />
+
                 <Route path='following' element={<FollowingPage />} />
             </Route>
 

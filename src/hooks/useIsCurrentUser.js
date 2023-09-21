@@ -6,7 +6,7 @@ function UseIsCurrentUser() {
     const {username} = useContext(UserContext)
     const params = useParams()
 
-    return username.toLowerCase() === params.username.toLowerCase();
+    return username ?username.toLowerCase() === params.username.toLowerCase() :null;
 
 }
 
