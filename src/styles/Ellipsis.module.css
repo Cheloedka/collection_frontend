@@ -1,7 +1,7 @@
 .main {
     overflow: hidden;
 }
-.children, .childrenClamp1, .childrenClamp2, .childrenClamp3 {
+.children, .childrenClamp1, .childrenClamp2, .childrenClamp3, .childrenClamp4 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     white-space: pre-wrap;
@@ -14,4 +14,7 @@
 }
 .childrenClamp3 {
     -webkit-line-clamp: 3;
+}
+.childrenClamp4 {
+    -webkit-line-clamp: 4;
 }

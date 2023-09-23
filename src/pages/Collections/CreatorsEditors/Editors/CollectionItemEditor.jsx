@@ -5,7 +5,7 @@ import ItemService from "../../../../API/ItemService";
 import MainLoader from "../../../../components/UI/loader/MainLoader";
 import useIsCurrentUser from "../../../../hooks/useIsCurrentUser";
 import {useNavigate, useParams} from "react-router-dom";
-import CollectionService from "../../../../API/CollectionService";
+
 
 function CollectionItemEditor() {
     const isUser = useIsCurrentUser()
@@ -15,7 +15,8 @@ function CollectionItemEditor() {
     const [title, setTitle] = useState("")
     const [about, setAbout] = useState("")
     const [information, setInformation] = useState("")
-    const [images, setImages] = useState([])
+    const [oldImages, setOldImages] = useState([])
+    const [newImages, setNewImages] = useState([])
     const [image, setImage] = useState()
 
     const [errorMessage, setErrorMessage] = useState('')
@@ -29,7 +30,7 @@ function CollectionItemEditor() {
         setTitle(request.name)
         setAbout(request.about)
         setInformation(request.information)
-        setImages(request.images)
+        setOldImages(request.images)
     })
 
     const [fetchEditCollection, isLoading, error] = useFetching(async () => {
@@ -40,9 +41,10 @@ function CollectionItemEditor() {
             sendData.about = about
         if (information !== "" && information !== originalData.information)
             sendData.information = information
-        sendData = {...sendData, images: images}
+        sendData.idCollection = params.idCollection
+        sendData.countId = params.idItem
 
-        await ItemService
+        await ItemService.editItem(sendData, oldImages, newImages)
 
         navigate('/' + params.username + '/' + params.idCollection + "/" + params.idItem)
     })
@@ -82,8 +84,8 @@ function CollectionItemEditor() {
             <CollectionItemBody
                 declareItemData={declareItemData}
 
-                tittle={title}
-                setTittle={setTitle}
+                title={title}
+                setTitle={setTitle}
 
                 about={about}
                 setAbout={setAbout}
@@ -91,8 +93,11 @@ function CollectionItemEditor() {
                 information={information}
                 setInformation={setInformation}
 
-                images={images}
-                setImages={setImages}
+                images={newImages}
+                setImages={setNewImages}
+
+                oldImages={oldImages}
+                setOldImages={setOldImages}
 
                 image={image}
                 setImage={setImage}

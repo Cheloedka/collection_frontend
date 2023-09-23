@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import style from "./ItemImagesMap.module.css";
 import {getCollectionImage} from "../../functions/imageFunctions";
+
 function ItemImagesMap({images, defaultImage}) {
 
     const [image, setImage] = useState(defaultImage)

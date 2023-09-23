@@ -4,12 +4,10 @@ import Like from "../../../components/UI/svg/Like";
 import LikeFill from "../../../components/UI/svg/LikeFill";
 import {useContext, useState} from "react";
 import LikeService from "../../../API/LikeService";
-import {UserContext} from "../../../context";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCollection, ...props}) {
-    const {username} = useContext(UserContext)
-
+    const params = useParams()
     const [isLike, setIsLike] = useState(isLiked)
 
 
@@ -27,7 +25,7 @@ function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCo
 
     return (
         <div className={style.mainDiv} {...props}>
-            <Link to={"/" + username + "/" + idCollection + "/" + countID} className={style.linkDiv}>
+            <Link to={"/" + params.username + "/" + idCollection + "/" + countID} className={style.linkDiv}>
                 <img src={img} className={style.itemImg}/>
                 <span className={style.mainSpan}>{text1}</span>
                 <div className={ellipsis.main}>

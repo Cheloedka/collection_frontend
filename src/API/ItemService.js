@@ -1,4 +1,4 @@
-import {getRequest, postBodyRequestWithAuth} from "./RequestFunction";
+import {getRequest, getRequestWithAuth, postBodyRequestWithAuth, putBodyRequestWithAuth} from "./RequestFunction";
 
 export default class ItemService {
 
@@ -18,7 +18,22 @@ export default class ItemService {
     }
 
     static async getItemForEditor(idCollection, idItem) {
-        return await getRequest("/auth/itemForEditor/" + idCollection + "/" + idItem)
+        return await getRequestWithAuth("/itemForEditor/" + idCollection + "/" + idItem)
+    }
+
+    static async editItem(data, oldImages, newImages) {
+        const formData = new FormData();
+        for (let key in data) {
+            formData.append(key, data[key]);
+        }
+        for (let i = 0; i < oldImages.length; i++) {
+            formData.append("oldImages", oldImages[i].name)
+        }
+        for (let i = 0; i < newImages.length; i++) {
+            formData.append("newImages", newImages[i])
+        }
+
+        return await putBodyRequestWithAuth("/item/edit", formData)
     }
 
 }

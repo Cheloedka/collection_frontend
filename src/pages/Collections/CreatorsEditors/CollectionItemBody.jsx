@@ -20,20 +20,32 @@ function CollectionItemBody({declareItemData,
                                 showError, setShowError,
                                 isLoading,
                                 error,
-                                isEdit
+                                isEdit,
+                                oldImages, setOldImages
                             }) {
 
     useEffect(() => {
-        if (images.length !== 0)
-            setImage(
-                isEdit
-                ? getCollectionImage(images[0].name)
-                : URL.createObjectURL(images[0])
-            )
-        else {
-            setImage("")
+        if (isEdit && oldImages) {
+            if (oldImages.length !== 0) {
+                setImage(getCollectionImage(oldImages[0].name))
+            }
+            else if (images.length !== 0) {
+                setImage(URL.createObjectURL(images[0]))
+            }
+            else {
+                setImage("")
+            }
         }
-    }, [images])
+        else {
+            if (images.length !== 0) {
+                setImage(URL.createObjectURL(images[0]))
+            }
+            else {
+                setImage("")
+            }
+        }
+    }, [oldImages, images])
+
 
     useEffect(() => {
         setErrorMessage(error)
@@ -43,6 +55,10 @@ function CollectionItemBody({declareItemData,
 
     function removeFile(id) {
         setImages(prev => prev.filter((file, index) => id !== index))
+    }
+
+    function removeOldFile(id) {
+        setOldImages(prev => prev.filter((image, index) => id !== index))
     }
 
     return (
@@ -93,7 +109,7 @@ function CollectionItemBody({declareItemData,
                             <M1Button>
                                 {isLoading
                                     ? <MainLoader/>
-                                    : "Create"
+                                    : <>{isEdit ? "Edit" : "Create"}</>
                                 }
                             </M1Button>
 
@@ -105,7 +121,7 @@ function CollectionItemBody({declareItemData,
                         <MFileInput
                             setImage={setImages}
                             maxSize={1}
-                            maxFiles={10}
+                            maxFiles={oldImages ? 10 - oldImages.length : 10}
                             setError={setErrorMessage}
                             accept={"image/png, image/jpeg"}
                             setShowError={setShowError}
@@ -114,6 +130,35 @@ function CollectionItemBody({declareItemData,
                                 +
                             </div>
                         </MFileInput>
+
+                        {isEdit ?
+                            <>
+                                {oldImages.length !== 0 ?
+                                <>
+                                    { oldImages.map((element, index) =>
+                                        <div
+                                            key={index}
+                                            style={{position: "relative"}}
+                                        >
+                                            <div
+                                                className={style.removeImageDiv}
+                                                onClick={() => removeOldFile(index)}
+                                            >
+                                                x
+                                            </div>
+                                            <img
+                                                className={style.addedImg}
+                                                src={getCollectionImage(element.name)}
+                                                alt="item"
+                                            />
+                                        </div>
+                                    )}
+                                </>
+                                    :<></>
+                                }
+                            </>
+                            :<></>
+                        }
 
                         { images.map((element, index) =>
                             <div
@@ -128,7 +173,7 @@ function CollectionItemBody({declareItemData,
                                 </div>
                                 <img
                                     className={style.addedImg}
-                                    src={isEdit ? getCollectionImage(element.name) : URL.createObjectURL(element)}
+                                    src={URL.createObjectURL(element)}
                                     alt="item"
                                 />
                             </div>
@@ -136,7 +181,7 @@ function CollectionItemBody({declareItemData,
                     </div>
                 </form>
 
-                {!isLoading && errorMessage ?
+                {errorMessage && showError ?
                     <OpacityMessage
                         type="error"
                         text={errorMessage}

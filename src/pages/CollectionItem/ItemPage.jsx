@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
@@ -11,6 +11,7 @@ import MDiv from "../../components/UI/div/MDiv";
 import ItemImagesMap from "./ItemImagesMap";
 import Like from "../../components/UI/svg/Like";
 import RightDivsBlock from "../Collections/Collection/RightInfo/RightDivsBlock";
+import defaultItemImage from '../../images/imageNotFound.png'
 
 function ItemPage() {
     const params = useParams()
@@ -30,7 +31,6 @@ function ItemPage() {
     })
 
 
-    const topRef = useRef(null);
 
     useEffect(() => {
         if (params.idCollection >= 0 && params.idItem >=0) //checks if entered in link id is a number, not string
@@ -49,20 +49,28 @@ function ItemPage() {
     if (item)
         return (
             <>
-                <MDiv className={style.opacityBannerDiv} ref={topRef}>
+                <MDiv className={style.opacityBannerDiv}>
                     <div className={style.divMainContent}>
+                        <div className={style.divContentWithoutEditIco}>
+                            {item.images.length > 0
+                                ? <ItemImagesMap images={item.images} defaultImage={item.images[0].name}/>
+                                : <img className={style.imageBg} src={defaultItemImage} alt={"something"}/>
 
-                        <ItemImagesMap images={item.images} defaultImage={item.images[0].name}/>
+                            }
 
-                        <div className={style.divInfo}>
-                            <span className={style.span1}> {item.name} </span>
-                            <span className={style.span2}> {item.about} </span>
-                            <span className={style.span3}>{item.information} </span>
+
+                            <div className={style.divInfo}>
+                                <span className={style.span1}> {item.name} </span>
+                                <span className={style.span2}> {item.about} </span>
+                                <span className={style.span3}>{item.information} </span>
+                            </div>
                         </div>
                         <div className={style.absoluteEdit}>
                             { isUser ?
                                 <GroupIcoButtons
-                                    secondIcoTo={"/" + params.username + "/" + params.idCollection + "/" + params.idItem + "/edit"}
+                                    secondIcoTo={"/" + params.username +
+                                        "/" + params.idCollection +
+                                        "/" + params.idItem + "/edit"}
                                     secondIco={<Edit color={"white"} />}
                                 />
                                 : <></>

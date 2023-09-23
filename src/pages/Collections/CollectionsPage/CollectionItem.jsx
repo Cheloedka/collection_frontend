@@ -2,6 +2,7 @@ import React from 'react';
 import style from './CollectionItem.module.css'
 import {Link} from "react-router-dom";
 import {getCollectionImage} from "../../../functions/imageFunctions";
+import ellipsis from "../../../styles/Ellipsis.module.css"
 
 function CollectionItem({img, about, name, username, id}) {
     return (
@@ -11,9 +12,9 @@ function CollectionItem({img, about, name, username, id}) {
                 className={style.imageCollection}
             />
             <div className={style.info}>
-                <div>
+                <div className={ellipsis.main}>
                     <div>{name}</div>
-                    <div>{about}</div>
+                    <div className={ellipsis.childrenClamp4}>{about}</div>
                 </div>
                 <Link
                     to={'/' + username + '/' + id}

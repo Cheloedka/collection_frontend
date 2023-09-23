@@ -1,6 +1,7 @@
 import React from 'react';
 import MDiv from "../../../../components/UI/div/MDiv";
 import style from "./RightInfo.module.css";
+import ellipsis from '../../../../styles/Ellipsis.module.css'
 
 function RightInfo({image, text1, text2, ...props}) {
     return (
@@ -15,10 +16,11 @@ function RightInfo({image, text1, text2, ...props}) {
                 <span className={style.divRightInfoMainSpan}>
                     {text1}
                 </span>
-
-                <span className={style.divRightInfoSecondSpan}>
-                    {text2}
-                </span>
+                <div className={ellipsis.main}>
+                    <span className={style.divRightInfoSecondSpan + " " + ellipsis.childrenClamp2}>
+                        {text2}
+                    </span>
+                </div>
 
             </div>
         </MDiv>

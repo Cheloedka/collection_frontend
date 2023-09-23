@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import ItemService from "../../../../API/ItemService";
 import useIsCurrentUser from "../../../../hooks/useIsCurrentUser";
 import CollectionItemBody from "../CollectionItemBody";
+import CollectionService from "../../../../API/CollectionService";
 
 function CollectionItemCreator() {
     const params = useParams()
@@ -21,6 +22,13 @@ function CollectionItemCreator() {
     const [errorMessage, setErrorMessage] = useState('')
     const [showError, setShowError] = useState(false)
 
+    const [fetchIsUserOwner, isLoadingOwner, errorOwner] = useFetching(async () => {
+        const request = await CollectionService.isUserOwner(params.idCollection)
+        if (!request) {
+            navigate("/error")
+        }
+    })
+
     const [fetchItem, isLoading, error] = useFetching(async () => {
         const data = {
             name: title,
@@ -36,8 +44,17 @@ function CollectionItemCreator() {
     useEffect(() => {
         if (!isUser && isUser != null)
             navigate("/error")
+
     }, [isUser])
 
+    useEffect(() => {
+        if (errorOwner)
+            navigate("/error")
+    }, [errorOwner])
+
+    useEffect(() => {
+        fetchIsUserOwner()
+    }, [params.idCollection])
 
 
     function declareItemData(e) {

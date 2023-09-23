@@ -32,4 +32,8 @@ export default class CollectionService {
         return await getRequest("/collection/" + id +"/getRightInfo")
     }
 
+    static async isUserOwner(id) {
+        return await getRequest("collection/" + id + "/isUserOwner")
+    }
+
 }

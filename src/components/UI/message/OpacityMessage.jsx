@@ -5,19 +5,15 @@ import {useEffect, useState} from "react";
 function OpacityMessage({type, text, showElement, setShowElement, setError}) {
 
     const [opacity, setOpacity] = useState(1)
-    
+
     useEffect(() => {
         if (showElement) {
             setOpacity(1)
             setTimeout(function() {
-                if (opacity > 0)
-                    setOpacity(prev => (prev - 0.2))
-                else {
-                    setShowElement(false)
-                    setError("")
-                    setOpacity(1)
-                }
-            }, 1000);
+                setOpacity(prev => (prev - 0.2))
+                setShowElement(false)
+                setError("")
+            }, 3000);
         }
     },[showElement])
 
