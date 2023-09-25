@@ -12,6 +12,8 @@ import ItemImagesMap from "./ItemImagesMap";
 import Like from "../../components/UI/svg/Like";
 import RightDivsBlock from "../Collections/Collection/RightInfo/RightDivsBlock";
 import defaultItemImage from '../../images/imageNotFound.png'
+import Delete from "../../components/UI/svg/Delete";
+import MessageModal from "../../components/UI/modal/MessageModal";
 
 function ItemPage() {
     const params = useParams()
@@ -19,9 +21,10 @@ function ItemPage() {
     const isUser = useIsCurrentUser()
 
     const [item, setItem] = useState()
+    const [modalVisible, setModalVisible] = useState(false)
 
     const [itemFetch, isLoading, error] = useFetching(async () => {
-        const response = await ItemService.getItem(params.idCollection, params.idItem)
+        const response = await ItemService.getItem(params.idCollection, params.idItem, params.username)
 
         if (response.private === true && isUser === false)
             navigate("/error")
@@ -43,6 +46,11 @@ function ItemPage() {
         if (error)
             navigate("/error")
     }, [error])
+
+    async function deleteItem() {
+        await ItemService.deleteItem(item.itemId)
+        navigate("/" + params.username + "/" + params.idCollection)
+    }
 
 
 
@@ -68,6 +76,11 @@ function ItemPage() {
                         <div className={style.absoluteEdit}>
                             { isUser ?
                                 <GroupIcoButtons
+                                    firstIco={
+                                    <div onClick={() => setModalVisible(true)}>
+                                        <Delete />
+                                    </div>
+                                    }
                                     secondIcoTo={"/" + params.username +
                                         "/" + params.idCollection +
                                         "/" + params.idItem + "/edit"}
@@ -76,6 +89,13 @@ function ItemPage() {
                                 : <></>
                             }
                         </div>
+
+                        <MessageModal visible={modalVisible}
+                                      setVisible={setModalVisible}
+                                      acceptCallback={() => deleteItem()}
+                        >
+                            Are you sure to delete Item?
+                        </MessageModal>
 
                     </div>
                     <div className={style.likesCount}>

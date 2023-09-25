@@ -3,7 +3,7 @@ import Banner from "../../../components/UI/div/Banner";
 import {useFetching} from "../../../hooks/useFetching";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import CollectionService from "../../../API/CollectionService";
-import {getCollectionImage, getImage, getUserImage} from "../../../functions/imageFunctions";
+import {getCollectionImage, getImage} from "../../../functions/imageFunctions";
 import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
 import BannerInfo from "../../../components/UI/div/BannerInfo";
 import GroupIcoButtons from "../../../components/UI/button/GroupIcoButtons";
@@ -15,6 +15,9 @@ import MainLoader from "../../../components/UI/loader/MainLoader";
 import CollectionPageItemsList from "./CollectionPageItemsList";
 import RightDivsBlock from "./RightInfo/RightDivsBlock";
 import CollectionItemPostList from "../../CollectionItemPost/CollectionItemPostList";
+import Delete from "../../../components/UI/svg/Delete";
+import ItemService from "../../../API/ItemService";
+import MessageModal from "../../../components/UI/modal/MessageModal";
 
 function CollectionPage() {
     let params = useParams()
@@ -24,6 +27,7 @@ function CollectionPage() {
     const [items, setItems] = useState([])
 
     const [collection, setCollection] = useState()
+    const [modalVisible, setModalVisible] = useState(false)
     const topRef = useRef(null);
 
 
@@ -57,6 +61,11 @@ function CollectionPage() {
             navigate("/error")
     }, [error])
 
+    async function deleteCollection() {
+        await CollectionService.deleteCollection(params.idCollection)
+        navigate("/" + params.username)
+    }
+
 
     if (collection)
         return (
@@ -78,11 +87,23 @@ function CollectionPage() {
                             />
                             {isUser ?
                                 <GroupIcoButtons
+                                firstIco={
+                                    <div onClick={() => setModalVisible(true)}>
+                                        <Delete />
+                                    </div>
+                                }
                                 secondIcoTo={"edit"}
                                 secondIco={<Edit color={"white"} />}
                                 />
                                 :<></>
                             }
+
+                            <MessageModal visible={modalVisible}
+                                          setVisible={setModalVisible}
+                                          acceptCallback={() => deleteCollection()}
+                            >
+                                Are you sure to delete Collection?
+                            </MessageModal>
 
                         </div>
                         <div

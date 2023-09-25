@@ -1,4 +1,10 @@
-import {getRequest, getRequestWithAuth, postBodyRequestWithAuth, putBodyRequestWithAuth} from "./RequestFunction";
+import {
+    deleteRequestWithAuth,
+    getRequest,
+    getRequestWithAuth,
+    postBodyRequestWithAuth,
+    putBodyRequestWithAuth
+} from "./RequestFunction";
 
 export default class ItemService {
 
@@ -13,8 +19,8 @@ export default class ItemService {
         return await postBodyRequestWithAuth("/item/new", formData)
     }
 
-    static async getItem(idCollection, idItem) {
-        return await getRequest("/item/" + idCollection + "/" + idItem)
+    static async getItem(idCollection, idItem, username) {
+        return await getRequest("/item/" + username + "/" + idCollection + "/" + idItem)
     }
 
     static async getItemForEditor(idCollection, idItem) {
@@ -34,6 +40,10 @@ export default class ItemService {
         }
 
         return await putBodyRequestWithAuth("/item/edit", formData)
+    }
+
+    static async deleteItem(idItem) {
+        return await deleteRequestWithAuth("/item/delete/" + idItem)
     }
 
 }

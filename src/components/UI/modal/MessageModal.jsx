@@ -33,7 +33,7 @@ function MessageModal({visible, setVisible, children, acceptCallback, to}) {
 
                     <M2Button
                         onClick={onHide}
-                        style={{float: "right"}}
+                        style={{float: "right", marginLeft: "20px"}}
                         color={'red'}
                     >
                         Close

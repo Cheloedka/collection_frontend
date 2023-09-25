@@ -1,4 +1,4 @@
-import {getRequest, postBodyRequestWithAuth} from "./RequestFunction";
+import {deleteRequestWithAuth, getRequest, postBodyRequestWithAuth} from "./RequestFunction";
 
 export default class CollectionService {
 
@@ -34,6 +34,10 @@ export default class CollectionService {
 
     static async isUserOwner(id) {
         return await getRequest("collection/" + id + "/isUserOwner")
+    }
+
+    static async deleteCollection(idCollection) {
+        return await deleteRequestWithAuth("/collection/delete/" + idCollection)
     }
 
 }

@@ -8,9 +8,8 @@ function ItemImagesMap({images, defaultImage}) {
     const [nowId, setNowId] = useState(0)
 
     function setImageById(id) {
-        console.log(id + " " + images[id])
         setImage(() => images[id].name)
-        setNowId(id)
+        setNowId(() => id)
     }
 
     return (

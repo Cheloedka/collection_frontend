@@ -19,7 +19,7 @@ function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCo
         else
             func = () => LikeService.newLike(id)
 
-        await func().then(r => console.log(r))
+        await func()
         setIsLike(prev => !prev)
     }
 
