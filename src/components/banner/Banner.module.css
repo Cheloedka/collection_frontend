@@ -85,29 +85,29 @@
     position: relative;
 }
 
-.userImage {
+.collectionImage, .userImage {
+    cursor: pointer;
     z-index: 100;
     position: absolute;
+    object-fit: cover;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.userImage {
     top: -75px;
     left: 20px;
     width: 230px;
     height: 180px;
-    object-fit: cover;
     border-radius: 15px;
     border: 2px solid #3A325B;
-    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .collectionImage {
-    z-index: 100;
-    position: absolute;
     top: -90px;
     left: 30px;
     width: 190px;
     height: 190px;
-    object-fit: cover;
     border: 2px dotted #3A325B;
-    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .divInfo {

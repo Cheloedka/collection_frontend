@@ -1,3 +1,65 @@
 .mainDiv {
+    padding: 4% 4%;
+}
 
+.divGraphicContent {
+}
+
+.divList {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.divImage {
+    background-color: rgba(56, 49, 86, 0.6);
+    border-radius: 10px;
+    height: 550px;
+    max-width: 650px;
+    display: flex;
+    justify-content: center;
+}
+
+.imgItem {
+    border-radius: 10px;
+    height: 100%;
+    max-width: 100%;
+}
+
+.divSpan {
+    display: flex;
+    flex-direction: column;
+}
+
+.span1 {
+    font-size: 20px;
+    font-family: Inter, serif;
+}
+
+.span2 {
+    font-size: 18px;
+    font-family: Inter, serif;
+    color: #706B6B;
+}
+
+.divBottomPanel {
+    display: flex;
+    margin-top: 10px;
+}
+
+.divBorder {
+    padding: 3px 10px;
+    border: 1px rgba(56, 49, 86, 0.8) solid;
+    border-radius: 10px;
+    color: rgba(56, 49, 86, 0.8);
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    margin-right: 10px;
+}
+
+.divBorderLike:hover {
+    color: red;
+    border-color: red;
 }

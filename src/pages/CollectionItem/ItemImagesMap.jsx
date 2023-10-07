@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import style from "./ItemImagesMap.module.css";
 import {getCollectionImage} from "../../functions/imageFunctions";
+import ImageModal from "../../components/images/ImageModal";
 
 function ItemImagesMap({images, defaultImage}) {
 
     const [image, setImage] = useState(defaultImage)
     const [nowId, setNowId] = useState(0)
+    const [isOpened, setIsOpened] = useState(false)
 
     function setImageById(id) {
         setImage(() => images[id].name)
@@ -26,9 +28,15 @@ function ItemImagesMap({images, defaultImage}) {
                     )}
             </div>
 
-            <div>
-                <img className={style.imageBg} src={getCollectionImage(image)} alt={"something"}/>
-            </div>
+            <img
+                className={style.imageBg}
+                src={getCollectionImage(image)}
+                alt={"something"}
+                onClick={() => setIsOpened(true)}
+            />
+
+            <ImageModal isOpened={isOpened} setIsOpened={setIsOpened} src={getCollectionImage(image)}/>
+
         </>
     );
 }

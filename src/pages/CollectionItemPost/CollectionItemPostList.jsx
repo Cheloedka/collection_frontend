@@ -1,10 +1,11 @@
 import React from 'react';
 import CollectionItemPost from "./CollectionItemPost";
 import {getCollectionImage} from "../../functions/imageFunctions";
+import style from "./CollectionItemPost.module.css"
 
 function CollectionItemPostList({items}) {
     return (
-        <div>
+        <div className={style.divList}>
             {items
                 .sort((x, y) => y.itemId - x.itemId)
                 .map((c, index) =>

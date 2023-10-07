@@ -1,15 +1,18 @@
-import React from 'react';
+import {useState} from 'react';
 import style from './Banner.module.css'
-import editImgIco from "../../../images/icons/Galleryedit.svg";
-import MFileInput from "../input/MFileInput";
-import defaultCollectionImage from '../../../images/imageNotFound.png'
+import editImgIco from "../../images/icons/Galleryedit.svg";
+import MFileInput from "../UI/input/MFileInput";
+import defaultCollectionImage from '../../images/imageNotFound.png'
+import ImageModal from "../images/ImageModal";
 
 function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackImage, children, isUser, imageType, isEdit}) {
+
+    const [isOpened, setIsOpened] = useState(false)
 
 
     function coverContent() {
         if (backImage) {
-            return <img src={backImage} className={style.backImg} alt="background"/>
+            return <img src={backImage} className={style.backImg} />
         }
         else {
             if (!!isUser) {
@@ -46,9 +49,16 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                 <div className={style.divContent}>
                         <img
                             src={ mainImage ? mainImage : defaultCollectionImage}
-                            className={ imageType === 'user' ? style.userImage : style.collectionImage}
+                            className={imageType === 'user' ? style.userImage : style.collectionImage}
                             alt="image"
+                            onClick={() => setIsOpened(true)}
                         />
+                        <ImageModal
+                            isOpened={isOpened}
+                            setIsOpened={setIsOpened}
+                            src={ mainImage ? mainImage : defaultCollectionImage}
+                        />
+
                         { isEdit === true
                             ?
                             <MFileInput

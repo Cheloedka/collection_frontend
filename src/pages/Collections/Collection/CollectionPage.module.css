@@ -74,7 +74,6 @@
 
 .leftPosts {
     flex: 4;
-    height: 500px;
 }
 
 .bottomSection {
@@ -83,7 +82,7 @@
     margin-bottom: 20px;
 }
 
-@media(max-width: 991px) {
+@media(max-width: 1200px) {
     .bottomSection {
         flex-direction: column-reverse;
     }

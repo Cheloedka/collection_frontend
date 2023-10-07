@@ -5,5 +5,5 @@ export function useStyles(mainClass, addClass){
         classes.push(addClass)
     }
 
-    return classes
+    return classes.join(' ')
 }

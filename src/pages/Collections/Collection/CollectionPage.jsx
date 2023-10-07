@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Banner from "../../../components/UI/div/Banner";
+import Banner from "../../../components/banner/Banner";
 import {useFetching} from "../../../hooks/useFetching";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import CollectionService from "../../../API/CollectionService";
 import {getCollectionImage, getImage} from "../../../functions/imageFunctions";
 import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
-import BannerInfo from "../../../components/UI/div/BannerInfo";
+import BannerInfo from "../../../components/banner/BannerInfo";
 import GroupIcoButtons from "../../../components/UI/button/GroupIcoButtons";
 import MDiv from "../../../components/UI/div/MDiv";
 import style from './CollectionPage.module.css'
@@ -156,11 +156,9 @@ function CollectionPage() {
 
 
                     <div className={style.bottomSection}>
-                        <MDiv className={style.leftPosts}>
-                            <span className={style.spanMainSpan}>
-                                <CollectionItemPostList items={items}/>
-                            </span>
-                        </MDiv>
+                        <div className={style.leftPosts}>
+                            <CollectionItemPostList items={items}/>
+                        </div>
 
                         <RightDivsBlock topRef={topRef}/>
                     </div>

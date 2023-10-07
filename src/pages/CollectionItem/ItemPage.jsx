@@ -60,7 +60,7 @@ function ItemPage() {
                 <MDiv className={style.opacityBannerDiv}>
                     <div className={style.divMainContent}>
                         <div className={style.divContentWithoutEditIco}>
-                            {item.images.length > 0
+                            {item?.images.length > 0
                                 ? <ItemImagesMap images={item.images} defaultImage={item.images[0].name}/>
                                 : <img className={style.imageBg} src={defaultItemImage} alt={"something"}/>
 

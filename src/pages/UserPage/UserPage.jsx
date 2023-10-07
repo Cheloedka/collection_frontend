@@ -6,10 +6,10 @@ import MainLoader from "../../components/UI/loader/MainLoader";
 import UserService from "../../API/UserService";
 import style from "./UserPage.module.css"
 import {getImage, getUserImage} from "../../functions/imageFunctions";
-import Banner from "../../components/UI/div/Banner";
+import Banner from "../../components/banner/Banner";
 import GroupIcoButtons from "../../components/UI/button/GroupIcoButtons";
 import useIsCurrentUser from "../../hooks/useIsCurrentUser";
-import BannerInfo from "../../components/UI/div/BannerInfo";
+import BannerInfo from "../../components/banner/BannerInfo";
 import UserPageCollectionList from "./UserPageCollectionList";
 import Settings from "../../components/UI/svg/Settings";
 import Edit from "../../components/UI/svg/Edit";

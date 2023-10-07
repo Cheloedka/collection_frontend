@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import MDiv from "../../../components/UI/div/MDiv";
 import style2 from "./Creators/CollectionCreator.module.css";
 import style from "./Creators/CollectionItemCreator.module.css";
-import BannerInfo from "../../../components/UI/div/BannerInfo";
+import BannerInfo from "../../../components/banner/BannerInfo";
 import CreationInputs from "./CreationInputs";
 import M1Button from "../../../components/UI/button/M1Button";
 import MainLoader from "../../../components/UI/loader/MainLoader";

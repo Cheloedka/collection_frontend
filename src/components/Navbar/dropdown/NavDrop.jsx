@@ -20,7 +20,6 @@ function NavDrop() {
         {image: <CollectionsIco />, label: "Collections", to: '/' + username + '/collections'},
         {image: <Settings/>, label: "Settings", to: '/settings'},
         {image: <Friends />, label: "Following", to: '/info'},
-        {image: <Community />, label: "Community", to: '/info'}
     ]
 
     return (
