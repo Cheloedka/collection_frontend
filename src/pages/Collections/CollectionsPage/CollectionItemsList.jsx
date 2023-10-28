@@ -3,10 +3,9 @@ import CollectionItem from "./CollectionItem";
 import style from './CollectionItem.module.css'
 import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
 
-function CollectionItemsList({collections, username}) {
-    const isUser = useIsCurrentUser()
+function CollectionItemsList({collections}) {
 
-    if (!collections.length) {
+    if (!collections?.length) {
         return (
             <div>
                 There is no any collections
@@ -16,18 +15,15 @@ function CollectionItemsList({collections, username}) {
 
     return (
         <div className={style.divCollections}>
-            {collections.map((c, index) =>
+            {collections.map(({name, about, image, id, countItems}, index) =>
                 <React.Fragment key={index}>
-                { c.private === false || isUser ?
                     <CollectionItem
-                        name={c.name}
-                        about={c.about}
-                        img={c.image}
-                        username={username}
-                        id={c.idCollection}
+                        name={name}
+                        about={about}
+                        img={image}
+                        id={id}
+                        count={countItems}
                     />
-                    : <></>
-                }
                 </React.Fragment>
             )}
         </div>

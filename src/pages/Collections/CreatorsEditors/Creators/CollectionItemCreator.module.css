@@ -14,24 +14,6 @@
     object-fit: cover;
 }
 
-.buttonAddImages {
-    border-radius: 10px;
-    background-color: rgba(56, 49, 86, 0.8);
-    color: white;
-    font-size: 35px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 8px;
-    user-select: none;
-}
-
-.buttonAddImages:hover {
-    background-color: #403b67;
-}
-
 .addedImg {
     max-width: 100px;
     max-height: 100px;

@@ -28,52 +28,17 @@
     margin-top: 20px;
 }
 
-.spanMainSpan {
-    font-size: 22px;
-    font-family: Inter, serif;
-}
-
-.spanSecondSpan {
-    margin-left: 11px;
-    font-size: 22px;
-    font-family: Inter, serif;
-    color: #BBB4B4;
-}
 .buttonAddCollection {
-    border-radius: 10px;
     margin-top: -5px;
     margin-right: -5px;
-    background-color: rgba(56, 49, 86, 0.8);
-    color: white;
-    font-size: 35px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 8px;
-    user-select: none;
-
 }
-.buttonAddCollection:hover {
-    background-color: #403b67;
-    color: white;
-}
-
-.buttonAddCollection:active {
-    background-color: #65599a;
-}
-
-.divSpanButtonCollections {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-
 
 .leftPosts {
     flex: 4;
+}
+
+.rightInfo {
+    flex: 3;
 }
 
 .bottomSection {

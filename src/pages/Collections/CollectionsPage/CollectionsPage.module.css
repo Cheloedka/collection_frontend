@@ -1,18 +1,26 @@
-.buttonAddCollection {
-    border-radius: 10px;
-    background-color: #383156;
-    color: white;
-    line-height: 0;
-    padding-bottom: 12px;
-    font-size: 35px;
-    width: 40px;
-    height: 40px;
+.divMain {
+    margin-bottom: 30px;
 }
 
-.buttonAddCollection:hover {
-    background-color: #403b67;
+@media(max-width: 991px) {
+    .divMain > div {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .divFilterAndAdd {
+        justify-content: space-between;
+    }
 }
 
-.buttonAddCollection:active {
-    background-color: #65599a;
+
+.divFilterAndAdd {
+    display: flex;
+    gap: 10px;
+}
+
+.search {
+    max-width: 600px;
+    min-width: 400px;
+    font-family: Inter, sans-serif;
 }

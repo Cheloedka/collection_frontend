@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import MDiv from "../../components/UI/div/MDiv";
 import {useFetching} from "../../hooks/useFetching";
 import MainLoader from "../../components/UI/loader/MainLoader";
@@ -12,7 +12,6 @@ import useIsCurrentUser from "../../hooks/useIsCurrentUser";
 import BannerInfo from "../../components/banner/BannerInfo";
 import UserPageCollectionList from "./UserPageCollectionList";
 import Settings from "../../components/UI/svg/Settings";
-import Edit from "../../components/UI/svg/Edit";
 import Following from "../../components/UI/svg/Following";
 import Message from "../../components/UI/svg/Message";
 import Unfollowing from "../../components/UI/svg/Unfollowing";
@@ -20,6 +19,9 @@ import FriendshipService from "../../API/FriendshipService";
 import {AuthContext} from "../../context";
 import UserPageFollowingList from "./UserPageFollowingList";
 import MessageModal from "../../components/UI/modal/MessageModal";
+import PlusButton from "../../components/UI/button/PlusButton";
+import MDivWithLinkSpans from "../../components/UI/div/MDivWithLinkSpans";
+import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
 
 function UserPage() {
     const params = useParams()
@@ -74,7 +76,6 @@ function UserPage() {
 
     useEffect(() => {
         if(background !== '') {
-            console.log("back")
             setUser(prev => ({...prev, background: URL.createObjectURL(background)}))
         }
     },[background])
@@ -92,7 +93,7 @@ function UserPage() {
 
     return (
         <div>
-            <MessageModal              //if error show modal  //todo error message to background change
+            <MessageModal             //todo error message to background change
                 to={"/login"}
                 visible={modalVisible}
                 setVisible={setModalVisible}
@@ -149,53 +150,40 @@ function UserPage() {
             <div className={style.divContent}>
 
                 <div className={style.divContentLeft}>
-                    <MDiv>
-                        <Link to={'/' + params.username + '/following'}>
-                            <span className={style.spanMainSpan}>
-                                Following
-                            </span>
-                            <span className={style.spanSecondSpan}>
-                                {user.countFriendships}
-                            </span>
-                        </Link>
+
+                    <MDivWithLinkSpans
+                        to={'/' + params.username + '/following'}
+                        mainText={"Following"}
+                        secondText={user.countFriendships}
+                    >
                         <UserPageFollowingList friendships={user.friendships}/>
-                    </MDiv>
+                    </MDivWithLinkSpans>
 
-                    <MDiv>
-                        <div className={style.divSpanButtonCollections}>
-                            <Link to={'/' + params.username + '/collections'}>
-                                <div>
-                                    <span className={style.spanMainSpan}>
-                                        Collections
-                                    </span>
-                                    <span className={style.spanSecondSpan}>
-                                        {user.countCollections}
-                                    </span>
-                                </div>
-                            </Link>
-                            {!!isUser ?
-                                <Link
-                                    to={'/collections/create'}
-                                    className={style.buttonAddCollection}
-                                >
-                                    +
-                                </Link>
-                                :<></>
-
-                            }
-                        </div>
+                    <MDivWithLinkSpans
+                        to={'/' + params.username + '/collections'}
+                        mainText={"Collections"}
+                        secondText={user.countCollections}
+                        childrenCloseToText={
+                            <PlusButton
+                                to={'/collections/create'}
+                                className={style.buttonAddCollection}
+                            />
+                        }
+                    >
                         <UserPageCollectionList
                             collections={user.collections}
                             username={params.username}
                         />
-                    </MDiv>
+
+                    </MDivWithLinkSpans>
                 </div>
 
-                <MDiv className={style.divContentRight}>
-                    <span className={style.spanMainSpan}>
-                        Last collections update
-                    </span>
-                </MDiv>
+                <MDivWithSpans
+                    mainText={"Last collections update"}
+                    className={style.divContentRight}
+                >
+
+                </MDivWithSpans>
             </div>
         </div>
     );

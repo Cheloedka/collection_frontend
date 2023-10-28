@@ -16,8 +16,10 @@ import CollectionPageItemsList from "./CollectionPageItemsList";
 import RightDivsBlock from "./RightInfo/RightDivsBlock";
 import CollectionItemPostList from "../../CollectionItemPost/CollectionItemPostList";
 import Delete from "../../../components/UI/svg/Delete";
-import ItemService from "../../../API/ItemService";
 import MessageModal from "../../../components/UI/modal/MessageModal";
+import PlusButton from "../../../components/UI/button/PlusButton";
+import MDivWithSpans from "../../../components/UI/div/MDivWithSpans";
+import MDivWithLinkSpans from "../../../components/UI/div/MDivWithLinkSpans";
 
 function CollectionPage() {
     let params = useParams()
@@ -123,44 +125,37 @@ function CollectionPage() {
                 </Banner>
 
                 <div className={style.OtherContent}>
-                    <MDiv>
-                        <div className={style.divSpanButtonCollections}>
-                            <div>
-                            <span className={style.spanMainSpan}>
-                                Collections Items
-                            </span>
-                                <span className={style.spanSecondSpan}>
-                                {collection.countItems}
-                            </span>
-                            </div>
-                            {!!isUser ?
-                                <Link
-                                    to={"/" + params.username + "/" + params.idCollection + "/item/create"}
-                                    className={style.buttonAddCollection}
-                                >
-                                    +
-                                </Link>
-                                :<></>
-                            }
-                        </div>
 
+                    <MDivWithLinkSpans
+                        mainText={"Collections Items"}
+                        secondText={collection.countItems}
+                        childrenCloseToText={
+                            <PlusButton
+                                to={"/" + params.username + "/" + params.idCollection + "/item/create"}
+                                className={style.buttonAddCollection}
+                            />
+                        }
+                    >
                         <CollectionPageItemsList items={items} idCollection={params.idCollection}/>
+                    </MDivWithLinkSpans>
 
-                    </MDiv>
+                    <MDivWithSpans
+                        mainText={"Collections Posts"}
+                    >
 
-                    <MDiv>
-                        <span className={style.spanMainSpan}>
-                            Collections Posts
-                        </span>
-                    </MDiv>
+                    </MDivWithSpans>
 
 
                     <div className={style.bottomSection}>
+
                         <div className={style.leftPosts}>
                             <CollectionItemPostList items={items}/>
                         </div>
 
-                        <RightDivsBlock topRef={topRef}/>
+                        <div className={style.rightInfo}>
+                            <RightDivsBlock topRef={topRef}/>
+                        </div>
+
                     </div>
 
                 </div>

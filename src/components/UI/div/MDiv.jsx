@@ -1,16 +1,13 @@
 import React from 'react';
 import style from "./MDiv.module.css";
+import {useStyles} from "../../../hooks/useStyles";
 
 function MDiv({className, children, ...props}) {
 
-    const allStyles = [style.MDiv]
-
-    if (className) {
-        allStyles.push(className)
-    }
+    const allStyles = useStyles(style.MDiv, className)
 
     return (
-        <div className={allStyles.join(" ")} {...props}>
+        <div className={allStyles} {...props}>
             {children}
         </div>
     );

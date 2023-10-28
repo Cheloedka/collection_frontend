@@ -1,0 +1,19 @@
+.divFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spanMain {
+    font-size: 22px;
+    font-family: Inter, serif;
+    user-select: none;
+}
+
+.spanSecond {
+    margin-left: 11px;
+    font-size: 22px;
+    font-family: Inter, serif;
+    color: #BBB4B4;
+    user-select: none;
+}

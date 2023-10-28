@@ -7,9 +7,12 @@
     display: flex;
     justify-content: space-between;
 }
+
 .divNavbar {
     display: flex;
+    gap: 55px;
 }
+
 .logo {
     width: 35px;
     height: 35px;
@@ -18,7 +21,7 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    margin: 0 10px;
+    margin: 0 30px;
     font-size: 22px;
 }
 
@@ -28,19 +31,47 @@
 
 @media(max-width: 991px) {
     .searchForm {
-        margin: 0;
         visibility: hidden;
         position: absolute;
     }
+
+    .divNavbar {
+        display: flex;
+        gap: 10px;
+    }
 }
+
+.navButton, .searchButton {
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    color: #211C35;
+    border-bottom: 1px solid white;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navButton:hover, .searchButton:hover {
+    border-color: #211C35;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+}
+
+@media(min-width: 992px) {
+    .searchButton {
+        display: none;
+    }
+}
+
 .rightDiv {
     display: flex;
     align-items: center;
     height: 60px;
-}
-.leftDiv {
-    display: flex;
-    align-items: center;
 }
 
 .dropdown {

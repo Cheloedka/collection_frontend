@@ -1,17 +1,22 @@
-import React, {useState} from 'react';
-import img from "../images/fumo.jpg"
-import ImageModal from "../components/images/ImageModal";
+import {useState} from 'react';
+import M1Button from "../components/UI/button/M1Button";
 
 function Info() {
 
-    const [visible, setVisible] = useState(false)
+    const obj = {
+        title: "title",
+        onClick: inf => console.log("worked " + inf)
+    }
 
     return (
         <div>
-            <button onClick={() => setVisible(true)}>Show</button>
+            Info
 
-
-            <ImageModal isOpened={visible} setIsOpened={setVisible} src={img} />
+            <M1Button onClick={() => {
+                obj.onClick(obj.title)
+            }}>
+                Click me
+            </M1Button>
         </div>
     );
 }

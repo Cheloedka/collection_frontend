@@ -35,8 +35,9 @@
 }
 
 .imageBg {
-    width: 270px;
+    min-width: 270px;
     height: 270px;
-    object-fit: contain;
+    object-fit: cover;
     margin: 0 10px 0 20px;
+    cursor: pointer;
 }

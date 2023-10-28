@@ -8,7 +8,6 @@ import CollectionsIco from "../../UI/svg/CollectionsIco";
 import Settings from "../../UI/svg/Settings";
 import Home from "../../UI/svg/Home";
 import Logout from "../../UI/svg/Logout";
-import Community from "../../UI/svg/Community";
 import Friends from "../../UI/svg/Friends";
 
 function NavDrop() {

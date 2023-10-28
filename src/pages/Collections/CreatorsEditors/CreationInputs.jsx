@@ -5,7 +5,7 @@ import MTextarea from "../../../components/UI/input/MTextarea";
 function CreationInputs({children, tittle, setTitle, about, setAbout, information, setInformation}) {
 
     const inputs = [
-        { value: tittle, onChange: setTitle, placeholder: "Title", maxLength: 25},
+        { value: tittle, onChange: setTitle, placeholder: "Title", maxLength: 20},
         { value: about, onChange: setAbout, placeholder: "About", maxLength: 100}
     ]
     return (

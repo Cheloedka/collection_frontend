@@ -3,7 +3,7 @@ import React from 'react';
 function FollowingPage() {
     return (
         <div>
-            following page
+            following
         </div>
     );
 }

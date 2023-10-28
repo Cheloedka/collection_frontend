@@ -15,6 +15,24 @@
     border-bottom: #211c35 dashed 1px;
 }
 
+.imageDiv {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.itemsCountDiv {
+    position: absolute;
+    bottom: -10px;
+    background-color: rgba(33, 28, 53, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
 .info {
     display: flex;
     flex-direction: column;
@@ -22,12 +40,28 @@
     height: 100%;
 }
 
+.spansDiv {
+    padding-top: 5px;
+    padding-left: 3px;
+}
+
+.mainSpan {
+    font-size: 17px;
+    font-weight: 600;
+    font-family: Inter, serif;
+}
+
+.secondSpan {
+    font-size: 14px;
+    font-family: Inter, serif;
+}
+
 .buttonMoreInformation{
-    padding: 0;
     width: 100%;
     background-color: #211c35;
     color: white;
     text-align: center;
+    user-select: none;
 }
 .buttonMoreInformation:hover {
     text-decoration: underline;

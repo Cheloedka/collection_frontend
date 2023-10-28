@@ -1,0 +1,22 @@
+.main {
+    border-radius: 10px;
+    background-color: rgba(56, 49, 86, 0.8);
+    color: white;
+    font-size: 35px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 8px;
+    user-select: none;
+}
+
+.main:hover {
+    background-color: rgba(56, 49, 86, 0.9);
+    color: white;
+}
+
+.main:active {
+    background-color: rgba(56, 49, 86, 0.6);
+}

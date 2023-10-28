@@ -14,6 +14,7 @@ import RightDivsBlock from "../Collections/Collection/RightInfo/RightDivsBlock";
 import defaultItemImage from '../../images/imageNotFound.png'
 import Delete from "../../components/UI/svg/Delete";
 import MessageModal from "../../components/UI/modal/MessageModal";
+import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
 
 function ItemPage() {
     const params = useParams()
@@ -104,11 +105,16 @@ function ItemPage() {
                     </div>
                 </MDiv>
                 <div className={style.bottomSection}>
-                    <MDiv className={style.leftComments}>
+                    <MDivWithSpans
+                        mainText={"Comments"}
+                        className={style.leftComments}
+                    >
 
-                    </MDiv>
+                    </MDivWithSpans>
 
-                    <RightDivsBlock link={"/" + params.username + "/" + params.idCollection}/>
+                    <div className={style.rightInfo}>
+                        <RightDivsBlock link={"/" + params.username + "/" + params.idCollection}/>
+                    </div>
                 </div>
             </>
         );

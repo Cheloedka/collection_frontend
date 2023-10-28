@@ -9,6 +9,7 @@ import MainLoader from "../../../components/UI/loader/MainLoader";
 import MFileInput from "../../../components/UI/input/MFileInput";
 import OpacityMessage from "../../../components/UI/message/OpacityMessage";
 import {getCollectionImage} from "../../../functions/imageFunctions";
+import PlusButton from "../../../components/UI/button/PlusButton";
 
 function CollectionItemBody({declareItemData,
                                 title, setTitle,
@@ -126,9 +127,7 @@ function CollectionItemBody({declareItemData,
                             accept={"image/png, image/jpeg"}
                             setShowError={setShowError}
                         >
-                            <div className={style.buttonAddImages}>
-                                +
-                            </div>
+                            <PlusButton />
                         </MFileInput>
 
                         {isEdit ?

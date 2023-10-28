@@ -1,20 +1,16 @@
 import Navbar from 'react-bootstrap/Navbar';
 import {Image} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
-import {useContext, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context";
 import M1Button from "../UI/button/M1Button";
 import MModalSearch from "./search/MModalSearch";
-import SearchButton from "./button/SearchButton";
 import NavDrop from "./dropdown/NavDrop";
 import MInputSearchNav from "./search/MInputSearchNav";
 import style from './NavigationBar.module.css'
 import logo from "../../images/logo.png"
-import NavButton from "./button/NavButton";
 import Bell from '../../images/icons/Notification.svg'
-import Home from '../../images/icons/Home.svg'
-import Community from '../../images/icons/Community.svg';
-
+import Search from "../../images/icons/Search.svg";
 
 function NavigationBar() {
 
@@ -37,33 +33,32 @@ function NavigationBar() {
                 . . .Collections
             </div>
 
-                <div className={style.leftDiv}>
-                    <NavButton to="/userPage" src={Home} />  {/*Home*/}
-                    <NavButton to="/userPage" src={Community} />  {/*Communities*/}
+            <MInputSearchNav className={style.searchForm}/>
 
+            <MModalSearch setShowModal={setShowModal} visible={showModal}>
+                <MInputSearchNav/>
+            </MModalSearch>
 
-                    <div>
-                        <MInputSearchNav className={style.searchForm}/>
+            <button
+                onClick={() => setShowModal(true)}
+                className={style.searchButton}
+            >
+                <img src={Search} className={style.icon} alt={"icon"}/>
+            </button>
 
-                        <MModalSearch setShowModal={setShowModal} visible={showModal}>
-                            <MInputSearchNav/>
-                        </MModalSearch>
-
-                        <SearchButton onClick={() => setShowModal(true)} />
-                    </div>
-
-                </div>
         </div>
 
 
         <div className={style.rightDiv}>
 
-            <NavButton to="/" src={Bell} />  {/*Bell*/}
+            <Link className={style.navButton} to="/">
+                <img src={Bell} className={style.icon} alt={"icon"}/>
+            </Link>
+
 
             <div className={style.dropdown}>
-                {isAuth
-                    ?
-                    <NavDrop/>
+                { isAuth
+                    ? <NavDrop />
                     :
                     <M1Button onClick={BLogin} className={style.buttonLogin}>
                         Login

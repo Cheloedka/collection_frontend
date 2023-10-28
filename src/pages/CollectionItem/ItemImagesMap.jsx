@@ -15,7 +15,7 @@ function ItemImagesMap({images, defaultImage}) {
     }
 
     return (
-        <>
+        <div style={{display: "flex"}}>
             <div className={style.imagesDiv}>
                 {images
                     .map((c, index) =>
@@ -37,7 +37,7 @@ function ItemImagesMap({images, defaultImage}) {
 
             <ImageModal isOpened={isOpened} setIsOpened={setIsOpened} src={getCollectionImage(image)}/>
 
-        </>
+        </div>
     );
 }
 

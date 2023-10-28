@@ -27,16 +27,16 @@
 }
 
 .span1 {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .span2 {
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .span3 {
-    margin-top: 20px;
-    font-size: 15px;
+    margin-top: 15px;
+    font-size: 16px;
 }
 
 .absoluteEdit {
@@ -64,9 +64,16 @@
     flex: 4;
 }
 
+.rightInfo {
+    flex: 3;
+}
+
 @media(max-width: 991px) {
     .bottomSection {
         flex-direction: column-reverse;
+    }
+    .divContentWithoutEditIco {
+        flex-direction: column;
     }
 }
 

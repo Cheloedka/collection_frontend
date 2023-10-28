@@ -1,9 +1,7 @@
 .divUserContent {
     display: flex;
     justify-content: space-between;
-    margin: 0;
     padding: 8px 0 0 0;
-    width: 100%;
     min-height: 128px;
 }
 .divContent {
@@ -51,44 +49,7 @@
     }
 }
 
-.spanMainSpan {
-    font-size: 22px;
-    font-family: Inter, serif;
-}
-
-.spanSecondSpan {
-    margin-left: 11px;
-    font-size: 22px;
-    font-family: Inter, serif;
-    color: #BBB4B4;
-}
-
 .buttonAddCollection {
     margin-top: -10px;
     margin-right: -10px;
-    border-radius: 10px;
-    background-color: #383156;
-    color: white;
-    font-size: 35px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 8px;
-    user-select: none;
-}
-
-.buttonAddCollection:hover {
-    background-color: #403b67;
-    color: white;
-}
-
-.buttonAddCollection:active {
-    background-color: #65599a;
-}
-
-.divSpanButtonCollections {
-    display: flex;
-    justify-content: space-between;
 }
