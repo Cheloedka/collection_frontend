@@ -1,0 +1,45 @@
+.navButtons {
+    max-width: 400px;
+    min-width: 350px;
+}
+
+.usersDiv {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.userDiv {
+    background-color: white;
+    border: 1px solid #383156;
+    display: flex;
+    padding: 10px 15px;
+    gap: 10px;
+    width: 300px;
+}
+
+.imgUser {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.divSpan {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+}
+
+.mainSpan {
+    font-size: 22px;
+    font-family: Inter, serif;
+}
+
+.secondSpan {
+    font-size: 18px;
+    font-family: Inter, serif;
+    color: #868080;
+}

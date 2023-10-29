@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import MDiv from "../../components/UI/div/MDiv";
 import style from './SettingsPage.module.css'
 import {UserContext} from "../../context";
-import SettingsNavButtons from "./SettingsNavButtons";
+import PaginationButtons from "../../components/UI/pagination/PaginationButtons";
 import AccountSettings from "./Account/AccountSettings";
 import SecuritySettings from "./Security/SecuritySettings";
 import {useFetching} from "../../hooks/useFetching";
@@ -13,7 +13,7 @@ import MainMessage from "../../components/UI/message/MainMessage";
 function SettingsPage() {
     const {username, userImage} = useContext(UserContext)
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(0)
     const [data, setData] = useState()
 
     const[fetchUserInfo, isLoading, error] = useFetching(async () => {
@@ -29,7 +29,7 @@ function SettingsPage() {
     function contentPage() {
         if (data) {
             switch (page) {
-                case 1:
+                case 0:
                     return <AccountSettings
                         userFirstName={data.name}
                         setUserFirstName={newName => {
@@ -41,7 +41,7 @@ function SettingsPage() {
                         }}
                     />
 
-                case 2:
+                case 1:
                     return <SecuritySettings
                         userEmail={data.email}
                         setUserEmail={newEmail => {
@@ -49,7 +49,7 @@ function SettingsPage() {
                         }}
                     />
 
-                case 3:
+                case 2:
                     return <div>Profile</div>
             }
         }
@@ -57,6 +57,11 @@ function SettingsPage() {
             return <MainLoader />
     }
 
+    const buttons = [
+        {title: "Account"},
+        {title: "Security"},
+        {title: "Profile"},
+    ]
 
     return (
         <div className={style.Settings}>
@@ -67,7 +72,7 @@ function SettingsPage() {
                         <div>{username}</div>
                         <div>Your personal account</div>
                     </div>
-                    <SettingsNavButtons pageNumber={setPage}/>
+                    <PaginationButtons pageNumber={setPage} buttons={buttons}/>
                 </div>
 
                 <div className={style.divContent}>

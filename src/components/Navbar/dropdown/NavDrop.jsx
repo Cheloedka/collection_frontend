@@ -17,8 +17,8 @@ function NavDrop() {
     const buttons = [
         {image: <Home />, label: "Home", to: '/' + username},
         {image: <CollectionsIco />, label: "Collections", to: '/' + username + '/collections'},
+        {image: <Friends />, label: "Following", to: '/' + username + "/following"},
         {image: <Settings/>, label: "Settings", to: '/settings'},
-        {image: <Friends />, label: "Following", to: '/info'},
     ]
 
     return (
