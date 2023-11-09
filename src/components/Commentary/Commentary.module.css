@@ -1,0 +1,48 @@
+.divTopContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.divContent {
+    width: 80%;
+}
+
+.divBottomContent {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.divUserContent {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.imgUser {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(56, 49, 86, 0.8);
+    border-radius: 10px;
+}
+
+.spanAnswer {
+    color: #FFB29A;
+    user-select: none;
+    cursor: pointer;
+}
+
+.spanUsername {
+    font-size: 20px;
+}
+
+.spanTime {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #706E6E;
+}
+
+.divLikes {
+    color: #706E6E;
+}

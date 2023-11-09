@@ -59,7 +59,7 @@ function UserPage() {
             countFriendships: response.countFriendships,
             friendships: response.friendships
         })
-        setIsFollowers(response.isFollower)
+        setIsFollowers(response.follower)
     })
 
     useEffect(() => {
@@ -132,14 +132,14 @@ function UserPage() {
                         <GroupIcoButtons
                             firstIco={<Message/>}
                             secondIco={isFollowers ?
-                                    <div className={style.divFollowing}
-                                         onClick={() => manageFriend(false)}>
-                                        <Following color={'white'}/>
-                                    </div>
-                                     :
                                     <div className={style.divUnfollowing}
                                          onClick={() => manageFriend(true)}>
                                         <Unfollowing color={'#3A325B'}/>
+                                    </div>
+                                     :
+                                    <div className={style.divFollowing}
+                                         onClick={() => manageFriend(false)}>
+                                        <Following color={'white'}/>
                                     </div>
                             }
                         />

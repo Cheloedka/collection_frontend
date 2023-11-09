@@ -33,7 +33,7 @@ function CollectionsPage() {
     const sortedCollections = useMemo(() => {
         if(sortCollections) {
             if (collections[1][sortCollections] > -1)
-                return [...collections].sort((a, b) => a[sortCollections] - b[sortCollections] )
+                return [...collections].sort((a, b) => b[sortCollections] - a[sortCollections] )
 
             return [...collections].sort((a, b) => a[sortCollections].localeCompare(b[sortCollections]) )
         }
@@ -52,7 +52,7 @@ function CollectionsPage() {
     }
 
     const options = [
-        {title: "Public First", type: "collectionPrivate", onClick: collectionsSort},
+        {title: "Private First", type: "collectionPrivate", onClick: collectionsSort},
         {title: "Name A-Z", type: "name", onClick: collectionsSort},
         {title: "Count Items", type: "countItems", onClick: collectionsSort},
     ]

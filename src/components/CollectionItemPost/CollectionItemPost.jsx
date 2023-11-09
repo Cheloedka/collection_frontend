@@ -1,12 +1,12 @@
 import React from 'react';
 import style from './CollectionItemPost.module.css'
-import Like from "../../components/UI/svg/Like";
-import LikeFill from "../../components/UI/svg/LikeFill";
-import Comment from "../../components/UI/svg/Comment";
-import MDiv from "../../components/UI/div/MDiv";
-import MInput from "../../components/UI/input/MInput";
-import M1Button from "../../components/UI/button/M1Button";
-import M2Button from "../../components/UI/button/M2Button";
+import Like from "../UI/svg/Like";
+import LikeFill from "../UI/svg/LikeFill";
+import Comment from "../UI/svg/Comment";
+import MDiv from "../UI/div/MDiv";
+import MInput from "../UI/input/MInput";
+import M1Button from "../UI/button/M1Button";
+import CommentaryList from "../Commentary/CommentaryList";
 
 function CollectionItemPost({img, text1, text2, like, id, isLiked, username, ...props}) {
     return (
@@ -48,9 +48,14 @@ function CollectionItemPost({img, text1, text2, like, id, isLiked, username, ...
 
                 <hr />
 
-                <MInput placeholder="New Commentary"/>
-                <M2Button>Send</M2Button>
+                <div className={style.divCommentary}>
+                    <CommentaryList idPost={id}/>
+                </div>
 
+                <div className={style.divNewCommentary}>
+                    <MInput placeholder="New Commentary"/>
+                    <M1Button>Send</M1Button>
+                </div>
             </div>
         </MDiv>
     );

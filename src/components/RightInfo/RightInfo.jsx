@@ -1,7 +1,7 @@
 import React from 'react';
-import MDiv from "../../../../components/UI/div/MDiv";
+import MDiv from "../UI/div/MDiv";
 import style from "./RightInfo.module.css";
-import ellipsis from '../../../../styles/Ellipsis.module.css'
+import ellipsis from '../../styles/Ellipsis.module.css'
 
 function RightInfo({image, text1, text2, ...props}) {
     return (

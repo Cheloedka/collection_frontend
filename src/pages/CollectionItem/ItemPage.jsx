@@ -10,7 +10,7 @@ import useIsCurrentUser from "../../hooks/useIsCurrentUser";
 import MDiv from "../../components/UI/div/MDiv";
 import ItemImagesMap from "./ItemImagesMap";
 import Like from "../../components/UI/svg/Like";
-import RightDivsBlock from "../Collections/Collection/RightInfo/RightDivsBlock";
+import RightDivsBlock from "../../components/RightInfo/RightDivsBlock";
 import defaultItemImage from '../../images/imageNotFound.png'
 import Delete from "../../components/UI/svg/Delete";
 import MessageModal from "../../components/UI/modal/MessageModal";

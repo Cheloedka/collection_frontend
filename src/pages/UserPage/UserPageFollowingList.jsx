@@ -17,11 +17,11 @@ function UserPageFollowingList({friendships}) {
             { friendships.map((c, index) =>
                 <Link
                     key={index}
-                    to={'/' + c.user.nickname}
+                    to={'/' + c.nickname}
                 >
                     <UserPageFollowing
-                        username={c.user.nickname}
-                        img={c.user.image}
+                        username={c.nickname}
+                        img={c.image}
                     />
                 </Link>
             )}

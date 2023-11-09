@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import style from "./RightDivsBlock.module.css";
 import RightInfo from "./RightInfo";
 import {useNavigate, useParams} from "react-router-dom";
-import {useFetching} from "../../../../hooks/useFetching";
-import CollectionService from "../../../../API/CollectionService";
-import {getCollectionImage, getUserImage} from "../../../../functions/imageFunctions";
-import MainLoader from "../../../../components/UI/loader/MainLoader";
+import {useFetching} from "../../hooks/useFetching";
+import CollectionService from "../../API/CollectionService";
+import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
+import MainLoader from "../UI/loader/MainLoader";
 
 function RightDivsBlock({topRef, link}) {
 

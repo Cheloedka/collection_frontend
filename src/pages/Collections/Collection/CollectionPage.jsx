@@ -13,8 +13,8 @@ import Tag from "../../../components/UI/div/Tag";
 import Edit from "../../../components/UI/svg/Edit";
 import MainLoader from "../../../components/UI/loader/MainLoader";
 import CollectionPageItemsList from "./CollectionPageItemsList";
-import RightDivsBlock from "./RightInfo/RightDivsBlock";
-import CollectionItemPostList from "../../CollectionItemPost/CollectionItemPostList";
+import RightDivsBlock from "../../../components/RightInfo/RightDivsBlock";
+import CollectionItemPostList from "../../../components/CollectionItemPost/CollectionItemPostList";
 import Delete from "../../../components/UI/svg/Delete";
 import MessageModal from "../../../components/UI/modal/MessageModal";
 import PlusButton from "../../../components/UI/button/PlusButton";
@@ -44,7 +44,7 @@ function CollectionPage() {
                 information: response.information,
                 image: getCollectionImage(response.image),
                 backgroundImage: getImage(response.backgroundImage),
-                private: response.private,
+                private: response.collectionPrivate,
                 countItems: response.countItems
             })
             setItems(response.items)
