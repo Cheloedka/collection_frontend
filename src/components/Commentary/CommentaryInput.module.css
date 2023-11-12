@@ -1,0 +1,8 @@
+.divNewCommentary {
+    display: flex;
+    gap: 20px;
+}
+
+.input {
+    flex: 1;
+}

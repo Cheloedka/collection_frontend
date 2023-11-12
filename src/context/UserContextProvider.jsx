@@ -7,6 +7,7 @@ import {getUserImage} from "../functions/imageFunctions";
 function UserContextProvider({children}) {
     const [username, setUsername] = useState("")
     const [userImage, setUserImage] = useState("")
+    const [userOriginalImage, setUserOriginalImage] = useState("")
 
     const {isAuth} = useContext(AuthContext)
 
@@ -14,6 +15,7 @@ function UserContextProvider({children}) {
         const response = await UserService.userNav()
         setUsername(response.username)
         setUserImage(getUserImage(response.image))
+        setUserOriginalImage(response.image)
     })
 
 
@@ -29,6 +31,7 @@ function UserContextProvider({children}) {
             setUsername,
             userImage,
             setUserImage,
+            userOriginalImage,
             isLoading,
             errorUser
         }}>

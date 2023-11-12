@@ -33,6 +33,7 @@ function CommentaryList({commentaries, idPost}) {
                         userName={c.author.nickname}
                         userImg={c.author.image}
                         answers={c.answers}
+                        idItem={idPost}
                     />
                 )}
             </div>

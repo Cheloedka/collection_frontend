@@ -5,11 +5,6 @@
 .divGraphicContent {
 }
 
-.divNewCommentary {
-    display: flex;
-    gap: 20px;
-}
-
 .divCommentary {
     margin-bottom: 30px;
 }

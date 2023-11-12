@@ -4,14 +4,20 @@
     justify-content: space-between;
 }
 
+.commentaryBody {
+    margin: 10px 0;
+}
+
 .divContent {
     width: 80%;
+    margin-top: 4px;
 }
 
 .divBottomContent {
     display: flex;
     gap: 15px;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .divUserContent {
@@ -43,6 +49,27 @@
     color: #706E6E;
 }
 
+.divMore {
+    font-size: 25px;
+    color: #706E6E;
+    cursor: pointer;
+    line-height: 0.2;
+    padding-bottom: 15px;
+}
+
 .divLikes {
     color: #706E6E;
+}
+
+.divAnswers {
+    display: flex;
+}
+
+.line {
+    border-left: 1px solid black;
+}
+
+.answerCommentary {
+    margin-left: 25px;
+    flex: 1;
 }

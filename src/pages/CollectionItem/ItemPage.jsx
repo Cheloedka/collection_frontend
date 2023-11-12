@@ -15,6 +15,8 @@ import defaultItemImage from '../../images/imageNotFound.png'
 import Delete from "../../components/UI/svg/Delete";
 import MessageModal from "../../components/UI/modal/MessageModal";
 import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
+import CommentaryList from "../../components/Commentary/CommentaryList";
+import CommentaryInput from "../../components/Commentary/CommentaryInput";
 
 function ItemPage() {
     const params = useParams()
@@ -23,6 +25,7 @@ function ItemPage() {
 
     const [item, setItem] = useState()
     const [modalVisible, setModalVisible] = useState(false)
+    const [newCommentaries, setNewCommentaries] = useState([])
 
     const [itemFetch, isLoading, error] = useFetching(async () => {
         const response = await ItemService.getItem(params.idCollection, params.idItem, params.username)
@@ -109,6 +112,16 @@ function ItemPage() {
                         mainText={"Comments"}
                         className={style.leftComments}
                     >
+
+                        <div className={style.divCommentary}>
+                            <CommentaryList idPost={params.idItem}/>
+                            { newCommentaries
+                                ? <CommentaryList commentaries={newCommentaries} idPost={params.idItem}/>
+                                : <></>
+                            }
+                        </div>
+
+                        <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={params.idItem}/>
 
                     </MDivWithSpans>
 
