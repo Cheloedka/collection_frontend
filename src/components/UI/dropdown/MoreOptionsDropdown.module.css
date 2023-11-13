@@ -1,0 +1,44 @@
+.dots {
+    font-size: 25px;
+    letter-spacing: 3px;
+    color: #706E6E;
+    line-height: 0.2;
+    cursor: pointer;
+}
+
+.main {
+    user-select: none;
+    position: relative;
+    padding: 3px 3px 0 7px;
+    margin-bottom: 1px;
+    width: 40px;
+    height: 25px;
+}
+
+.mainDiv:hover .main{
+    cursor: pointer;
+}
+
+.options {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    font-size: 18px;
+    white-space: nowrap;
+    background-color: rgba(64, 59, 103, 0.7);
+    backdrop-filter: blur(10px);
+    color: #e1e1e1;
+    right: 0;
+    top: 25px;
+}
+
+.mainDiv:hover .options {
+    display: block;
+}
+
+.option {
+    padding: 2px 6px;
+}
+.option:hover {
+    background-color: rgba(64, 59, 103, 0.9);
+}

@@ -1,19 +1,37 @@
 import style from "./Commentary.module.css"
 import CommentaryList from "./CommentaryList";
 import {getUserImage} from "../../functions/imageFunctions";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import CommentaryInput from "./CommentaryInput";
+import MoreOptionsDropdown from "../UI/dropdown/MoreOptionsDropdown";
+import {useFetching} from "../../hooks/useFetching";
+import CommentaryService from "../../API/CommentaryService";
+import {UserContext} from "../../context";
 
-function Commentary({idCommentary, userImg, userName, date, content, answers, idItem}) {
+function Commentary({idCommentary, isDeleted, userImg, userName, date, content, answers, idItem}) {
+    const {username} = useContext(UserContext)
 
 
     const [visible, setVisible] = useState(false)
+    const [deleted, setDeleted] = useState(isDeleted)
     const [newCommentaries, setNewCommentaries] = useState([])
+
+
+    const [deleteFetch, isLoading, error] = useFetching(async () => {
+        await CommentaryService.deleteCommentary(idCommentary)
+        setDeleted(true)
+    })
 
     useEffect(() => {
         if (newCommentaries)
             setVisible(false)
     }, [newCommentaries])
+
+
+    const options = [
+        {title: "Delete", onClick: deleteFetch},
+        {title: "Edit", onClick: () => console.log("Delete")}
+    ]
 
     return (
         <div>
@@ -37,7 +55,11 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, id
                 </div>
 
                 <div className={style.divContent}>
-                    {content}
+                    { deleted
+                        ? <div style={{color:"red"}}>Deleted</div>
+                        : <>{content}</>
+                    }
+
                 </div>
 
                 <div className={style.divBottomContent}>
@@ -48,9 +70,11 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, id
                         }
                     </span>
 
-                    <div className={style.divMore}>
-                        ...
-                    </div>
+                    { username === userName
+                        ? <MoreOptionsDropdown options={options} />
+                        : <></>
+                    }
+
                 </div>
 
                 { visible

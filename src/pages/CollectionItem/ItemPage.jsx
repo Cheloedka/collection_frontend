@@ -112,16 +112,18 @@ function ItemPage() {
                         mainText={"Comments"}
                         className={style.leftComments}
                     >
-
-                        <div className={style.divCommentary}>
-                            <CommentaryList idPost={params.idItem}/>
-                            { newCommentaries
-                                ? <CommentaryList commentaries={newCommentaries} idPost={params.idItem}/>
-                                : <></>
-                            }
+                        <div className={style.divCommentaryInput}>
+                            <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={item.itemId}/>
                         </div>
 
-                        <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={params.idItem}/>
+
+
+                        <CommentaryList idPost={item.itemId}/>
+                        { newCommentaries
+                            ? <CommentaryList commentaries={newCommentaries} idPost={item.itemId}/>
+                            : <></>
+                        }
+
 
                     </MDivWithSpans>
 

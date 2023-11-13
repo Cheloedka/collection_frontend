@@ -1,10 +1,14 @@
-.MTextarea {
+.MTextarea, .MTextarea2{
     border-radius: 0;
     border: 1px solid #211C35;
     box-shadow: 6px 6px 0 0 #FFB29A;
 }
 
-.MTextarea:focus {
+.MTextarea2 {
+    height: 45px;
+}
+
+.MTextarea:focus, .MTextarea2:focus {
     box-shadow: none;
     border: 1px solid #FFB29A;
     border-radius: 0;

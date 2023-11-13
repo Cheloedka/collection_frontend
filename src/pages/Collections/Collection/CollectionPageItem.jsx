@@ -1,27 +1,9 @@
 import style from './CollectionPageItem.module.css'
 import ellipsis from "../../../styles/Ellipsis.module.css"
-import Like from "../../../components/UI/svg/Like";
-import LikeFill from "../../../components/UI/svg/LikeFill";
-import {useContext, useState} from "react";
-import LikeService from "../../../API/LikeService";
 import {Link, useParams} from "react-router-dom";
 
-function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCollection, ...props}) {
+function CollectionPageItem({img, text1, text2, id, countID, idCollection, ...props}) {
     const params = useParams()
-    const [isLike, setIsLike] = useState(isLiked)
-
-
-
-    async function manageLikes(isDelete) {
-        let func
-        if (isDelete)
-            func = () => LikeService.deleteLike(id)
-        else
-            func = () => LikeService.newLike(id)
-
-        await func()
-        setIsLike(prev => !prev)
-    }
 
     return (
         <div className={style.mainDiv} {...props}>
@@ -32,7 +14,7 @@ function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCo
                     <span className={style.secondSpan + " " + ellipsis.childrenClamp2}>{text2}</span>
                 </div>
             </Link>
-                <button className={style.like}>
+               {/* <button className={style.like}>
                     {isLike
                         ?<div onClick={() => manageLikes(true)}>
                             <LikeFill />
@@ -43,7 +25,7 @@ function CollectionPageItem({img, text1, text2, like, id, isLiked, countID, idCo
                         </div>
 
                     }
-                </button>
+                </button>*/}
         </div>
     );
 }

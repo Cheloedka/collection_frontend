@@ -5,6 +5,7 @@ import M1Button from "../UI/button/M1Button";
 import {UserContext} from "../../context";
 import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
+import MTextarea2 from "../UI/input/MTextarea2";
 
 function CommentaryInput({idItem, idCommentary, setNewCommentaries}) {
 
@@ -53,7 +54,7 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries}) {
     return (
         <form onSubmit={declareCommentaryData} className={style.divNewCommentary}>
             <div className={style.input}>
-                <MTextarea
+                <MTextarea2
                     placeholder="New Commentary"
                     type="name"
                     value={commentaryContent}
@@ -62,7 +63,7 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries}) {
                     length={commentaryContent.length}
                 >
 
-                </MTextarea>
+                </MTextarea2>
             </div>
             <M1Button>Send</M1Button>
         </form>

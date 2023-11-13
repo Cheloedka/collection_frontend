@@ -17,7 +17,6 @@ function CollectionPageItemsList({items, idCollection}) {
                         text1={c.itemName}
                         text2={c.itemAbout}
                         id={c.itemId}
-                        isLiked={c.liked}
                         countID={c.countId}
                         idCollection={idCollection}
                     />

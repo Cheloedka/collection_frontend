@@ -34,6 +34,7 @@ function CommentaryList({commentaries, idPost}) {
                         userImg={c.author.image}
                         answers={c.answers}
                         idItem={idPost}
+                        isDeleted={c.deleted}
                     />
                 )}
             </div>

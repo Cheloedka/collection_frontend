@@ -149,7 +149,7 @@ function CollectionPage() {
                     <div className={style.bottomSection}>
 
                         <div className={style.leftPosts}>
-                            <CollectionItemPostList items={items}/>
+                            <CollectionItemPostList />
                         </div>
 
                         <div className={style.rightInfo}>
