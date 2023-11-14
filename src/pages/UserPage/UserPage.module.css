@@ -23,6 +23,7 @@
     flex: 2;
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .divFollowing, .divUnfollowing{

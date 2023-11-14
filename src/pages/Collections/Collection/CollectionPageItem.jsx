@@ -14,18 +14,6 @@ function CollectionPageItem({img, text1, text2, id, countID, idCollection, ...pr
                     <span className={style.secondSpan + " " + ellipsis.childrenClamp2}>{text2}</span>
                 </div>
             </Link>
-               {/* <button className={style.like}>
-                    {isLike
-                        ?<div onClick={() => manageLikes(true)}>
-                            <LikeFill />
-                        </div>
-                        :
-                        <div onClick={() => manageLikes(false)}>
-                            <Like />
-                        </div>
-
-                    }
-                </button>*/}
         </div>
     );
 }

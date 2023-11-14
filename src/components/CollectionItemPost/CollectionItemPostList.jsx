@@ -6,18 +6,7 @@ import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
 import {useParams} from "react-router-dom";
 
-function CollectionItemPostList() {
-    const params = useParams()
-
-    const [items, setItems] = useState([])
-
-    const [collectionItemFetch, isLoading, error] = useFetching( async () => {
-        setItems(await ItemService.getAllItems(params.idCollection))
-    })
-
-    useEffect(() => {
-        collectionItemFetch()
-    },[params])
+function CollectionItemPostList({items}) {
 
 
     if (items) {
@@ -31,10 +20,13 @@ function CollectionItemPostList() {
                             img={c.images}
                             text1={c.name}
                             text2={c.about}
+                            information={c.information}
                             id={c.itemId}
                             isLiked={c.liked}
                             likesCount={c.likesCount}
                             commentsCount={c.commentsCount}
+                            infoName={c.infoName}
+                            infoImage={c.infoImage}
                         />
                     )}
 

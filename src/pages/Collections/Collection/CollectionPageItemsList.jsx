@@ -10,12 +10,13 @@ function CollectionPageItemsList({items, idCollection}) {
 
             {items
                 .sort((x, y) => x.countId - y.countId)
+                .slice(0, 5)
                 .map((c, index) =>
                     <CollectionPageItem
                         key={index}
-                        img={getCollectionImage(c.itemImage)}
-                        text1={c.itemName}
-                        text2={c.itemAbout}
+                        img={getCollectionImage(c.images[0].name)}
+                        text1={c.name}
+                        text2={c.about}
                         id={c.itemId}
                         countID={c.countId}
                         idCollection={idCollection}

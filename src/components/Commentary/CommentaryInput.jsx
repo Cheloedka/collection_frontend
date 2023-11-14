@@ -7,7 +7,7 @@ import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
 import MTextarea2 from "../UI/input/MTextarea2";
 
-function CommentaryInput({idItem, idCommentary, setNewCommentaries}) {
+function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentaryCount}) {
 
     const {username, userOriginalImage} = useContext(UserContext)
 
@@ -27,13 +27,18 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries}) {
 
         await CommentaryService.newCommentary(data)
 
-        let author = {
-            nickname: username,
-            image: userOriginalImage
-        }
         const d = new Date()
-        data = {...data, author: author, creationDate: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()}
+        data = {
+            ...data,
+            author: {
+                nickname: username,
+                image: userOriginalImage
+            },
+            creationDate: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+            deleted: false
+        }
         setNewCommentaries(prevState => [...prevState, data])
+        setCommentaryCount(prev => prev + 1)
     })
 
     useEffect(() => {

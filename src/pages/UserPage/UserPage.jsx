@@ -22,6 +22,8 @@ import MessageModal from "../../components/UI/modal/MessageModal";
 import PlusButton from "../../components/UI/button/PlusButton";
 import MDivWithLinkSpans from "../../components/UI/div/MDivWithLinkSpans";
 import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
+import CollectionItemPostList from "../../components/CollectionItemPost/CollectionItemPostList";
+import ItemService from "../../API/ItemService";
 
 function UserPage() {
     const params = useParams()
@@ -34,6 +36,8 @@ function UserPage() {
     const [background, setBackground] = useState("")
 
     const [isFollowers, setIsFollowers] = useState(false)
+
+    const [items, setItems] = useState(false)
 
     const [user, setUser] = useState({
         username: "",
@@ -62,6 +66,12 @@ function UserPage() {
         setIsFollowers(response.follower)
     })
 
+
+    const [itemsFetch, isLoadingItems, errorItems] = useFetching( async () => {
+        let response = await ItemService.getAllItemsByUser(params.username)
+        setItems(response)
+    })
+
     useEffect(() => {
         if (error) {
             navigate("/error")
@@ -72,7 +82,13 @@ function UserPage() {
 
     useEffect(() => {
         userPageFetch()
+        itemsFetch()
     },[params.username])
+
+
+    useEffect(() => {
+        setErrorMessage(errorItems)
+    },[errorItems])
 
     useEffect(() => {
         if(background !== '') {
@@ -149,6 +165,18 @@ function UserPage() {
 
             <div className={style.divContent}>
 
+                <div className={style.divContentRight}>
+                    <MDivWithSpans
+                        mainText={"Last collections update"}
+                    >
+                    </MDivWithSpans>
+                    { items && !isLoadingItems
+                        ?<CollectionItemPostList items={items}/>
+                        :<MainLoader />
+                    }
+                </div>
+
+
                 <div className={style.divContentLeft}>
 
                     <MDivWithLinkSpans
@@ -178,12 +206,6 @@ function UserPage() {
                     </MDivWithLinkSpans>
                 </div>
 
-                <MDivWithSpans
-                    mainText={"Last collections update"}
-                    className={style.divContentRight}
-                >
-
-                </MDivWithSpans>
             </div>
         </div>
     );

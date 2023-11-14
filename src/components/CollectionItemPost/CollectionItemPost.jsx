@@ -7,15 +7,16 @@ import MDiv from "../UI/div/MDiv";
 import CommentaryList from "../Commentary/CommentaryList";
 import CommentaryInput from "../Commentary/CommentaryInput";
 import LikeService from "../../API/LikeService";
-import {getCollectionImage} from "../../functions/imageFunctions";
+import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
 import ImageModal from "../images/ImageModal";
 
-function CollectionItemPost({img, text1, text2, likesCount, id, isLiked, commentsCount, ...props}) {
+function CollectionItemPost({infoName, infoImage, img, information, text1, text2, likesCount, id, isLiked, commentsCount, ...props}) {
 
     const [newCommentaries, setNewCommentaries] = useState([])
 
     const [isLike, setIsLike] = useState(isLiked)
     const [count, setCount] = useState(likesCount)
+    const [commentCount, setCommentCount] = useState(commentsCount)
     const [isOpened, setIsOpened] = useState(false)
     const [currentImage, setCurrentImage] = useState(0)
 
@@ -39,10 +40,10 @@ function CollectionItemPost({img, text1, text2, likesCount, id, isLiked, comment
     }
 
     async function manageImages(direction) {
-        if (direction === "left" && currentImage > 0) {
+        if (direction === "left") {
             setCurrentImage(prevState => prevState - 1)
         }
-        else if (direction === "right" && currentImage < img.length - 1) {
+        else if (direction === "right") {
             setCurrentImage(prevState => prevState + 1)
         }
     }
@@ -50,49 +51,76 @@ function CollectionItemPost({img, text1, text2, likesCount, id, isLiked, comment
     return (
         <MDiv className={style.mainDiv}>
 
+            <div className={style.divUserContent}>
+                <img
+                    src={getCollectionImage(infoImage)}
+                    className={style.imgUser}
+                />
+                <div className={style.userInfo}>
+                    <span className={style.spanUsername}>
+                    {infoName}
+                </span>
+                    <span className={style.spanTime}>
+                    12 minutes ago
+                </span>
+                </div>
+            </div>
+
             <div className={style.divSpan}>
                 <span className={style.span1}>{text1}</span>
                 <span className={style.span2}>{text2}</span>
             </div>
 
-
-            <div className={style.divGraphicContent}>
+            <div>
                 <div className={style.divImage}>
 
-                    <div className={style.leftImageButton}
-                         onClick={() => manageImages("left")}
-                    >
-                        left
-                    </div>
+                    { currentImage > 0 ?
+                        <div className={style.leftImageButton}
+                             onClick={() => manageImages("left")}
+                        >
+                            >
+                        </div>
+                        :<></>
+                    }
 
                     <img src={getCollectionImage(img[currentImage].name)} className={style.imgItem} onClick={() => setIsOpened(true)}/>
 
-                    <div className={style.rightImageButton}
-                         onClick={() => manageImages("right")}
-                    >
-                        right
-                    </div>
+                    { currentImage < img.length - 1 ?
+                        <div className={style.rightImageButton}
+                             onClick={() => manageImages("right")}
+                        >
+                            >
+                        </div>
+                        :<></>
+                    }
+
+
 
                     <ImageModal isOpened={isOpened} setIsOpened={setIsOpened} src={getCollectionImage(img[currentImage].name)}/>
                 </div>
+
+                <div className={style.divSpan}>
+                    <span className={style.span2}>{information}</span>
+                </div>
+
 
                 <div className={style.divBottomPanel}>
                         {isLike
                             ?<div onClick={() => manageLikes(true)} className={style.divBorder + " " + style.divBorderLike}>
                                 <LikeFill />
-                                <span> {count} </span>
+                                <span style={{minWidth: "10px"}}> {count} </span>
                             </div>
                             :
                             <div onClick={() => manageLikes(false)} className={style.divBorder + " " + style.divBorderLike}>
                                 <Like />
-                                <span> {count} </span>
+                                <span style={{minWidth: "10px"}}> {count} </span>
                             </div>
 
                         }
 
                     <div className={style.divBorder}>
                         <Comment width="20"/>
-                        <span> 12 </span>
+                        <span> {commentCount} </span>
                     </div>
 
                 </div>
@@ -107,7 +135,7 @@ function CollectionItemPost({img, text1, text2, likesCount, id, isLiked, comment
                     }
                 </div>
 
-                <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={id}/>
+                <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={id} setCommentaryCount={setCommentCount}/>
             </div>
         </MDiv>
     );
