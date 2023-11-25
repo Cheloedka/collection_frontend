@@ -6,6 +6,7 @@ import Commentary from "./Commentary";
 function CommentaryList({commentaries, idPost}) {
 
     const [comment, setComment] = useState()
+    const [deleted, setDeleted] = useState(-1)
 
     const [commentaryFetch, isLoading, error] = useFetching( async () => {
         const response = await CommentaryService.getCommentaries(idPost)
@@ -21,6 +22,11 @@ function CommentaryList({commentaries, idPost}) {
         }
     }, [commentaries, idPost])
 
+    useEffect(() => {
+        if(deleted !== -1)
+            setComment(c => c.filter(i => i.id !== deleted))
+    }, [deleted])
+
     if (comment) {
         return (
             <div>
@@ -34,7 +40,9 @@ function CommentaryList({commentaries, idPost}) {
                         userImg={c.author.image}
                         answers={c.answers}
                         idItem={idPost}
-                        isDeleted={c.deleted}
+                        setDeleted={setDeleted}
+                        countLikes={c.countLikes}
+                        likeDto={c.likeDto}
                     />
                 )}
             </div>

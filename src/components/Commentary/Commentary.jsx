@@ -7,19 +7,29 @@ import MoreOptionsDropdown from "../UI/dropdown/MoreOptionsDropdown";
 import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
 import {UserContext} from "../../context";
+import {Link} from "react-router-dom";
+import MessageModal from "../UI/modal/MessageModal";
+import {LikeFunction} from "../../functions/likeFunctions";
 
-function Commentary({idCommentary, isDeleted, userImg, userName, date, content, answers, idItem}) {
+function Commentary({idCommentary, userImg, userName, date, content, answers, setDeleted, countLikes, likeDto, idItem}) {
     const {username} = useContext(UserContext)
 
+    const [isLike, setIsLike] = useState(likeDto.isLiked)
+    const [likeType, setLikeType] = useState(likeDto.likeType)
+    const [count, setCount] = useState(countLikes)
 
     const [visible, setVisible] = useState(false)
-    const [deleted, setDeleted] = useState(isDeleted)
+    const [modalVisible, setModalVisible] = useState(false)
     const [newCommentaries, setNewCommentaries] = useState([])
+
+    const [comDate, setComDate] = useState(new Date())
 
 
     const [deleteFetch, isLoading, error] = useFetching(async () => {
         await CommentaryService.deleteCommentary(idCommentary)
-        setDeleted(true)
+        answers = []
+        setNewCommentaries([])
+        setDeleted(idCommentary)
     })
 
     useEffect(() => {
@@ -29,8 +39,8 @@ function Commentary({idCommentary, isDeleted, userImg, userName, date, content, 
 
 
     const options = [
-        {title: "Delete", onClick: deleteFetch},
-        {title: "Edit", onClick: () => console.log("Delete")}
+        {title: "Delete", onClick: () => setModalVisible(true)},
+        {title: "Edit", onClick: () => console.log("Edit")}
     ]
 
     return (
@@ -43,44 +53,57 @@ function Commentary({idCommentary, isDeleted, userImg, userName, date, content, 
                             className={style.imgUser}
                         />
                         <span className={style.spanUsername}>
-                            {userName}
+                            <Link to={"/" + username}>{userName}</Link>
                         </span>
                         <span className={style.spanTime}>
                             {date}
                         </span>
                     </div>
                     <div className={style.divLikes}>
-                        > 12 >
+                        { likeType === "Like"
+                            ? <div style={{color: "green"}}> > </div>
+                            : <div> > </div>
+                        }
+
+                        {count}
+
+                        { likeType === "Dislike"
+                            ? <div style={{color: "red"}}> > </div>
+                            : <div> > </div>
+                        }
                     </div>
                 </div>
 
                 <div className={style.divContent}>
-                    { deleted
-                        ? <div style={{color:"red"}}>Deleted</div>
-                        : <>{content}</>
-                    }
-
+                    {content}
                 </div>
 
-                <div className={style.divBottomContent}>
-                    <span className={style.spanAnswer} onClick={() => setVisible(prevState => !prevState)}>
-                        { visible
-                            ? <>Cancel</>
-                            : <>Answer</>
-                        }
-                    </span>
+                    <div className={style.divBottomContent}>
+                        <span className={style.spanAnswer} onClick={() => setVisible(prevState => !prevState)}>
+                            { visible
+                                ? <>Cancel</>
+                                : <>Answer</>
+                            }
+                        </span>
 
-                    { username === userName
-                        ? <MoreOptionsDropdown options={options} />
+                        { username === userName
+                            ? <MoreOptionsDropdown options={options} />
+                            : <></>
+                        }
+
+                        <MessageModal visible={modalVisible}
+                                      setVisible={setModalVisible}
+                                      acceptCallback={() => deleteFetch()}
+                        >
+                            Are you sure to delete commentary?
+                        </MessageModal>
+
+                    </div>
+
+                    { visible
+                        ? <CommentaryInput idCommentary={idCommentary} idItem={idItem} setNewCommentaries={setNewCommentaries}/>
                         : <></>
                     }
-
-                </div>
-
-                { visible
-                    ? <CommentaryInput idCommentary={idCommentary} idItem={idItem} setNewCommentaries={setNewCommentaries}/>
-                    : <></>
-                }
 
             </div>
             {answers || newCommentaries ?

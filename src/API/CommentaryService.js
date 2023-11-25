@@ -1,4 +1,9 @@
-import {deleteRequestWithAuth, getRequestWithAuth, postBodyRequestWithAuth} from "./RequestFunction";
+import {
+    deleteRequestWithAuth,
+    getRequestWithAuth,
+    postBodyRequestWithAuth,
+    postRequestWithAuth
+} from "./RequestFunction";
 
 export default class CommentaryService{
 
@@ -10,8 +15,16 @@ export default class CommentaryService{
         return await postBodyRequestWithAuth("/commentary/new", commentData)
     }
 
-    static async deleteCommentary(idCommentary) {
-        return await deleteRequestWithAuth("/commentary/delete/" + idCommentary)
+    static async deleteCommentary(id) {
+        return await deleteRequestWithAuth("/commentary/delete/" + id)
+    }
+
+    static async likeCommentary(id) {
+        return await postRequestWithAuth("/auth/commentary/like/" + id)
+    }
+
+    static async deleteLikeCommentary(id) {
+        return await deleteRequestWithAuth("/auth/commentary/like/delete/" + id)
     }
 
 

@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import style from "./CommentaryInput.module.css";
-import MTextarea from "../UI/input/MTextarea";
 import M1Button from "../UI/button/M1Button";
 import {UserContext} from "../../context";
 import {useFetching} from "../../hooks/useFetching";
@@ -25,7 +24,7 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
             data = {...data, answerToId: idCommentary}
         }
 
-        await CommentaryService.newCommentary(data)
+        const response = await CommentaryService.newCommentary(data)
 
         const d = new Date()
         data = {
@@ -34,8 +33,8 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
                 nickname: username,
                 image: userOriginalImage
             },
-            creationDate: d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
-            deleted: false
+            creationDate:  d.toLocaleDateString() + " " + d.toLocaleTimeString(),
+            id: response
         }
         setNewCommentaries(prevState => [...prevState, data])
         setCommentaryCount(prev => prev + 1)

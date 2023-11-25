@@ -9,6 +9,7 @@ import CommentaryInput from "../Commentary/CommentaryInput";
 import LikeService from "../../API/LikeService";
 import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
 import ImageModal from "../images/ImageModal";
+import {LikeFunction} from "../../functions/likeFunctions";
 
 function CollectionItemPost({infoName, infoImage, img, information, text1, text2, likesCount, id, isLiked, commentsCount, ...props}) {
 
@@ -23,20 +24,7 @@ function CollectionItemPost({infoName, infoImage, img, information, text1, text2
 
 
     async function manageLikes(isDelete) {
-        let func
-        if (isDelete) {
-            func = () => LikeService.deleteLike(id)
-            setCount(prevState => prevState - 1)
-        }
-        else {
-            func = () => LikeService.newLike(id)
-            setCount(prevState => prevState + 1)
-        }
-
-
-        await func()
-        setIsLike(prev => !prev)
-
+        await LikeFunction(isDelete, id, setIsLike, setCount)
     }
 
     async function manageImages(direction) {
