@@ -34,7 +34,11 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
                 image: userOriginalImage
             },
             creationDate:  d.toLocaleDateString() + " " + d.toLocaleTimeString(),
-            id: response
+            id: response,
+            countLikes: 0,
+            likeDto: {
+                liked: false
+            }
         }
         setNewCommentaries(prevState => [...prevState, data])
         setCommentaryCount(prev => prev + 1)

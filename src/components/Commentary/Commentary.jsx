@@ -9,20 +9,17 @@ import CommentaryService from "../../API/CommentaryService";
 import {UserContext} from "../../context";
 import {Link} from "react-router-dom";
 import MessageModal from "../UI/modal/MessageModal";
-import {LikeFunction} from "../../functions/likeFunctions";
 
 function Commentary({idCommentary, userImg, userName, date, content, answers, setDeleted, countLikes, likeDto, idItem}) {
     const {username} = useContext(UserContext)
 
-    const [isLike, setIsLike] = useState(likeDto.isLiked)
+    const [isLike, setIsLike] = useState(likeDto.liked)
     const [likeType, setLikeType] = useState(likeDto.likeType)
     const [count, setCount] = useState(countLikes)
 
     const [visible, setVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [newCommentaries, setNewCommentaries] = useState([])
-
-    const [comDate, setComDate] = useState(new Date())
 
 
     const [deleteFetch, isLoading, error] = useFetching(async () => {
@@ -36,6 +33,38 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
         if (newCommentaries)
             setVisible(false)
     }, [newCommentaries])
+
+
+    async function likeManager(direction) {
+        let func
+        if (isLike && likeType === "LIKE" && direction === "down") {
+            func = () => CommentaryService.deleteLikeCommentary(idCommentary)
+            setCount(prevState => prevState - 1)
+            setLikeType("")
+
+        } else if (isLike && likeType === "DISLIKE" && direction === "up") {
+            func = () => CommentaryService.deleteLikeCommentary(idCommentary)
+            setCount(prevState => prevState + 1)
+            setLikeType("")
+
+        } else if (!isLike && direction === "up") {
+            func = () => CommentaryService.likeCommentary(idCommentary)
+            setCount(prevState => prevState + 1)
+            setLikeType("LIKE")
+
+        } else if (!isLike && direction === "down") {
+            func = () => CommentaryService.dislikeCommentary(idCommentary)
+            setCount(prevState => prevState - 1)
+            setLikeType("DISLIKE")
+
+        }
+
+        if (func) {
+            await func()
+            setIsLike(prev => !prev)
+        }
+
+    }
 
 
     const options = [
@@ -60,17 +89,29 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                         </span>
                     </div>
                     <div className={style.divLikes}>
-                        { likeType === "Like"
-                            ? <div style={{color: "green"}}> > </div>
-                            : <div> > </div>
-                        }
+                        <div
+                            className={style.divLikeCommentary}
+                            onClick={() => likeManager("up")}
+                        >
+                            { likeType === "LIKE"
+                                ? <div style={{color: "green"}}> &#94; </div>
+                                : <div> &#94; </div>
+                            }
+                        </div>
 
-                        {count}
+                        <div style={{minWidth:"17px", textAlign: "center"}}>
+                            {count}
+                        </div>
 
-                        { likeType === "Dislike"
-                            ? <div style={{color: "red"}}> > </div>
-                            : <div> > </div>
-                        }
+                        <div
+                            className={style.divDislikeCommentary}
+                            onClick={() => likeManager("down")}
+                        >
+                            { likeType === "DISLIKE"
+                                ? <div style={{color: "red"}}> &#94; </div>
+                                : <div> &#94; </div>
+                            }
+                        </div>
                     </div>
                 </div>
 

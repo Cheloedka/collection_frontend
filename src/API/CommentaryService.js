@@ -2,7 +2,7 @@ import {
     deleteRequestWithAuth,
     getRequestWithAuth,
     postBodyRequestWithAuth,
-    postRequestWithAuth
+    postRequestWithAuth, putBodyRequestWithAuth
 } from "./RequestFunction";
 
 export default class CommentaryService{
@@ -20,11 +20,19 @@ export default class CommentaryService{
     }
 
     static async likeCommentary(id) {
-        return await postRequestWithAuth("/auth/commentary/like/" + id)
+        return await postRequestWithAuth("/commentary/like/" + id)
+    }
+
+    static async dislikeCommentary(id) {
+        return await postRequestWithAuth("/commentary/dislike/" + id)
     }
 
     static async deleteLikeCommentary(id) {
-        return await deleteRequestWithAuth("/auth/commentary/like/delete/" + id)
+        return await deleteRequestWithAuth("/commentary/like/delete/" + id)
+    }
+
+    static async editCommentary(id, commentData) {
+        return await putBodyRequestWithAuth("/commentary/edit/" + id, commentData)
     }
 
 

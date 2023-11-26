@@ -59,11 +59,6 @@
     padding-bottom: 15px;
 }
 
-.divLikes {
-    display: flex;
-    color: #706E6E;
-}
-
 .divAnswers {
     display: flex;
 }
@@ -75,4 +70,33 @@
 .answerCommentary {
     margin-left: 25px;
     flex: 1;
+}
+
+.divLikeCommentary, .divDislikeCommentary {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.divLikes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #706E6E;
+}
+
+.divLikeCommentary {
+    margin-top: 6px;
+}
+
+.divLikeCommentary:hover {
+    color: green;
+}
+
+.divDislikeCommentary {
+    transform: rotate(3.142rad);
+    margin-bottom: 2px;
+}
+
+.divDislikeCommentary:hover {
+    color: red;
 }
