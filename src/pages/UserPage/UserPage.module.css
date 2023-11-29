@@ -46,7 +46,7 @@
 
 @media(max-width: 991px) {
     .divContent {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 }
 

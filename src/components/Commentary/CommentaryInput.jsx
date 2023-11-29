@@ -6,15 +6,15 @@ import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
 import MTextarea2 from "../UI/input/MTextarea2";
 
-function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentaryCount}) {
+function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentaryCount, isEdit, setCurrentContent, currentContent, setVisible}) {
 
     const {username, userOriginalImage} = useContext(UserContext)
 
-    const [commentaryContent, setCommentaryContent] = useState("")
+    const [commentaryContent, setCommentaryContent] = useState(currentContent ? currentContent : "")
     const [errorMessage, setErrorMessage] = useState("")
 
 
-    const [commentaryFetch, isLoading, error] = useFetching( async () => {
+    const [commentaryCreateFetch, isLoading, error] = useFetching( async () => {
         let data = {
             answerToItem: idItem,
             content: commentaryContent
@@ -25,7 +25,6 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
         }
 
         const response = await CommentaryService.newCommentary(data)
-
         const d = new Date()
         data = {
             ...data,
@@ -44,17 +43,25 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
         setCommentaryCount(prev => prev + 1)
     })
 
+    const [commentaryEditFetch, isEditLoading, editError] = useFetching( async () => {
+        await CommentaryService.editCommentary(idCommentary, {content: commentaryContent})
+        setCurrentContent(commentaryContent)
+        setVisible(false)
+    })
+
     useEffect(() => {
         setErrorMessage(error)
-    }, [error])
+    }, [error, editError])
 
     function declareCommentaryData(e) {
         e.preventDefault()
         if (commentaryContent === "") {
             setErrorMessage("Comment can't be empty")
-        }
-        else {
-            commentaryFetch()
+        } else if (isEdit) {
+            commentaryEditFetch()
+            setCommentaryContent("")
+        } else {
+            commentaryCreateFetch()
             setCommentaryContent("")
         }
     }
