@@ -25,14 +25,12 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
         }
 
         const response = await CommentaryService.newCommentary(data)
-        const d = new Date()
         data = {
             ...data,
             author: {
                 nickname: username,
                 image: userOriginalImage
             },
-            creationDate:  d.toLocaleDateString() + " " + d.toLocaleTimeString(),
             id: response,
             countLikes: 0,
             likeDto: {

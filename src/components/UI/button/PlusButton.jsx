@@ -3,6 +3,7 @@ import style from "./PlusButton.module.css"
 import {Link} from "react-router-dom";
 import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
 import {useStyles} from "../../../hooks/useStyles";
+import Tooltip from "../tooltip/Tooltip";
 
 function PlusButton({to, className, ...props}) {
     const isUser = useIsCurrentUser()
@@ -12,7 +13,7 @@ function PlusButton({to, className, ...props}) {
 
 
     return (
-        <>
+        <Tooltip direction={"bottom"} text={"Create new"} className={className}>
             { to ?
                 <>
                     { isUser ?
@@ -30,7 +31,7 @@ function PlusButton({to, className, ...props}) {
                     +
                 </div>
         }
-        </>
+        </Tooltip>
     );
 }
 

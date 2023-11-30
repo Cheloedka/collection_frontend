@@ -7,16 +7,16 @@
 
 .currentFilter {
     display: flex;
-    justify-content: flex-start;
     gap: 10px;
     align-items: center;
-    padding: 0 15px;
+    margin: 0 15px;
 }
 
 
 .select {
     display: flex;
     justify-content: flex-end;
+    padding: 0 5px;
     border: 1px solid white;
     border-radius: 10px;
     color: rgba(56, 49, 86, 0.8);
@@ -25,10 +25,11 @@
     cursor: pointer;
     background-color: #fff;
     position: relative;
-    width: 160px;
+    min-width: 160px;
 }
 
 .options {
+    padding: 5px 5px;
     display: none;
     position: absolute;
     z-index: 100;
@@ -42,7 +43,7 @@
 
 .option {
     padding: 7px 0;
-    width: 160px;
+    min-width: 140px;
     display: flex;
     justify-content: flex-end;
 }

@@ -10,8 +10,9 @@ import LikeService from "../../API/LikeService";
 import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
 import ImageModal from "../images/ImageModal";
 import {LikeFunction} from "../../functions/likeFunctions";
+import {formatDate} from "../../functions/dateTimeFunctions";
 
-function CollectionItemPost({infoName, infoImage, img, information, text1, text2, likesCount, id, isLiked, commentsCount, ...props}) {
+function CollectionItemPost({infoName, infoImage, img, information, text1, text2, likesCount, id, isLiked, commentsCount, creationTime, ...props}) {
 
     const [newCommentaries, setNewCommentaries] = useState([])
 
@@ -49,7 +50,7 @@ function CollectionItemPost({infoName, infoImage, img, information, text1, text2
                     {infoName}
                 </span>
                     <span className={style.spanTime}>
-                    12 minutes ago
+                    {formatDate(creationTime)}
                 </span>
                 </div>
             </div>

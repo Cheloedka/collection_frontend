@@ -27,6 +27,7 @@ function CollectionItemPostList({items}) {
                             commentsCount={c.commentsCount}
                             infoName={c.infoName}
                             infoImage={c.infoImage}
+                            creationTime={c.creationTime}
                         />
                     )}
 

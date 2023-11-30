@@ -24,6 +24,7 @@ import MDivWithLinkSpans from "../../components/UI/div/MDivWithLinkSpans";
 import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
 import CollectionItemPostList from "../../components/CollectionItemPost/CollectionItemPostList";
 import ItemService from "../../API/ItemService";
+import Tooltip from "../../components/UI/tooltip/Tooltip";
 
 function UserPage() {
     const params = useParams()
@@ -137,26 +138,37 @@ function UserPage() {
                     { isAuth && isUser ?
                         <GroupIcoButtons
                             firstIco={
-                            <Settings
-                                color={'#3A325B'}
-                                width={'35px'}
-                                height={'35px'}
-                            />
+                            <Tooltip text={"Settings"}>
+                                <Settings
+                                    color={'#3A325B'}
+                                    width={'35px'}
+                                    height={'35px'}
+                                />
+                            </Tooltip>
                         }
                             firstIcoTo={'/settings'}
-                        /> :
-                        <GroupIcoButtons
-                            firstIco={<Message/>}
+                        />
+                        : <GroupIcoButtons
+                            firstIco={
+                                <Tooltip text={"Message"}>
+                                    <Message/>
+                                </Tooltip>}
                             secondIco={isFollowers ?
+                                <Tooltip text={"Unfollow"}>
                                     <div className={style.divUnfollowing}
-                                         onClick={() => manageFriend(true)}>
+                                         onClick={() => manageFriend(true)}
+                                    >
                                         <Unfollowing color={'#3A325B'}/>
                                     </div>
+                                </Tooltip>
                                      :
+                                <Tooltip text={"Follow"}>
                                     <div className={style.divFollowing}
-                                         onClick={() => manageFriend(false)}>
+                                         onClick={() => manageFriend(false)}
+                                    >
                                         <Following color={'white'}/>
                                     </div>
+                                </Tooltip>
                             }
                         />
                     }

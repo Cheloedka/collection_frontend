@@ -11,6 +11,7 @@ import style from './NavigationBar.module.css'
 import logo from "../../images/logo.png"
 import Bell from '../../images/icons/Notification.svg'
 import Search from "../../images/icons/Search.svg";
+import Tooltip from "../UI/tooltip/Tooltip";
 
 function NavigationBar() {
 
@@ -50,11 +51,14 @@ function NavigationBar() {
 
 
         <div className={style.rightDiv}>
-
-            <Link className={style.navButton} to="/">
-                <img src={Bell} className={style.icon} alt={"icon"}/>
-            </Link>
-
+            <Tooltip
+                direction={"bottom"}
+                text={"Notification"}
+            >
+                <Link className={style.navButton} to="/">
+                    <img src={Bell} className={style.icon} alt={"icon"}/>
+                </Link>
+            </Tooltip>
 
             <div className={style.dropdown}>
                 { isAuth

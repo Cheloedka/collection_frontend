@@ -10,6 +10,7 @@ import {UserContext} from "../../context";
 import {Link} from "react-router-dom";
 import MessageModal from "../UI/modal/MessageModal";
 import MainLoader from "../UI/loader/MainLoader";
+import {formatDate} from "../../functions/dateTimeFunctions";
 
 function Commentary({idCommentary, userImg, userName, date, content, answers, setDeleted, countLikes, likeDto, idItem}) {
     const {username} = useContext(UserContext)
@@ -112,7 +113,7 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                                 <Link to={"/" + username}>{userName}</Link>
                             </span>
                                 <span className={style.spanTime}>
-                                {date}
+                                {formatDate(date)}
                             </span>
                             </div>
 
@@ -187,7 +188,7 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                                 </span>
 
                                     {username === userName
-                                        ? <MoreOptionsDropdown options={options}/>
+                                        ? <MoreOptionsDropdown options={options} />
                                         : <></>
                                     }
 
