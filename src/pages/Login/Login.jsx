@@ -30,7 +30,8 @@ function Login() {
         const response = await AuthService.login(loginData)
         setIsAuth(true)
         localStorage.setItem('auth', 'true')
-        localStorage.setItem('authToken', 'Bearer '  + response.token)
+        localStorage.setItem('authToken', 'Bearer '  + response.access_token)
+        localStorage.setItem('refreshToken', 'Bearer ' + response.refresh_token)
 
         navigate('/')  //todo navigate to main page
     })

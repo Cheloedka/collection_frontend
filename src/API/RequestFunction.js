@@ -12,6 +12,10 @@ export async function postRequestWithAuth(link) {
     return (await api.post('/auth' + link)).data
 }
 
+export async function postRequest(link) {
+    return (await api.post(link)).data
+}
+
 export async function postBodyRequest(link, data) {
     return (await api.post(link, data)).data
 }

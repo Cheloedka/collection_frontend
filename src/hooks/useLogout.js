@@ -9,6 +9,7 @@ export function useLogout() {
     function logout() {
         setIsAuth(false)
         localStorage.removeItem('authToken')
+        localStorage.removeItem('refreshToken')
         localStorage.removeItem('auth')
         navigate('/info')
     }
