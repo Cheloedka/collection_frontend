@@ -4,9 +4,8 @@ import {Link, useNavigate} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context";
 import M1Button from "../UI/button/M1Button";
-import MModalSearch from "./search/MModalSearch";
 import NavDrop from "./dropdown/NavDrop";
-import MInputSearchNav from "./search/MInputSearchNav";
+import SearchDiv from "./search/SearchDiv";
 import style from './NavigationBar.module.css'
 import logo from "../../images/logo.png"
 import Bell from '../../images/icons/Notification.svg'
@@ -34,11 +33,11 @@ function NavigationBar() {
                 . . .Collections
             </div>
 
-            <MInputSearchNav className={style.searchForm}/>
-
-            <MModalSearch setShowModal={setShowModal} visible={showModal}>
-                <MInputSearchNav/>
-            </MModalSearch>
+            <SearchDiv
+                className={style.searchForm}
+                setShowModal={setShowModal}
+                showModal={showModal}
+            />
 
             <button
                 onClick={() => setShowModal(true)}

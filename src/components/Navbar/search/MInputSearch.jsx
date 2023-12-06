@@ -1,20 +1,23 @@
 import React from 'react';
-import style from './MInputSearchNav.module.css'
-import Search from '../../../images/icons/Search.svg'
+import style from "./MInputSearch.module.css";
+import Search from "../../../images/icons/Search.svg";
 import {useStyles} from "../../../hooks/useStyles";
 
-function MInputSearchNav({className, value, setValue}) {
+function MInputSearch({value, setValue, onClick, className}) {
 
     const styles = useStyles(style.divFlex, className)
 
     return (
         <div className={styles}>
-            <div className={style.search}>
+            <button
+                className={style.search}
+                onClick={onClick ? onClick : null}
+            >
                 <img
                     src={Search}
                     className={style.searchIco}
                 />
-            </div>
+            </button>
             <input
                 value={value}
                 onChange={e => setValue(e.target.value)}
@@ -25,4 +28,4 @@ function MInputSearchNav({className, value, setValue}) {
     );
 }
 
-export default MInputSearchNav;
+export default MInputSearch;

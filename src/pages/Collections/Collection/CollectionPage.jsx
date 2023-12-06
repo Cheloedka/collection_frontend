@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Banner from "../../../components/banner/Banner";
 import {useFetching} from "../../../hooks/useFetching";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import CollectionService from "../../../API/CollectionService";
 import {getCollectionImage, getImage} from "../../../functions/imageFunctions";
 import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
@@ -56,7 +56,7 @@ function CollectionPage() {
             collectionPageFetch()
         else
             navigate("/error")
-    },[])
+    },[params.idCollection])
 
     useEffect(() => {
         if (error)

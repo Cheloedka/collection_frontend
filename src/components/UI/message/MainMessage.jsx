@@ -23,7 +23,7 @@ function MainMessage({type, text}) {
 
     return (
         <div
-            className={text ?style.message :style.displayNone}
+            className={text ? style.message : style.displayNone}
         >
             <Alert className={classes}>
                 <strong>

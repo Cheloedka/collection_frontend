@@ -1,0 +1,81 @@
+.main {
+    display: flex;
+}
+
+.searchModal{
+    margin-right: 40px;
+}
+
+.imgUser {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.modal > div {
+    max-width: 650px;
+}
+
+.modal > div > div {
+    padding: 0 10px;
+}
+
+.itemTitle1 {
+    font-size: 22px;
+    font-family: Inter, serif;
+}
+
+.itemTitle2 {
+    font-size: 18px;
+    font-family: Inter, serif;
+    color: #868080;
+}
+
+.listMain {
+    margin-top: 25px;
+}
+
+.itemListTitle {
+    color: #c2c2c2;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.itemList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.item {
+    display: flex;
+    border-radius: 10px;
+    padding: 5px !important;
+    gap: 10px;
+}
+
+.item:hover {
+    background-color: #e1e1e1;
+}
+
+.showMoreBtnDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.showMoreBtn {
+    color: rgba(217, 217, 217, 0.65);
+    font-weight: 600;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.showMoreBtn:hover {
+    color: rgba(217, 217, 217, 0.5);
+}
+.showMoreBtn:active {
+    color: rgba(217, 217, 217, 0.3);
+}

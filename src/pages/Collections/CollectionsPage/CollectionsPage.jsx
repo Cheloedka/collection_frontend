@@ -8,8 +8,9 @@ import MainLoader from "../../../components/UI/loader/MainLoader";
 import MainMessage from "../../../components/UI/message/MainMessage";
 import PlusButton from "../../../components/UI/button/PlusButton";
 import MDivWithSpans from "../../../components/UI/div/MDivWithSpans";
-import MInputSearchNav from "../../../components/Navbar/search/MInputSearchNav";
+import SearchDiv from "../../../components/Navbar/search/SearchDiv";
 import MDropdown from "../../../components/UI/dropdown/MDropdown";
+import MInputSearch from "../../../components/Navbar/search/MInputSearch";
 
 function CollectionsPage() {
     const params = useParams()
@@ -65,7 +66,7 @@ function CollectionsPage() {
                 childrenCloseToText={
                 <>
                     <div>
-                        <MInputSearchNav
+                        <MInputSearch
                             className={style.search}
                             value={searchCollections}
                             setValue={setSearchCollections}
