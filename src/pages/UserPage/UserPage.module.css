@@ -11,16 +11,16 @@
     margin-top: 20px;
 }
 
-.divContentLeft {
-    flex: 1;
+.divContentRight {
+    flex: 2;
     display: flex;
     flex-direction: column;
     min-width: 156px;
     gap: 20px;
 }
 
-.divContentRight {
-    flex: 2;
+.divContentLeft {
+    flex: 3;
     display: flex;
     flex-direction: column;
     gap: 20px;

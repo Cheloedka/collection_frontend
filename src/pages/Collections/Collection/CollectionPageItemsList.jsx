@@ -14,10 +14,9 @@ function CollectionPageItemsList({items, idCollection}) {
                 .map((c, index) =>
                     <CollectionPageItem
                         key={index}
-                        img={getCollectionImage(c.images[0].name)}
-                        text1={c.name}
-                        text2={c.about}
-                        id={c.itemId}
+                        img={getCollectionImage(c.itemImage)}
+                        text1={c.itemName}
+                        text2={c.itemAbout}
                         countID={c.countId}
                         idCollection={idCollection}
                     />

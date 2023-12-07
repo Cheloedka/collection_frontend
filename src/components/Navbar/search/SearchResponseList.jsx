@@ -21,7 +21,6 @@ function SearchResponseList({data, setData, searchValue, type, setError, setIsLo
     }, [isLoadingNewRequest])
 
     async function searchFunction(pageNumber) {
-        console.log(pageNumber)
         setIsLoading(true)
 
         let func
@@ -39,7 +38,7 @@ function SearchResponseList({data, setData, searchValue, type, setError, setIsLo
             else
                 setData(prev => [...prev, ...responseData])
         }
-        if ((countItems - pageNumber * 4 ) < 0) {
+        if ((countItems - pageNumber * 4 ) <= 0) {
             setCanLoad(false)
         }
     }
@@ -105,7 +104,7 @@ function SearchResponseList({data, setData, searchValue, type, setError, setIsLo
                 : <></>
             }
 
-            { ((countItems - data.length) > 0) && !isShowMore ?
+            { ((countItems - data.length) >= 0) && !isShowMore ?
                 <div className={style.showMoreBtnDiv}>
                     <div className={style.showMoreBtn} onClick={() => setIsShowMore(true)}>
                         Show more...

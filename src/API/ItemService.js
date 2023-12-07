@@ -46,10 +46,15 @@ export default class ItemService {
         return await deleteRequestWithAuth("/item/delete/" + idItem)
     }
 
-    static async getAllItemsByUser(username) {
-        return await getRequest("/item/" + username + "/all" )
+    static async getByType(value, page, type) {
+        return await getRequest(`/item/${type}/${value}?page=${page}`)
     }
 
+    static async getAllItemsByUser(value, page) {
+        return await this.getByType(value, page, "user")
+    }
 
-
+    static async getAllItemsByCollection(value, page) {
+        return await this.getByType(value, page, "collection")
+    }
 }

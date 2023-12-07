@@ -149,7 +149,11 @@ function CollectionPage() {
                     <div className={style.bottomSection}>
 
                         <div className={style.leftPosts}>
-                            <CollectionItemPostList items={items}/>
+                            <CollectionItemPostList
+                                username={params.username}
+                                idCollection={params.idCollection}
+                                type={"COLLECTION"}
+                            />
                         </div>
 
                         <div className={style.rightInfo}>

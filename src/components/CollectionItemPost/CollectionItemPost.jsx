@@ -11,14 +11,25 @@ import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
 import ImageModal from "../images/ImageModal";
 import {LikeFunction} from "../../functions/likeFunctions";
 import {formatDate} from "../../functions/dateTimeFunctions";
+import {Link} from "react-router-dom";
 
-function CollectionItemPost({infoName, infoImage, img, information, text1, text2, likesCount, id, isLiked, commentsCount, creationTime, ...props}) {
+function CollectionItemPost({infoName, infoImage,
+                                img, information,
+                                text1, text2,
+                                likesCount,
+                                id, countId,
+                                collectionId, username,
+                                isLiked,
+                                commentsCount,
+                                creationTime,
+                                ...props}
+) {
 
-    const [newCommentaries, setNewCommentaries] = useState([])
+   /* const [newCommentaries, setNewCommentaries] = useState([])
+    const [commentCount, setCommentCount] = useState(commentsCount)*/
 
     const [isLike, setIsLike] = useState(isLiked)
     const [count, setCount] = useState(likesCount)
-    const [commentCount, setCommentCount] = useState(commentsCount)
     const [isOpened, setIsOpened] = useState(false)
     const [currentImage, setCurrentImage] = useState(0)
 
@@ -106,25 +117,14 @@ function CollectionItemPost({infoName, infoImage, img, information, text1, text2
                             </div>
 
                         }
-
-                    <div className={style.divBorder}>
-                        <Comment width="20"/>
-                        <span> {commentCount} </span>
-                    </div>
+                    <Link to={"/" + username + "/" + collectionId + "/" + countId}>
+                        <div className={style.divBorder}>
+                            <Comment width="20"/>
+                            <span> {commentsCount} </span>
+                        </div>
+                    </Link>
 
                 </div>
-
-                <hr />
-
-                <div className={style.divCommentary}>
-                    <CommentaryList idPost={id}/>
-                    { newCommentaries
-                        ? <CommentaryList commentaries={newCommentaries} idPost={id}/>
-                        : <></>
-                    }
-                </div>
-
-                <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={id} setCommentaryCount={setCommentCount}/>
             </div>
         </MDiv>
     );

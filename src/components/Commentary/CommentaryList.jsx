@@ -2,13 +2,20 @@ import React, {useEffect, useState} from 'react';
 import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
 import Commentary from "./Commentary";
+import {useLoadingAndError} from "../../hooks/useLoadingAndError";
+import MainMessage from "../UI/message/MainMessage";
+import MainLoader from "../UI/loader/MainLoader";
 
 function CommentaryList({commentaries, idPost}) {
 
-    const [comment, setComment] = useState()
+    const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState("")
+
+    const [comment, setComment] = useState([])
     const [deleted, setDeleted] = useState(-1)
 
-    const [commentaryFetch, isLoading, error] = useFetching( async () => {
+
+    const [commentaryFetch, isFetchLoading, fetchError] = useFetching( async () => {
         const response = await CommentaryService.getCommentaries(idPost)
         setComment(response)
     })
@@ -27,9 +34,17 @@ function CommentaryList({commentaries, idPost}) {
             setComment(c => c.filter(i => i.id !== deleted))
     }, [deleted])
 
+
+    useLoadingAndError(isFetchLoading, setIsLoading, fetchError, setError)
+
     if (comment) {
         return (
             <div>
+                <MainMessage
+                    type={"error"}
+                    text={error}
+                />
+
                 { comment.map((c, index) =>
                     <Commentary
                         key={index}
@@ -49,7 +64,7 @@ function CommentaryList({commentaries, idPost}) {
         );
     }
     else {
-
+        return(<MainLoader isLoading={isLoading} color={"white"} />)
     }
 
 }

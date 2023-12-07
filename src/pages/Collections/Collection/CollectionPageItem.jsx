@@ -2,7 +2,7 @@ import style from './CollectionPageItem.module.css'
 import ellipsis from "../../../styles/Ellipsis.module.css"
 import {Link, useParams} from "react-router-dom";
 
-function CollectionPageItem({img, text1, text2, id, countID, idCollection, ...props}) {
+function CollectionPageItem({img, text1, text2, countID, idCollection, ...props}) {
     const params = useParams()
 
     return (

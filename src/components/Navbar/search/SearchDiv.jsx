@@ -13,7 +13,7 @@ function SearchDiv({className, showModal, setShowModal}) {
 
 
     const [error, setError] = useState("")
-    const [isLoading, setIsLoading] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     const [value, setValue] = useState("")
     const [usersData, setUsersData] = useState([])

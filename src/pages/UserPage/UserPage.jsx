@@ -23,7 +23,6 @@ import PlusButton from "../../components/UI/button/PlusButton";
 import MDivWithLinkSpans from "../../components/UI/div/MDivWithLinkSpans";
 import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
 import CollectionItemPostList from "../../components/CollectionItemPost/CollectionItemPostList";
-import ItemService from "../../API/ItemService";
 import Tooltip from "../../components/UI/tooltip/Tooltip";
 
 function UserPage() {
@@ -37,8 +36,6 @@ function UserPage() {
     const [background, setBackground] = useState("")
 
     const [isFollowers, setIsFollowers] = useState(false)
-
-    const [items, setItems] = useState(false)
 
     const [user, setUser] = useState({
         username: "",
@@ -67,12 +64,6 @@ function UserPage() {
         setIsFollowers(response.follower)
     })
 
-
-    const [itemsFetch, isLoadingItems, errorItems] = useFetching( async () => {
-        let response = await ItemService.getAllItemsByUser(params.username)
-        setItems(response)
-    })
-
     useEffect(() => {
         if (error) {
             navigate("/error")
@@ -83,16 +74,10 @@ function UserPage() {
 
     useEffect(() => {
         userPageFetch()
-        itemsFetch()
     },[params.username])
 
-
     useEffect(() => {
-        setErrorMessage(errorItems)
-    },[errorItems])
-
-    useEffect(() => {
-        if(background !== '') {
+        if (background !== '') {
             setUser(prev => ({...prev, background: URL.createObjectURL(background)}))
         }
     },[background])
@@ -109,7 +94,7 @@ function UserPage() {
     }
 
     return (
-        <div>
+        <div style={{paddingBottom: "300px"}}>
             <MessageModal             //todo error message to background change
                 to={"/login"}
                 visible={modalVisible}
@@ -127,8 +112,8 @@ function UserPage() {
                 imageType={"user"}
             >
                 { isLoading
-                    ?<MainLoader />
-                    :<></>
+                    ? <MainLoader />
+                    : <></>
                 }
                 <MDiv className={style.divUserContent}>
                     <BannerInfo
@@ -177,19 +162,20 @@ function UserPage() {
 
             <div className={style.divContent}>
 
-                <div className={style.divContentRight}>
+                <div className={style.divContentLeft}>
                     <MDivWithSpans
                         mainText={"Last collections update"}
                     >
                     </MDivWithSpans>
-                    { items && !isLoadingItems
-                        ?<CollectionItemPostList items={items}/>
-                        :<MainLoader />
-                    }
+
+                     <CollectionItemPostList
+                         username={params.username}
+                         type={"USER"}
+                     />
                 </div>
 
 
-                <div className={style.divContentLeft}>
+                <div className={style.divContentRight}>
 
                     <MDivWithLinkSpans
                         to={'/' + params.username + '/following'}
