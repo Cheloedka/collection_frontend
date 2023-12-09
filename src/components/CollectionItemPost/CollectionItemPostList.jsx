@@ -29,11 +29,6 @@ function CollectionItemPostList({username, idCollection, type}) {
     const [pageNumber, triggerElement, setCanLoad, clearData] = usePaginate(itemsFetch, isLoadingItems)
 
     useEffect(() => {
-        console.log("pageNumber: ", pageNumber)
-    }, [pageNumber])
-
-
-    useEffect(() => {
         setItems([])
         clearData()
     }, [params.username, params.idCollection])

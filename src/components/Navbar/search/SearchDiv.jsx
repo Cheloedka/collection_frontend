@@ -47,6 +47,7 @@ function SearchDiv({className, showModal, setShowModal}) {
             setUsersLength(0)
             setCollectionsData([])
             setUsersData([])
+            prevValue.current = ""
         }
     },[showModal])
 

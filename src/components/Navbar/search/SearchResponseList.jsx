@@ -104,7 +104,7 @@ function SearchResponseList({data, setData, searchValue, type, setError, setIsLo
                 : <></>
             }
 
-            { ((countItems - data.length) >= 0) && !isShowMore ?
+            { ((countItems - data.length) > 0) && !isShowMore ?
                 <div className={style.showMoreBtnDiv}>
                     <div className={style.showMoreBtn} onClick={() => setIsShowMore(true)}>
                         Show more...

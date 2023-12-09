@@ -1,6 +1,6 @@
 import Navbar from 'react-bootstrap/Navbar';
 import {Image} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context";
 import M1Button from "../UI/button/M1Button";
@@ -8,9 +8,9 @@ import NavDrop from "./dropdown/NavDrop";
 import SearchDiv from "./search/SearchDiv";
 import style from './NavigationBar.module.css'
 import logo from "../../images/logo.png"
-import Bell from '../../images/icons/Notification.svg'
 import Search from "../../images/icons/Search.svg";
-import Tooltip from "../UI/tooltip/Tooltip";
+import Notification from "./notification/Notification";
+import {useConnectNotification} from "./notification/useConnectNotification";
 
 function NavigationBar() {
 
@@ -23,6 +23,8 @@ function NavigationBar() {
         e.preventDefault()
         navigate('/login')
     }
+
+    useConnectNotification()
 
     return (
     <Navbar className={style.NavigationBar} >
@@ -48,27 +50,21 @@ function NavigationBar() {
 
         </div>
 
+        {isAuth ?
+            <div className={style.rightDiv}>
 
-        <div className={style.rightDiv}>
-            <Tooltip
-                direction={"bottom"}
-                text={"Notification"}
-            >
-                <Link className={style.navButton} to="/">
-                    <img src={Bell} className={style.icon} alt={"icon"}/>
-                </Link>
-            </Tooltip>
 
-            <div className={style.dropdown}>
-                { isAuth
-                    ? <NavDrop />
-                    :
-                    <M1Button onClick={BLogin} className={style.buttonLogin}>
-                        Login
-                    </M1Button>
-                }
+                {/*<Notification />*/}
+
+                <div className={style.dropdown}>
+                    <NavDrop/>
+                </div>
             </div>
-        </div>
+            :
+            <M1Button onClick={BLogin} className={style.buttonLogin}>
+                Login
+            </M1Button>
+        }
     </Navbar>
     );
 }
