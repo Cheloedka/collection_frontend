@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import style from "./CommentaryInput.module.css";
 import M1Button from "../UI/button/M1Button";
 import {UserContext} from "../../context";
@@ -6,7 +6,7 @@ import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
 import MTextarea2 from "../UI/input/MTextarea2";
 
-function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentaryCount, isEdit, setCurrentContent, currentContent, setVisible}) {
+function CommentaryInput({idItem, idCommentary, setNewCommentaries, isEdit, setCurrentContent, currentContent, setVisible}) {
 
     const {username, userOriginalImage} = useContext(UserContext)
 
@@ -15,18 +15,18 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
 
 
     const [commentaryCreateFetch, isLoading, error] = useFetching( async () => {
-        let data = {
+        let newCommentary = {
             answerToItem: idItem,
             content: commentaryContent
         }
 
         if (idCommentary) {
-            data = {...data, answerToId: idCommentary}
+            newCommentary = {...newCommentary, answerToId: idCommentary}
         }
+        const response = await CommentaryService.newCommentary(newCommentary)
 
-        const response = await CommentaryService.newCommentary(data)
-        data = {
-            ...data,
+        newCommentary = {
+            ...newCommentary,
             author: {
                 nickname: username,
                 image: userOriginalImage
@@ -37,8 +37,7 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
                 liked: false
             }
         }
-        setNewCommentaries(prevState => [...prevState, data])
-        setCommentaryCount(prev => prev + 1)
+        setNewCommentaries(prevState => [newCommentary, ...prevState])
     })
 
     const [commentaryEditFetch, isEditLoading, editError] = useFetching( async () => {
@@ -50,6 +49,7 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, setCommentar
     useEffect(() => {
         setErrorMessage(error)
     }, [error, editError])
+
 
     function declareCommentaryData(e) {
         e.preventDefault()

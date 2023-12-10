@@ -1,0 +1,8 @@
+.linkToUser {
+    color: inherit !important;
+    font-weight: 600;
+}
+
+.linkToUser:hover {
+    text-decoration: underline;
+}

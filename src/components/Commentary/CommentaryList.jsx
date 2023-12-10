@@ -21,7 +21,7 @@ function CommentaryList({commentaries, idPost}) {
     })
 
     useEffect(() => {
-        if(commentaries) {
+        if (commentaries) {
             setComment(commentaries)
         }
         else {
@@ -54,7 +54,7 @@ function CommentaryList({commentaries, idPost}) {
                         userName={c.author.nickname}
                         userImg={c.author.image}
                         answers={c.answers}
-                        idItem={idPost}
+                        idItem={c.answerToItem}
                         setDeleted={setDeleted}
                         countLikes={c.countLikes}
                         likeDto={c.likeDto}

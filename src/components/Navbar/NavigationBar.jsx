@@ -24,8 +24,6 @@ function NavigationBar() {
         navigate('/login')
     }
 
-    useConnectNotification()
-
     return (
     <Navbar className={style.NavigationBar} >
 
@@ -54,7 +52,7 @@ function NavigationBar() {
             <div className={style.rightDiv}>
 
 
-                {/*<Notification />*/}
+                <Notification />
 
                 <div className={style.dropdown}>
                     <NavDrop/>

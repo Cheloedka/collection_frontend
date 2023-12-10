@@ -2,17 +2,23 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import {UserContext} from "../../../context";
 import Tooltip from "../../UI/tooltip/Tooltip";
 import Bell from "../../../images/icons/Notification.svg";
-import style from "../NavigationBar.module.css";
+import style from "./Notification.module.css";
+import style2 from "../NavigationBar.module.css";
 import {useConnectNotification} from "./useConnectNotification";
+import FadingNotification from "./FaldingNotification";
+import NotificationWindow from "./NotificationWindow";
+import notificationWindow from "./NotificationWindow";
 
 
 
 function Notification() {
 
-    /*const [notifications, setNotifications] = useState([])
+    const {countNotifications, setCountNotifications} = useContext(UserContext)
 
-    const lastNotification = useConnectNotification(setNotifications)*/
-    /*const [isShowNotification, setIsShowNotification] = useState(false)
+    const [notifications, setNotifications] = useState({})
+
+    const lastNotification = useConnectNotification(setNotifications)
+    const [isShowNotification, setIsShowNotification] = useState(false)
 
     const buttonRef = useRef(null);
     const [isNotificationsWindowOpen, setNotificationsWindowOpen] = useState(false)
@@ -20,40 +26,41 @@ function Notification() {
     useEffect(() => {
         if (lastNotification)
             setIsShowNotification(true)
-    }, [lastNotification])*/
+    }, [lastNotification])
+
+    useEffect( () => {
+        if (isNotificationsWindowOpen) {
+            setCountNotifications(prev => {
+                if (prev <= 4) {
+                    return 0
+                }
+                return prev - 4
+            })
+        }
+    }, [isNotificationsWindowOpen])
 
     return (
         <div>
 
-            {/*<Tooltip
+            <Tooltip
                 direction={"bottom"}
                 text={"Notification"}
             >
-                <div className={style.divNotifications}>
-                    <img src={Bell} className={style.icon} alt={"icon"}/>
+                <div
+                    className={style.divNotifications}
+                    onClick={() => setNotificationsWindowOpen(prev => !prev)}
+                    ref={buttonRef}
+                >
+                    <img src={Bell} className={style2.icon} alt={"icon"}/>
                     {countNotifications > 0 ?
                         <div className={style.countNotifications}>
-                            {countNotifications}
+                            <>{countNotifications < 100 ? countNotifications : "99+"}</>
                         </div>
                         : <></>
 
                     }
                 </div>
-            </Tooltip>*/}
-
-            {/*<button
-                className={navbarStyle.notificationButton}
-                onClick={() => setNotificationsWindowOpen(prev => !prev)}
-                ref={buttonRef}
-            >
-                <NotificationBoxSvg />
-
-                { notificationsCount > 0 ?
-                    <div className={style.notificationCount}>
-                        { notificationsCount < 100 ? notificationsCount : "99+" }
-                    </div>
-                    : <></> }
-            </button>
+            </Tooltip>
 
             <NotificationWindow
                 isNotificationsWindowOpen={isNotificationsWindowOpen}
@@ -69,7 +76,8 @@ function Notification() {
                     setIsShow={setIsShowNotification}
                     notification={lastNotification}
                 />
-                : <></> }*/}
+                : <></>
+            }
         </div>
     );
 }

@@ -83,22 +83,6 @@
     margin: 0 20px 5px 0;
 }
 
-.divNotifications {
-    position: relative;
-}
 
-.countNotifications {
-    position: absolute;
-    z-index: 100;
-    height: 15px;
-    width: 15px;
-    background-color: rgba(255, 0, 0, 0.8);
-    border-radius: 10px;
-    color: white;
-    right: -4px;
-    top: 17px;
-    backdrop-filter: blur(10px);
-    border: 1px white solid;
-}
 
 

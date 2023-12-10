@@ -26,6 +26,7 @@ function ItemPage() {
     const [item, setItem] = useState()
     const [modalVisible, setModalVisible] = useState(false)
     const [newCommentaries, setNewCommentaries] = useState([])
+    const [coverImage, setCoverImage] = useState("")
 
     const [itemFetch, isLoading, error] = useFetching(async () => {
         const response = await ItemService.getItem(params.idCollection, params.idItem, params.username)
@@ -35,6 +36,8 @@ function ItemPage() {
         else {
             setItem(response)
         }
+
+        setCoverImage(response.images[0].name)
     })
 
 
@@ -44,7 +47,7 @@ function ItemPage() {
             itemFetch()
         else
             navigate("/error")
-    },[])
+    },[params.idItem])
 
     useEffect(() => {
         if (error)
@@ -65,7 +68,7 @@ function ItemPage() {
                     <div className={style.divMainContent}>
                         <div className={style.divContentWithoutEditIco}>
                             {item?.images.length > 0
-                                ? <ItemImagesMap images={item.images} defaultImage={item.images[0].name}/>
+                                ? <ItemImagesMap images={item.images} defaultImage={coverImage ? coverImage : defaultItemImage}/>
                                 : <img className={style.imageBg} src={defaultItemImage} alt={"something"}/>
 
                             }
@@ -117,13 +120,11 @@ function ItemPage() {
                         </div>
 
 
-
-                        <CommentaryList idPost={item.itemId}/>
                         { newCommentaries
                             ? <CommentaryList commentaries={newCommentaries} idPost={item.itemId}/>
                             : <></>
                         }
-
+                        <CommentaryList idPost={item.itemId}/>
 
                     </MDivWithSpans>
 

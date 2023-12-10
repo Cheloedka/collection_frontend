@@ -29,7 +29,7 @@ export default class UserService {
         return await putBodyRequestWithAuth("/user/changePassword", pass);
     }
 
-    /*static async getNotifications(page, size, isRead) {
+    static async getNotifications(page, size, isRead) {
         return await getRequestWithAuth(`/notification/get?page=${page}&size=${size}&isRead=${isRead}`)
-    }*/
+    }
 }

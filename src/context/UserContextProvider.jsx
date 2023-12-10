@@ -8,7 +8,7 @@ function UserContextProvider({children}) {
     const [username, setUsername] = useState("")
     const [userImage, setUserImage] = useState("")
     const [userOriginalImage, setUserOriginalImage] = useState("")
-    /*const [countNotifications, setCountNotifications] = useState(0)*/
+    const [countNotifications, setCountNotifications] = useState(0)
 
     const {isAuth} = useContext(AuthContext)
 
@@ -17,7 +17,7 @@ function UserContextProvider({children}) {
         setUsername(response.username)
         setUserImage(getUserImage(response.image))
         setUserOriginalImage(response.image)
-       /* setCountNotifications(response.countNotifications)*/
+        setCountNotifications(response.countNotif)
     })
 
 
@@ -25,6 +25,8 @@ function UserContextProvider({children}) {
         if (isAuth) {
             fetchUser()
         }
+        if (errorUser)
+            console.log(errorUser)
     }, [isAuth])
 
     return (
@@ -34,10 +36,9 @@ function UserContextProvider({children}) {
             userImage,
             setUserImage,
             userOriginalImage,
-/*            countNotifications,
-            setCountNotifications,*/
-            isLoading,
-            errorUser
+            countNotifications,
+            setCountNotifications,
+            isLoading
         }}>
             {children}
         </UserContext.Provider>
