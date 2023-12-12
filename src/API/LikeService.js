@@ -1,4 +1,4 @@
-import {deleteRequestWithAuth, postRequestWithAuth} from "./RequestFunction";
+import {deleteRequestWithAuth, postRequestWithAuth} from "./requestFunction";
 
 export default class LikeService {
     static async newLike(id) {

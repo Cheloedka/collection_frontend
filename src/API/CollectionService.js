@@ -1,4 +1,4 @@
-import {deleteRequestWithAuth, getRequest, postBodyRequestWithAuth} from "./RequestFunction";
+import {deleteRequestWithAuth, getRequest, postBodyRequestWithAuth, putBodyRequestWithAuth} from "./requestFunction";
 
 export default class CollectionService {
 
@@ -26,6 +26,13 @@ export default class CollectionService {
             console.log(formData.get(key))
         }
         return await postBodyRequestWithAuth("/collection/" + id + "/edit", formData);
+    }
+
+    static async changeBackImage(idCollection, file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        return await putBodyRequestWithAuth("/collection/" + idCollection + "/back", formData)
     }
 
     static async getRightInfo(id) {

@@ -1,3 +1,11 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin-top: 8px;
+    gap: 2px;
+}
+
 .divImgUserFriend {
     display: flex;
     flex-direction: column;
@@ -20,14 +28,9 @@
 }
 
 .SpanUserFriend {
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
-    width: 91px;
+    flex: 1;
+    word-break: break-all;
 }
 
-.divFollowing {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    margin-top: 14px;
-}

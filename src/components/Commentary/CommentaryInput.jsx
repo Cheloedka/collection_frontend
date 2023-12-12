@@ -5,6 +5,7 @@ import {UserContext} from "../../context";
 import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
 import MTextarea2 from "../UI/input/MTextarea2";
+import MainLoader from "../UI/loader/MainLoader";
 
 function CommentaryInput({idItem, idCommentary, setNewCommentaries, isEdit, setCurrentContent, currentContent, setVisible}) {
 
@@ -78,7 +79,12 @@ function CommentaryInput({idItem, idCommentary, setNewCommentaries, isEdit, setC
 
                 </MTextarea2>
             </div>
-            <M1Button>Send</M1Button>
+            <M1Button>
+                { isLoading
+                    ? <MainLoader color="white" />
+                    : "Send"
+                }
+            </M1Button>
         </form>
     );
 }

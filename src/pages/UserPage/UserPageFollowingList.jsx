@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import UserPageFollowing from "./UserPageFollowing";
 
 function UserPageFollowingList({friendships}) {
-
     if (!friendships.length) {
         return (
             <div>
@@ -11,13 +10,12 @@ function UserPageFollowingList({friendships}) {
             </div>
         )
     }
-
     return (
-        <div className={style.divFollowing}>
+        <div className={style.list}>
             { friendships.map((c, index) =>
                 <Link
                     key={index}
-                    to={'/' + c.nickname}
+                    to={"/" + c.nickname}
                 >
                     <UserPageFollowing
                         username={c.nickname}

@@ -12,11 +12,11 @@ function UserPageCollectionList({collections, username}) {
     }
 
     return (
-        <div className={style.divCollections}>
+        <div className={style.list}>
             {collections.map((c, index) =>
                 <Link
                     key={index}
-                    to={'/' + username + '/' + c.idCollection}
+                    to={"/" + username + "/" + c.idCollection}
                 >
                     <UserPageCollectionItem name={c.name} about={c.about} img={c.image}/>
                 </Link>

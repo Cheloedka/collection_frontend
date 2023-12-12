@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
@@ -8,14 +8,15 @@ import MDiv from "../../components/UI/div/MDiv";
 import style from "../Login/PasswordReset.module.css"
 import M1Button from "../../components/UI/button/M1Button";
 import MessageModal from "../../components/UI/modal/MessageModal";
-import MainMessage from "../../components/UI/message/MainMessage";
+import LoaderAndErrorDiv from "../../components/structureComponents/LoaderAndErrorDiv";
+import {useError} from "../../hooks/useLoadingAndError";
 
 function PostPasswordPage() {
     const params = useParams()
     const [token, setToken] = useState( "")
     const [pwd, setPwd] = useState("")
 
-    const [errorMessage, setErrorMessage] = useState("")
+    const [error, setError] = useState("")
     const [modalVisible, setModalVisible] = useState(false)
     const successMessage = useRef("")
 
@@ -23,14 +24,11 @@ function PostPasswordPage() {
         successMessage.current = await AuthService.confirmation({token: token, info :pwd})
         setModalVisible(true)
     })
+    useError(postError, setError)
 
     useEffect( () => {
         setToken(params.id)
     }, [params.id])
-
-    useEffect(() => {
-        setErrorMessage(postError)
-    }, [postError])
 
     function declareData(e) {
         e.preventDefault()
@@ -38,7 +36,7 @@ function PostPasswordPage() {
             fetchConfirmation()
         }
         else {
-            setErrorMessage("Something went wrong, please try again")
+            setError("Something went wrong, please try again")
         }
     }
 
@@ -49,7 +47,7 @@ function PostPasswordPage() {
                 <p>Please give new password for your account</p>
 
                 <MessageModal              //if success modal, navigate to login page
-                    to={"/login"}
+                    to="/login"
                     visible={modalVisible}
                     setVisible={setModalVisible}
                 >
@@ -57,13 +55,7 @@ function PostPasswordPage() {
                 </MessageModal>
 
 
-                { !isLoading ?
-                    <MainMessage                  //if error
-                        type="error"
-                        text={errorMessage}
-                    />
-                    :<></>
-                }
+                <LoaderAndErrorDiv isLoading={false} error={error} />
 
                 <form onSubmit={declareData}>
                     <MInput
@@ -74,8 +66,8 @@ function PostPasswordPage() {
                     />
                     <M1Button>
                         { isLoading
-                            ?<MainLoader />
-                            :<></>
+                            ? <MainLoader />
+                            : "Submit"
                         }
                     </M1Button>
                 </form>

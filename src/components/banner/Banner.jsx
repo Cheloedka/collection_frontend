@@ -1,18 +1,53 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import style from './Banner.module.css'
 import editImgIco from "../../images/icons/Galleryedit.svg";
 import MFileInput from "../UI/input/MFileInput";
 import defaultCollectionImage from '../../images/imageNotFound.png'
 import ImageModal from "../images/ImageModal";
+import useIsCurrentUser from "../../hooks/useIsCurrentUser";
+import {useFetching} from "../../hooks/useFetching";
+import UserService from "../../API/UserService";
+import {useParams} from "react-router-dom";
+import MainLoader from "../UI/loader/MainLoader";
+import OpacityMessage from "../UI/message/OpacityMessage";
+import {useError} from "../../hooks/useLoadingAndError";
+import CollectionService from "../../API/CollectionService";
 
-function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackImage, children, isUser, imageType, isEdit}) {
-
+function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackImage, children, imageType, isEdit}) {
+    const isUser = useIsCurrentUser()
+    const params = useParams()
     const [isOpened, setIsOpened] = useState(false)
+
+    const [back, setBack] = useState()
+    const [error, setError] = useState("")
+    const [showElement, setShowElement] = useState(false)
+
+    const [backFetch, isLoading, backError] = useFetching( async () => {
+        let response
+        if (imageType === 'USER') {
+            response = await UserService.changeBackImage(params.username, back)
+        }
+        else {
+            response = await CollectionService.changeBackImage(params.idCollection, back)
+        }
+        setBackImage(response)
+    })
+    useError(backError, setError)
+
+    useEffect(() => {
+        if (error)
+            setShowElement(true)
+    }, [error])
+
+    useEffect(() => {
+        if (back)
+            backFetch()
+    }, [back])
 
 
     function coverContent() {
         if (backImage) {
-            return <img src={backImage} className={style.backImg} />
+            return <img alt="" src={backImage} className={style.backImg} />
         }
         else {
             if (!!isUser) {
@@ -23,19 +58,23 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
         }
     }
 
-
-
     return (
         <div className={style.mainDiv}>
             <div className={style.divBackImg}>
+                {/*{ isLoading ?
+                    <MainLoader />
+                    :<> {coverContent()} </>
+                }*/}
+
                 {coverContent()}
+
                 <div className={style.divOpacity}>
                     { !!isUser
                         ?
                         <MFileInput
-                            setImage={setBackImage}
+                            setImage={isEdit ? setBackImage : setBack}
                             maxSize={2}
-                            setError={setErrorMessage}
+                            setError={isEdit ? setErrorMessage : setError}
                         >
                             <img
                                 src={editImgIco}
@@ -48,11 +87,12 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                 </div>
                 <div className={style.divContent}>
                         <img
-                            src={ mainImage ? mainImage : defaultCollectionImage}
-                            className={imageType === 'user' ? style.userImage : style.collectionImage}
-                            alt="image"
-                            onClick={() => setIsOpened(true)}
+                        src={ mainImage ? mainImage : defaultCollectionImage}
+                        className={imageType === 'USER' ? style.userImage : style.collectionImage}
+                        alt="image"
+                        onClick={() => setIsOpened(true)}
                         />
+
                         <ImageModal
                             isOpened={isOpened}
                             setIsOpened={setIsOpened}
@@ -75,6 +115,14 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                             : <></>
                         }
                     {children}
+
+                    <OpacityMessage
+                        type="error"
+                        text={error}
+                        setError={setError}
+                        showElement={showElement}
+                        setShowElement={setShowElement}
+                    />
                 </div>
             </div>
         </div>

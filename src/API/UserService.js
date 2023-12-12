@@ -1,4 +1,4 @@
-import {getRequest, getRequestWithAuth, putBodyRequestWithAuth} from "./RequestFunction";
+import {getRequest, getRequestWithAuth, putBodyRequestWithAuth} from "./requestFunction";
 
 export default class UserService {
 
@@ -21,6 +21,13 @@ export default class UserService {
         return await putBodyRequestWithAuth('/user/' + username + '/edit1', formData);
     }
 
+    static async changeBackImage(username, file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        return await putBodyRequestWithAuth("/user/" + username + "/back", formData)
+    }
+
     static async changeEmail(email) {
         return await putBodyRequestWithAuth("/user/changeEmail", email);
     }
@@ -32,4 +39,5 @@ export default class UserService {
     static async getNotifications(page, size, isRead) {
         return await getRequestWithAuth(`/notification/get?page=${page}&size=${size}&isRead=${isRead}`)
     }
+
 }

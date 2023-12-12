@@ -1,4 +1,4 @@
-import {deleteRequestWithAuth, getRequest, postRequestWithAuth} from "./RequestFunction";
+import {deleteRequestWithAuth, getRequest, postRequestWithAuth} from "./requestFunction";
 
 export default class FriendshipService {
 

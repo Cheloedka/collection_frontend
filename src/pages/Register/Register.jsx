@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import style from "../Login/Login.module.css";
 import MDiv from "../../components/UI/div/MDiv";
 import MInput from "../../components/UI/input/MInput";
@@ -7,8 +7,9 @@ import {useFetching} from "../../hooks/useFetching";
 import AuthService from "../../API/AuthService";
 import {checkTittleFunction} from "../../functions/stringFunctions";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import MainMessage from "../../components/UI/message/MainMessage";
 import MessageModal from "../../components/UI/modal/MessageModal";
+import LoaderAndErrorDiv from "../../components/structureComponents/LoaderAndErrorDiv";
+import {useError} from "../../hooks/useLoadingAndError";
 
 function Register() {
 
@@ -37,10 +38,7 @@ function Register() {
         successMessage.current = await AuthService.register(registerData)
         setModalVisible(true)
     })
-
-    useEffect(() => {
-        setErrorMessage(postError)
-    }, [postError])
+    useError(postError, errorMessage)
 
 
     function declareLoginData(e) {
@@ -74,8 +72,8 @@ function Register() {
                     <h3>Register</h3>
                     <p>On this page you can register on our website</p>
 
-                    <MessageModal              //if success modal, navigate to login page
-                        to={"/login"}
+                    <MessageModal
+                        to="/login"
                         visible={modalVisible}
                         setVisible={setModalVisible}
                     >
@@ -83,13 +81,7 @@ function Register() {
                     </MessageModal>
 
 
-                    { !isLoading ?
-                        <MainMessage                  //if error
-                            type="error"
-                            text={errorMessage}
-                        />
-                        :<></>
-                    }
+                    <LoaderAndErrorDiv isLoading={false} error={errorMessage} />
 
                     {inputs.map((c, index) =>
                         <MInput
@@ -106,8 +98,8 @@ function Register() {
 
                     <M1Button>
                         { isLoading
-                            ?<MainLoader />
-                            :"Submit"
+                            ? <MainLoader />
+                            : "Submit"
                         }
                     </M1Button>
 

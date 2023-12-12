@@ -8,6 +8,7 @@ import Edit from "../../../components/UI/svg/Edit";
 import UserService from "../../../API/UserService";
 import inputStyle from "../../../components/UI/input/MInputWithText.module.css"
 import MainMessage from "../../../components/UI/message/MainMessage";
+import {useLoadingAndError} from "../../../hooks/useLoadingAndError";
 
 function SecuritySettings({userEmail, setUserEmail}) {
 
@@ -18,29 +19,30 @@ function SecuritySettings({userEmail, setUserEmail}) {
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
 
-    const [errorMessage, setErrorMessage] = useState("")
+    const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState("")
 
 
-    const [fetchEmail, isLoading, error] = useFetching(async () => {
+    const [fetchEmail, isEmailLoading, emailError] = useFetching(async () => {
         const response = await UserService.changeEmail({email: email})
         setUserEmail(email)
-        setErrorMessage("")
+        setError("")
         setSuccessMessage(response)
         setIsEmailClosed(true)
     })
 
+    useLoadingAndError(isEmailLoading, setIsLoading, emailError, setError)
+
     function changeEmail() {
         if (email === userEmail)
-            setErrorMessage("Nothing is changed")
+            setError("Nothing is changed")
         else if (email === "")
-            setErrorMessage("Email can't be empty")
+            setError("Email can't be empty")
         else
             fetchEmail()
         setIsEmailClosed(false)
     }
-
-
 
     const [fetchPassword, isLoadingPass, errorPass] = useFetching(async () => {
         const data = {
@@ -48,31 +50,26 @@ function SecuritySettings({userEmail, setUserEmail}) {
             newPassword: newPassword
         }
         const response = await UserService.changePassword(data)
-        setErrorMessage("")
+        setError("")
         setOldPassword("")
         setNewPassword("")
         setSuccessMessage(response)
         setIsPasswordClosed(true)
     })
+
+    useLoadingAndError(isLoadingPass, setIsLoading, errorPass, setError)
+
     function changePassword() {
         if (newPassword === "")
-            setErrorMessage("Password can't be empty")
+            setError("Password can't be empty")
         else
             fetchPassword()
         setIsEmailClosed(false)
     }
 
     useEffect(() => {
-        setErrorMessage(error)
-    },[error])
-
-    useEffect(() => {
-        setErrorMessage(errorPass)
-    },[errorPass])
-
-    useEffect(() => {
         setSuccessMessage("")
-    }, [errorPass, error, errorMessage])
+    }, [error])
 
     return (
         <>
@@ -115,7 +112,9 @@ function SecuritySettings({userEmail, setUserEmail}) {
                     defaultValue={"******************"}
                 >
                     <div className={inputStyle.divLabel}>
-                        <label className={inputStyle.label}>New Password</label>
+                        <label className={inputStyle.label}>
+                            New Password
+                        </label>
                     </div>
                     <input
                         type="password"
@@ -130,7 +129,7 @@ function SecuritySettings({userEmail, setUserEmail}) {
                             changePassword()
                         }}
                     >
-                        { isLoadingPass
+                        { isLoading
                             ? <MainLoader color='#3A325B'/>
                             : <Edit color='#3A325B'/>
                         }
@@ -150,20 +149,14 @@ function SecuritySettings({userEmail, setUserEmail}) {
                 </button>
             </div>
             <div>
-                { !isLoading ?
-                    <MainMessage                  //if error
-                        type="error"
-                        text={errorMessage}
-                    />
-                    :<></>
-                }
-                { !isLoading ?
-                    <MainMessage                  //if success
-                        type="success"
-                        text={successMessage}
-                    />
-                    :<></>
-                }
+                <MainMessage
+                    type="error"
+                    text={error}
+                />
+                <MainMessage
+                    type="success"
+                    text={successMessage}
+                />
             </div>
         </>
     );

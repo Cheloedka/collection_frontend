@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import MDiv from "../../components/UI/div/MDiv";
 import style from './SettingsPage.module.css'
 import {UserContext} from "../../context";
@@ -16,7 +16,7 @@ function SettingsPage() {
     const [page, setPage] = useState(0)
     const [data, setData] = useState()
 
-    const[fetchUserInfo, isLoading, error] = useFetching(async () => {
+    const [fetchUserInfo, isLoading, error] = useFetching(async () => {
         const response = await UserService.userSettingsInfo(username)
         setData(response)
     })
@@ -77,17 +77,15 @@ function SettingsPage() {
 
                 <div className={style.divContent}>
                     { isLoading
-                        ?<MainLoader />
-                        :contentPage()
+                        ? <MainLoader />
+                        : contentPage()
                     }
                 </div>
-                { !isLoading ?
-                    <MainMessage                  //if error
-                        type="error"
-                        text={error}
-                    />
-                    :<></>
-                }
+
+                <MainMessage
+                    type="error"
+                    text={error}
+                />
             </MDiv>
         </div>
     );

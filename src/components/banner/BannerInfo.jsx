@@ -1,11 +1,7 @@
-import React from 'react';
 import style from "./Banner.module.css";
-
+import {useStyles} from "../../hooks/useStyles";
 
 function BannerInfo({tittle, secondText, themes, ...props}) {
-
-    const classes = [style.divTittle]
-    const secondClasses = [style.divSecondText]
 
     const mainThemes = {
         dark: style.divTittleDark,
@@ -17,15 +13,18 @@ function BannerInfo({tittle, secondText, themes, ...props}) {
         light: style.divSecondTextLight
      }
 
-    classes.push(mainThemes[themes] ?? mainThemes.light)
-    secondClasses.push(secondThemes[themes] ?? secondThemes.light)
+    const classes = useStyles(style.divTittle, mainThemes[themes] ?? mainThemes.light)
+    const secondClasses = useStyles(style.divSecondText, secondThemes[themes] ?? secondThemes.light)
 
     return (
-        <div {...props} className={style.divInfo}>
-            <div className={classes.join(" ")}>
+        <div
+            {...props}
+            className={style.divInfo}
+        >
+            <div className={classes}>
                 {tittle}
             </div>
-            <div className={secondClasses.join(" ")}>
+            <div className={secondClasses}>
                 {secondText}
             </div>
         </div>

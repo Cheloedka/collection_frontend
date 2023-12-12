@@ -1,8 +1,16 @@
 import {useEffect} from "react";
 
 export function useLoadingAndError(isLoading, setGlobalLoading, error, setGlobalError) {
-    useSetStateOnReact(error, setGlobalError)
+        useSetStateOnReact(error, setGlobalError)
+        useSetStateOnReact(isLoading, setGlobalLoading)
+}
+
+export function useLoading(isLoading, setGlobalLoading) {
     useSetStateOnReact(isLoading, setGlobalLoading)
+}
+
+export function useError(error, setGlobalError) {
+    useSetStateOnReact(error, setGlobalError)
 }
 
 export function useSetStateOnReact(dependency, setState) {

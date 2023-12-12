@@ -5,6 +5,7 @@ import {useFetching} from "../hooks/useFetching";
 import {getUserImage} from "../functions/imageFunctions";
 
 function UserContextProvider({children}) {
+
     const [username, setUsername] = useState("")
     const [userImage, setUserImage] = useState("")
     const [userOriginalImage, setUserOriginalImage] = useState("")
@@ -17,7 +18,7 @@ function UserContextProvider({children}) {
         setUsername(response.username)
         setUserImage(getUserImage(response.image))
         setUserOriginalImage(response.image)
-        setCountNotifications(response.countNotif)
+        setCountNotifications(response.countNotifications)
     })
 
 

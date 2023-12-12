@@ -5,6 +5,7 @@ import AuthService from "../../API/AuthService";
 import MainLoader from "../../components/UI/loader/MainLoader";
 import MessageModal from "../../components/UI/modal/MessageModal";
 import MainMessage from "../../components/UI/message/MainMessage";
+import LoaderAndErrorDiv from "../../components/structureComponents/LoaderAndErrorDiv";
 
 function PostPage() {
     const params = useParams()
@@ -31,10 +32,7 @@ function PostPage() {
 
     return (
         <div>
-            { isLoading
-                ?<MainLoader />
-                :<></>
-            }
+            <LoaderAndErrorDiv isLoading={isLoading} error={postError} />
 
             <MessageModal              //if success modal, navigate to login page
                 to={"/login"}
@@ -43,14 +41,6 @@ function PostPage() {
             >
                 {successMessage.current}
             </MessageModal>
-
-
-            { !isLoading ?
-                <MainMessage                  //if error
-                    type="error"
-                    text={postError}
-                />
-                :<></>
             }
 
         </div>

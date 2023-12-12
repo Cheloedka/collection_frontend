@@ -12,13 +12,17 @@ import MessageModal from "../UI/modal/MessageModal";
 import MainLoader from "../UI/loader/MainLoader";
 import {formatDate} from "../../functions/dateTimeFunctions";
 
-function Commentary({idCommentary, userImg, userName, date, content, answers, setDeleted, countLikes, likeDto, idItem}) {
+function Commentary({idCommentary, userImg, userName, date, content, answers, setDeleted,
+                        countLikes, likeDto, idItem, isEdited}
+) {
     const {username} = useContext(UserContext)
 
     const [isLike, setIsLike] = useState(likeDto.liked)
     const [likeType, setLikeType] = useState(likeDto.likeType)
     const [count, setCount] = useState(countLikes)
     const [contentState, setContentState] = useState(content)
+    const [modified, setModified] = useState(isEdited)
+    const [newDate, setDate] = useState(date)
 
     const [answerVisible, setAnswerVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
@@ -91,6 +95,15 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
 
     }
 
+    useEffect(() => {
+        if (contentState !== "" && contentState !== content) {
+            setModified(true)
+            setDate("")
+        }
+
+
+    }, [contentState])
+
 
     const options = [
         {title: "Delete", onClick: () => setModalVisible(true)},
@@ -111,10 +124,15 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                                 />
                                 <span className={style.spanUsername}>
                                 <Link to={"/" + username}>{userName}</Link>
-                            </span>
+                                </span>
                                 <span className={style.spanTime}>
-                                {formatDate(date)}
-                            </span>
+                                    <div>
+                                        { modified
+                                            ? <i> Modified {formatDate(newDate)} </i>
+                                            : <> {formatDate(newDate)} </>
+                                        }
+                                    </div>
+                                </span>
                             </div>
 
                             <div className={style.divLikes}>

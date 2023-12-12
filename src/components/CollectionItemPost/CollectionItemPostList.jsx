@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import CollectionItemPost from "./CollectionItemPost";
 import style from "./CollectionItemPost.module.css"
 import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
 import {usePaginate} from "../../hooks/usePaginate";
-import {useParams} from "react-router-dom";
-import MainMessage from "../UI/message/MainMessage";
+import LoaderAndErrorDiv from "../structureComponents/LoaderAndErrorDiv";
 
 function CollectionItemPostList({username, idCollection, type}) {
-    const params = useParams()
 
     const [items, setItems] = useState([])
 
@@ -25,44 +23,41 @@ function CollectionItemPostList({username, idCollection, type}) {
             setItems(prev => [...prev, ...response])
     })
 
-
-    const [pageNumber, triggerElement, setCanLoad, clearData] = usePaginate(itemsFetch, isLoadingItems)
+    const [pageNumber, triggerElement, setCanLoad, clearData, canLoad] = usePaginate(itemsFetch, isLoadingItems)
 
     useEffect(() => {
         setItems([])
         clearData()
-    }, [params.username, params.idCollection])
+    }, [username, idCollection])
 
     return (
-        <div>
-            <MainMessage type={"error"} text={errorItems}/>
-            <div className={style.divList}>
-                { items.length > 0 ?
-                    <>
-                        { items
-                            .map((c, index) =>
-                                <CollectionItemPost
-                                    key={index}
-                                    img={c.images}
-                                    text1={c.name}
-                                    text2={c.about}
-                                    information={c.information}
-                                    id={c.itemId}
-                                    isLiked={c.liked}
-                                    likesCount={c.likesCount}
-                                    commentsCount={c.commentsCount}
-                                    infoName={c.infoName}
-                                    infoImage={c.infoImage}
-                                    creationTime={c.creationTime}
-                                    username={username ? username : c.username}
-                                    countId={c.countId}
-                                    collectionId={idCollection ? idCollection : c.collectionId}
-                                />
-                            )}
-                    </>
-                    : "Not found"
-                }
-            </div>
+        <div className={style.divList}>
+            { items.length > 0 ?
+                <>
+                    { items
+                        .map((c, index) =>
+                            <CollectionItemPost
+                                key={index}
+                                img={c.images}
+                                text1={c.name}
+                                text2={c.about}
+                                information={c.information}
+                                id={c.itemId}
+                                isLiked={c.liked}
+                                likesCount={c.likesCount}
+                                commentsCount={c.commentsCount}
+                                infoName={c.infoName}
+                                infoImage={c.infoImage}
+                                creationTime={c.creationTime}
+                                username={username ? username : c.username}
+                                countId={c.countId}
+                                collectionId={idCollection ? idCollection : c.collectionId}
+                            />
+                        )}
+                </>
+                : "Not found"
+            }
+            <LoaderAndErrorDiv isLoading={isLoadingItems && canLoad} error={errorItems} />
             {triggerElement}
         </div>
     );

@@ -58,6 +58,7 @@ function CommentaryList({commentaries, idPost}) {
                         setDeleted={setDeleted}
                         countLikes={c.countLikes}
                         likeDto={c.likeDto}
+                        isEdited={c.edited}
                     />
                 )}
             </div>

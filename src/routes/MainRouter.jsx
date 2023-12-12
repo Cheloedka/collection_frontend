@@ -56,17 +56,16 @@ function MainRoutes() {
             <Route path='/newMail/:id' element={<PostPage/>} />
             <Route path='/resetPwd/:id' element={<PostPasswordPage/>} />
 
-            <Route path='/:username'>
+            <Route path='/:username'>  {/*nickname*/}
                 <Route index element={<UserPage />} />
                 <Route path='collections' element={<CollectionsPage />} />
                 <Route path=':idCollection' element={<CollectionPage />} />
                 <Route path=':idCollection/:idItem' element={<ItemPage />} />
-
                 <Route path='following' element={<FollowingPage />} />
             </Route>
 
             <Route path='/info' element={<Info />} />
-            <Route path='/error' element={<Error404 />} />
+            <Route path='/not_found' element={<Error404 />} />
 
 
         </Routes>

@@ -2,7 +2,7 @@ import {
     deleteRequestWithAuth, getRequest,
     postBodyRequestWithAuth,
     postRequestWithAuth, putBodyRequestWithAuth
-} from "./RequestFunction";
+} from "./requestFunction";
 
 export default class CommentaryService{
 

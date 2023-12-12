@@ -9,7 +9,7 @@ import CommentaryInput from "../Commentary/CommentaryInput";
 import LikeService from "../../API/LikeService";
 import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
 import ImageModal from "../images/ImageModal";
-import {LikeFunction} from "../../functions/likeFunctions";
+import {LikeFunction} from "../../hooks/likeFunctions";
 import {formatDate} from "../../functions/dateTimeFunctions";
 import {Link} from "react-router-dom";
 

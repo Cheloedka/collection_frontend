@@ -3,9 +3,16 @@
     background-color: #EDEEF0;
     background-size: cover;
 }
+
 .divFlex {
     display: flex;
 }
+
+.divFlexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
 button {
     background: white;
     border: none;

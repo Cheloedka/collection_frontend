@@ -1,4 +1,4 @@
-import {getRequest} from "./RequestFunction";
+import {getRequest} from "./requestFunction";
 
 export default class SearchService {
 

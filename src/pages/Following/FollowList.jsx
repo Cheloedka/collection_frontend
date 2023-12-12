@@ -8,8 +8,6 @@ function FollowList({contentList}) {
         return "There is no any followers"
     }
 
-
-
     return (
         <div className={style.usersDiv}>
             {contentList.map(( {name, surname, image, nickname} , index) =>

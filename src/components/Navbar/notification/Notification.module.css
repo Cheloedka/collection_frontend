@@ -1,5 +1,6 @@
 .divNotifications {
     position: relative;
+    cursor: pointer;
 }
 
 .countNotifications {

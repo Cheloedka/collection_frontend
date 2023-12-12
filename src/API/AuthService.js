@@ -1,5 +1,5 @@
-import {postBodyRequest, putBodyRequest} from "./RequestFunction";
-import {publicApi} from "./ApiConfiguration";
+import {postBodyRequest, putBodyRequest} from "./requestFunction";
+import {publicApi} from "./apiConfiguration";
 
 export default class AuthService {
 

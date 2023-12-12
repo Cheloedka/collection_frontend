@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import style from './AccountSettings.module.css'
 import MInputWithText from "../../../components/UI/input/MInputWithText";
 import SettingsEditButton from "../../../components/UI/button/SettingsEditButton";
@@ -20,12 +20,13 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
     const [surname, setSurname] = useState(userSurname)
     const [uUsername, setUUsername] = useState(username)
 
-    const [errorMessage, setErrorMessage] = useState("")
+    const [error, setError] = useState("")
+
     const [successMessage, setSuccessMessage] = useState("")
 
     const [isInputsClosed, setIsInputsClosed] = useState(false)
 
-    const [fetchSettings, isLoading, error] = useFetching(async () => {
+    const [fetchSettings, isLoading, settingsError] = useFetching(async () => {
         let requestData = {}
         if (image !== "")
             requestData.image = image
@@ -34,14 +35,9 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
         if (surname !== userSurname)
             requestData.surname = surname
         if (uUsername !== username)
-            if (uUsername === "") {
-                setErrorMessage("Username can't be empty")
-                setUUsername(username)
-            }
-            else
-                requestData.nickname = uUsername
+            requestData.nickname = uUsername
         const response = await UserService.userAccountSettings(username, requestData)
-        setErrorMessage("")
+        setError("")
         setSuccessMessage(response)
         setIsInputsClosed(true)
 
@@ -57,16 +53,16 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
     })
 
     useEffect(() => {
-        setErrorMessage(error)
+        setError(error)
         setName(userFirstName)
         setSurname(userSurname)
         setUUsername(username)
-    },[error])
+    },[settingsError])
 
 
     useEffect(() => {
         setSuccessMessage("")
-    }, [errorMessage])
+    }, [error])
 
 
     useEffect(() => {
@@ -75,10 +71,15 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
     },[image])
 
 
+
     function declareUserData(e) {
         e.preventDefault()
         if (image === '' && name === userFirstName && surname === userSurname && uUsername === username) {
-            setErrorMessage("Nothing are changed")
+            setError("Nothing are changed")
+        }
+        else if (uUsername === "") {
+            setError("Username can't be empty")
+            setUUsername(username)
         }
         else
             fetchSettings()
@@ -97,18 +98,18 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
                     <img
                         src={showImage}
                         className={style.userImageBig}
-                        alt={"user Big"}
+                        alt=""
                     />
                     <div className={style.divSmImage}>
                         <img
                             src={showImage}
                             className={style.userImageSm}
-                            alt={"user Small"}
+                            alt=""
                         />
                         <MFileInput
                             setImage={setImage}
                             maxSize={1}
-                            setError={setErrorMessage}
+                            setError={setError}
                         >
                             <SettingsEditButton>
                                 Choose image
@@ -134,31 +135,25 @@ function AccountSettings({userFirstName, setUserFirstName, userSurname, setUserS
             <div className={style.saveChanges}>
                 <button>
                     <SettingsEditButton
-                        text={"Save Changes"}
+                        text="Save Changes"
                         onClick={() => setIsInputsClosed(false)}
                     >
                         { isLoading
-                            ?<MainLoader />
-                            :<Edit color='#3A325B'/>
+                            ? <MainLoader />
+                            : <Edit color="#3A325B"/>
                         }
                     </SettingsEditButton>
                 </button>
             </div>
             <div>
-                { !isLoading ?
-                    <MainMessage                  //if error
-                        type="error"
-                        text={errorMessage}
-                    />
-                    :<></>
-                }
-                { !isLoading ?
-                    <MainMessage                  //if success
-                        type="success"
-                        text={successMessage}
-                    />
-                    :<></>
-                }
+                <MainMessage                  //if error
+                    type="error"
+                    text={error}
+                />
+                <MainMessage                  //if success
+                    type="success"
+                    text={successMessage}
+                />
             </div>
         </form>
     );

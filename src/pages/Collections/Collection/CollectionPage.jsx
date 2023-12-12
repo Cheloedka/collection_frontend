@@ -30,6 +30,7 @@ function CollectionPage() {
 
     const [collection, setCollection] = useState()
     const [modalVisible, setModalVisible] = useState(false)
+    const [backImage, setBackImage] = useState("")
     const topRef = useRef(null);
 
 
@@ -74,8 +75,9 @@ function CollectionPage() {
             <div>
                 <Banner
                     imageType={"collection"}
-                    backImage={collection.backgroundImage}
+                    backImage={backImage ? getImage(backImage) : collection.backgroundImage}
                     mainImage={collection.image}
+                    setBackImage={setBackImage}
                     isUser={isUser}
                 >
 

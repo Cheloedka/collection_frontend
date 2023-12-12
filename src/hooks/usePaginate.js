@@ -11,7 +11,6 @@ export function usePaginate(fetchFunc, isFetchLoading) {
 
     useObserver(triggerElementRef, canLoad, isFetchLoading, () => {
         setPageNumber(prev => prev + 1)
-        console.log("Triggered")
     })
 
     useEffect(() => {
@@ -24,5 +23,5 @@ export function usePaginate(fetchFunc, isFetchLoading) {
         /*setTimeout(() => setPageNumber(0), 300)*/
     }
 
-    return [pageNumber, triggerElement, setCanLoad, clearData]
+    return [pageNumber, triggerElement, setCanLoad, clearData, canLoad]
 }

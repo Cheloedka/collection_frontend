@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import M1Button from "../../components/UI/button/M1Button";
 import {useState} from 'react';
 import {useFetching} from "../../hooks/useFetching"
@@ -9,10 +9,10 @@ import MDiv from "../../components/UI/div/MDiv";
 import style from "./Login.module.css"
 import AuthService from "../../API/AuthService";
 import MainLoader from "../../components/UI/loader/MainLoader";
-import MainMessage from "../../components/UI/message/MainMessage";
+import LoaderAndErrorDiv from "../../components/structureComponents/LoaderAndErrorDiv";
+import {useError} from "../../hooks/useLoadingAndError";
 
 function Login() {
-
     const {setIsAuth} = useContext(AuthContext)
 
     const navigate = useNavigate()
@@ -35,10 +35,7 @@ function Login() {
 
         navigate('/')  //todo navigate to main page
     })
-
-    useEffect(() => {
-        setErrorMessage(loginError)
-    },[loginError])
+    useError(loginError, setErrorMessage)
 
 
     function declareLoginData(e) {
@@ -66,14 +63,7 @@ function Login() {
                     <h3>Login</h3>
                     <p>On this page you can login on our website</p>
 
-                    { !isLoading ?
-                        <MainMessage                  //if error
-                            type="error"
-                            text={errorMessage}
-                        />
-                        :<></>
-
-                    }
+                    <LoaderAndErrorDiv error={errorMessage} isLoading={false} />
 
                     {inputs.map((c, index) =>
                         <MInput
@@ -94,7 +84,7 @@ function Login() {
                             }
                         </M1Button>
 
-                        <Link className={style.passwordLink} to={"/resetPassword"}>
+                        <Link className={style.passwordLink} to="/resetPassword">
                             Forgot your password?
                         </Link>
                     </div>
@@ -104,7 +94,10 @@ function Login() {
             <MDiv className={style.mDiv}>
                 <div className={style.registerDiv}>
                     First time here?
-                    <Link to={"/registration"} className={style.passwordLink}>
+                    <Link
+                        to="/registration"
+                        className={style.passwordLink}
+                    >
                         Register
                     </Link>
                 </div>

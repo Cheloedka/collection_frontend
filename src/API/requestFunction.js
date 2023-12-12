@@ -1,4 +1,4 @@
-import api from "./ApiConfiguration";
+import api from "./apiConfiguration";
 
 export async function getRequestWithAuth(link) {
     return (await api.get('/auth' + link)).data

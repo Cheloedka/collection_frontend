@@ -1,4 +1,3 @@
-import React from 'react';
 import MDiv from "./MDiv";
 import style from "./MDivWithAllSpans.module.css";
 import {Link} from "react-router-dom";

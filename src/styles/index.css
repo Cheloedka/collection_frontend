@@ -4,9 +4,6 @@
     transition: all, 0.05s;
     word-break: break-word;
 }
-#root {
-
-}
 
 img {
     user-select: none;

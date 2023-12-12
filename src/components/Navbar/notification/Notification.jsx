@@ -41,26 +41,20 @@ function Notification() {
 
     return (
         <div>
-
-            <Tooltip
-                direction={"bottom"}
-                text={"Notification"}
+            <div
+                className={style.divNotifications}
+                onClick={() => setNotificationsWindowOpen(prev => !prev)}
+                ref={buttonRef}
             >
-                <div
-                    className={style.divNotifications}
-                    onClick={() => setNotificationsWindowOpen(prev => !prev)}
-                    ref={buttonRef}
-                >
-                    <img src={Bell} className={style2.icon} alt={"icon"}/>
-                    {countNotifications > 0 ?
-                        <div className={style.countNotifications}>
-                            <>{countNotifications < 100 ? countNotifications : "99+"}</>
-                        </div>
-                        : <></>
+                <img src={Bell} className={style2.icon} alt={"icon"}/>
+                {countNotifications > 0 ?
+                    <div className={style.countNotifications}>
+                        <>{countNotifications < 100 ? countNotifications : "99+"}</>
+                    </div>
+                    : <></>
 
-                    }
-                </div>
-            </Tooltip>
+                }
+            </div>
 
             <NotificationWindow
                 isNotificationsWindowOpen={isNotificationsWindowOpen}

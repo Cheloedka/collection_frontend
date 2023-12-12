@@ -4,7 +4,7 @@ import {
     getRequestWithAuth,
     postBodyRequestWithAuth,
     putBodyRequestWithAuth
-} from "./RequestFunction";
+} from "./requestFunction";
 
 export default class ItemService {
 
