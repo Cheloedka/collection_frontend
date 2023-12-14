@@ -54,6 +54,12 @@
     opacity: 1;
 }
 
+.editTooltip {
+    position: absolute;
+    right: -10px;
+    top: -15px;
+}
+
 .editImg {
     position: absolute;
     right: 20px;

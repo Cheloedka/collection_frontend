@@ -8,10 +8,10 @@ import useIsCurrentUser from "../../hooks/useIsCurrentUser";
 import {useFetching} from "../../hooks/useFetching";
 import UserService from "../../API/UserService";
 import {useParams} from "react-router-dom";
-import MainLoader from "../UI/loader/MainLoader";
 import OpacityMessage from "../UI/message/OpacityMessage";
 import {useError} from "../../hooks/useLoadingAndError";
 import CollectionService from "../../API/CollectionService";
+import Tooltip from "../../components/UI/tooltip/Tooltip";
 
 function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackImage, children, imageType, isEdit}) {
     const isUser = useIsCurrentUser()
@@ -61,27 +61,24 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
     return (
         <div className={style.mainDiv}>
             <div className={style.divBackImg}>
-                {/*{ isLoading ?
-                    <MainLoader />
-                    :<> {coverContent()} </>
-                }*/}
-
                 {coverContent()}
 
                 <div className={style.divOpacity}>
                     { !!isUser
                         ?
-                        <MFileInput
-                            setImage={isEdit ? setBackImage : setBack}
-                            maxSize={2}
-                            setError={isEdit ? setErrorMessage : setError}
-                        >
-                            <img
-                                src={editImgIco}
-                                className={style.editImg}
-                                alt={"edit"}
-                            />
-                        </MFileInput>
+                        <Tooltip text="Change cover" className={style.editTooltip}>
+                            <MFileInput
+                                setImage={isEdit ? setBackImage : setBack}
+                                maxSize={2}
+                                setError={isEdit ? setErrorMessage : setError}
+                            >
+                                <img
+                                    src={editImgIco}
+                                    className={style.editImg}
+                                    alt={"edit"}
+                                />
+                            </MFileInput>
+                        </Tooltip>
                         : <></>
                     }
                 </div>

@@ -26,7 +26,6 @@ function Register() {
 
 
     const [fetchRegister, isLoading, postError] = useFetching(async () => {
-        setErrorMessage("")
         const registerData = {
             username: uName,
             name: name,
@@ -34,11 +33,11 @@ function Register() {
             email: email,
             password: pwd
         }
-
         successMessage.current = await AuthService.register(registerData)
+        setErrorMessage("")
         setModalVisible(true)
     })
-    useError(postError, errorMessage)
+    useError(postError, setErrorMessage)
 
 
     function declareLoginData(e) {

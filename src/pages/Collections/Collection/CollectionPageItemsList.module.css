@@ -3,4 +3,24 @@
     gap: 30px;
     flex-wrap: wrap;
     margin-top: 20px;
+    transition-timing-function: ease;
+}
+
+.showMoreBtn {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: rgb(46, 41, 76);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    background-color: rgba(237, 238, 240, 0.6);
+}
+
+.showMoreBtn:hover {
+    color: rgb(46, 41, 76, 0.8);
+    background-color: #EDEEF0;
 }

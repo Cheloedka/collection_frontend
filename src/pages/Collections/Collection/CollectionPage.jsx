@@ -20,6 +20,7 @@ import MessageModal from "../../../components/UI/modal/MessageModal";
 import PlusButton from "../../../components/UI/button/PlusButton";
 import MDivWithSpans from "../../../components/UI/div/MDivWithSpans";
 import MDivWithLinkSpans from "../../../components/UI/div/MDivWithLinkSpans";
+import Tooltip from "../../../components/UI/tooltip/Tooltip";
 
 function CollectionPage() {
     let params = useParams()
@@ -91,13 +92,19 @@ function CollectionPage() {
                             />
                             {isUser ?
                                 <GroupIcoButtons
-                                firstIco={
-                                    <div onClick={() => setModalVisible(true)}>
-                                        <Delete />
-                                    </div>
-                                }
-                                secondIcoTo={"edit"}
-                                secondIco={<Edit color={"white"} />}
+                                    firstIco={
+                                        <Tooltip text="Delete">
+                                            <div onClick={() => setModalVisible(true)}>
+                                                <Delete />
+                                            </div>
+                                        </Tooltip>
+                                    }
+                                    secondIcoTo={"edit"}
+                                    secondIco={
+                                        <Tooltip text="Edit">
+                                            <Edit color={"white"} />
+                                        </Tooltip>
+                                    }
                                 />
                                 :<></>
                             }

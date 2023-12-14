@@ -43,6 +43,14 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
             setAnswerVisible(false)
     }, [newCommentaries])
 
+    useEffect(() => {
+        if (idCommentary) {
+            setCount(countLikes)
+            setContentState(content)
+            setDate(date)
+        }
+    }, [idCommentary])
+
 
     async function likeManager(direction) {
         let func

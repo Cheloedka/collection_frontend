@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
@@ -17,6 +17,7 @@ import MessageModal from "../../components/UI/modal/MessageModal";
 import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
 import CommentaryList from "../../components/Commentary/CommentaryList";
 import CommentaryInput from "../../components/Commentary/CommentaryInput";
+import MDropdown from "../../components/UI/dropdown/MDropdown";
 
 function ItemPage() {
     const params = useParams()
@@ -27,6 +28,7 @@ function ItemPage() {
     const [modalVisible, setModalVisible] = useState(false)
     const [newCommentaries, setNewCommentaries] = useState([])
     const [coverImage, setCoverImage] = useState("")
+    const [sortTypeCommentaries, setSortTypeCommentaries] = useState("id")
 
     const [itemFetch, isLoading, error] = useFetching(async () => {
         const response = await ItemService.getItem(params.idCollection, params.idItem, params.username)
@@ -119,12 +121,21 @@ function ItemPage() {
                             <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={item.itemId}/>
                         </div>
 
+                        <div className={style.dropdownSort}>
+                            <MDropdown
+                                defaultValue={"Sorting By"}
+                                options={[
+                                    {title: "Popular", type: "countLikes", onClick: setSortTypeCommentaries},
+                                    {title: "New", type: "creationDate", onClick: setSortTypeCommentaries},
+                                ]}
+                            />
+                        </div>
 
                         { newCommentaries
                             ? <CommentaryList commentaries={newCommentaries} idPost={item.itemId}/>
                             : <></>
                         }
-                        <CommentaryList idPost={item.itemId}/>
+                        <CommentaryList idPost={item.itemId} sort={sortTypeCommentaries}/>
 
                     </MDivWithSpans>
 
