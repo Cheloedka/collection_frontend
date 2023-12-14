@@ -42,15 +42,15 @@
 }
 
 .navButton, .searchButton {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     background-color: white;
     color: #211C35;
     border-bottom: 1px solid white;
-    margin: 0 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .navButton:hover, .searchButton:hover {

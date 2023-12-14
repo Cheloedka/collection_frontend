@@ -9,8 +9,12 @@ import UserService from "../../../API/UserService";
 import inputStyle from "../../../components/UI/input/MInputWithText.module.css"
 import MainMessage from "../../../components/UI/message/MainMessage";
 import {useLoadingAndError} from "../../../hooks/useLoadingAndError";
+import MessageModal from "../../../components/UI/modal/MessageModal";
+import CollectionService from "../../../API/CollectionService";
+import {useLogout} from "../../../hooks/useLogout";
 
 function SecuritySettings({userEmail, setUserEmail}) {
+    const logout = useLogout()
 
     const [isPasswordClosed, setIsPasswordClosed] = useState(false)
     const [isEmailClosed, setIsEmailClosed] = useState(false)
@@ -22,6 +26,7 @@ function SecuritySettings({userEmail, setUserEmail}) {
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState("")
+    const [modalVisible, setModalVisible] = useState(false)
 
 
     const [fetchEmail, isEmailLoading, emailError] = useFetching(async () => {
@@ -58,6 +63,11 @@ function SecuritySettings({userEmail, setUserEmail}) {
     })
 
     useLoadingAndError(isLoadingPass, setIsLoading, errorPass, setError)
+
+
+    async function deleteCollection() {
+        await UserService.userDelete().then(logout)
+    }
 
     function changePassword() {
         if (newPassword === "")
@@ -143,11 +153,20 @@ function SecuritySettings({userEmail, setUserEmail}) {
                     <SettingsEditButton
                         style={{borderColor: "red", color: "red"}}
                         text={"Delete Account"}
+                        onClick={() => setModalVisible(true)}
                     >
 
                     </SettingsEditButton>
                 </button>
             </div>
+
+            <MessageModal visible={modalVisible}
+                          setVisible={setModalVisible}
+                          acceptCallback={() => deleteCollection()}
+            >
+                Are you sure to delete Collection?
+            </MessageModal>
+
             <div>
                 <MainMessage
                     type="error"

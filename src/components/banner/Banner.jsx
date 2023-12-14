@@ -18,7 +18,7 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
     const params = useParams()
     const [isOpened, setIsOpened] = useState(false)
 
-    const [back, setBack] = useState()
+    const [back, setBack] = useState("")
     const [error, setError] = useState("")
     const [showElement, setShowElement] = useState(false)
 
@@ -84,10 +84,10 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                 </div>
                 <div className={style.divContent}>
                         <img
-                        src={ mainImage ? mainImage : defaultCollectionImage}
-                        className={imageType === 'USER' ? style.userImage : style.collectionImage}
-                        alt="image"
-                        onClick={() => setIsOpened(true)}
+                            src={ mainImage ? mainImage : defaultCollectionImage}
+                            className={imageType === 'USER' ? style.userImage : style.collectionImage}
+                            alt="image"
+                            onClick={() => setIsOpened(true)}
                         />
 
                         <ImageModal

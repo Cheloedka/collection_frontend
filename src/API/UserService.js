@@ -1,4 +1,4 @@
-import {getRequest, getRequestWithAuth, putBodyRequestWithAuth} from "./requestFunction";
+import {deleteRequestWithAuth, getRequest, getRequestWithAuth, putBodyRequestWithAuth} from "./requestFunction";
 
 export default class UserService {
 
@@ -38,6 +38,10 @@ export default class UserService {
 
     static async getNotifications(page, size, isRead) {
         return await getRequestWithAuth(`/notification/get?page=${page}&size=${size}&isRead=${isRead}`)
+    }
+
+    static async userDelete() {
+        return await deleteRequestWithAuth("/user/delete");
     }
 
 }

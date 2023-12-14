@@ -25,9 +25,6 @@ function CollectionItemPost({infoName, infoImage,
                                 ...props}
 ) {
 
-   /* const [newCommentaries, setNewCommentaries] = useState([])
-    const [commentCount, setCommentCount] = useState(commentsCount)*/
-
     const [isLike, setIsLike] = useState(isLiked)
     const [count, setCount] = useState(likesCount)
     const [isOpened, setIsOpened] = useState(false)
@@ -73,32 +70,36 @@ function CollectionItemPost({infoName, infoImage,
 
             <div>
                 <div className={style.divImage}>
+                    <div className={style.divImage}>
+                        {img.length > 0 ?
+                            <>
+                                { currentImage > 0 ?
+                                    <div className={style.leftImageButton}
+                                         onClick={() => manageImages("left")}
+                                    >
+                                        >
+                                    </div>
+                                    :<></>
+                                }
 
-                    { currentImage > 0 ?
-                        <div className={style.leftImageButton}
-                             onClick={() => manageImages("left")}
-                        >
-                            >
-                        </div>
-                        :<></>
-                    }
+                                <img src={getCollectionImage(img[currentImage].name)} className={style.imgItem} onClick={() => setIsOpened(true)}/>
 
-                    <img src={getCollectionImage(img[currentImage].name)} className={style.imgItem} onClick={() => setIsOpened(true)}/>
+                                { currentImage < img.length - 1 ?
+                                    <div className={style.rightImageButton}
+                                         onClick={() => manageImages("right")}
+                                    >
+                                        >
+                                    </div>
+                                    :<></>
+                                }
 
-                    { currentImage < img.length - 1 ?
-                        <div className={style.rightImageButton}
-                             onClick={() => manageImages("right")}
-                        >
-                            >
-                        </div>
-                        :<></>
-                    }
+                                <ImageModal isOpened={isOpened} setIsOpened={setIsOpened} src={getCollectionImage(img[currentImage].name)}/>
+                            </>
+                            : <></>
 
-
-
-                    <ImageModal isOpened={isOpened} setIsOpened={setIsOpened} src={getCollectionImage(img[currentImage].name)}/>
+                        }
+                    </div>
                 </div>
-
                 <div className={style.divSpan}>
                     <span className={style.span2}>{information}</span>
                 </div>

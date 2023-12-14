@@ -33,7 +33,7 @@ function CollectionEditor() {
         setTitle(response.name)
         setAbout(response.about)
         setInformation(response.information)
-        setIsPrivate(response.private)
+        setIsPrivate(response.collectionPrivate)
         setImages({main: getCollectionImage(response.image), background: getImage(response.backgroundImage)})
     })
 
@@ -50,6 +50,7 @@ function CollectionEditor() {
             requestData = {...requestData, image: mainImage}
         if (backImage)
             requestData = {...requestData, backgroundImage: backImage}
+
         requestData.isPrivate = isPrivate
 
         await CollectionService.editCollection(params.idCollection, requestData)

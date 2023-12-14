@@ -149,7 +149,7 @@ function UserPage() {
                             secondText={user.countCollections}
                             childrenCloseToText={
                                 <PlusButton
-                                    to={"/collections/create"}
+                                    to={"collections/create"}
                                     className={style.buttonAddCollection}
                                 />
                             }

@@ -1,16 +1,16 @@
 import Navbar from 'react-bootstrap/Navbar';
 import {Image} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context";
-import M1Button from "../UI/button/M1Button";
 import NavDrop from "./dropdown/NavDrop";
 import SearchDiv from "./search/SearchDiv";
 import style from './NavigationBar.module.css'
 import logo from "../../images/logo.png"
 import Search from "../../images/icons/Search.svg";
 import Notification from "./notification/Notification";
-import {useConnectNotification} from "./notification/useConnectNotification";
+import Community from "../UI/svg/Community";
+import M1Button from "../UI/button/M1Button";
 
 function NavigationBar() {
 
@@ -30,7 +30,7 @@ function NavigationBar() {
         <div className={style.divNavbar}>
             <div className={style.brand}>
                 <Image src={logo} className={style.logo}/>
-                . . .Collections
+                <Link to="/main">. . .Collections</Link>
             </div>
 
             <SearchDiv
@@ -50,7 +50,9 @@ function NavigationBar() {
 
         {isAuth ?
             <div className={style.rightDiv}>
-
+                <Link to="/main" className={style.navButton}>
+                    <Community />
+                </Link>
 
                 <Notification />
 

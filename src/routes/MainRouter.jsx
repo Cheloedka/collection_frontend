@@ -3,7 +3,7 @@ import Login from "../pages/Login/Login"
 import OnlyPublicRotes from "./OnlyPublicRotes";
 import {useContext} from "react";
 import {AuthContext} from "../context";
-import Info from "../pages/Info";
+import Main from "../pages/Main";
 import PrivateRoutes from "./PrivateRoutes";
 import UserPage from "../pages/UserPage/UserPage";
 import Register from "../pages/Register/Register";
@@ -43,7 +43,7 @@ function MainRoutes() {
             {/*Only Private Routes*/}
             <Route path='' element={<PrivateRoutes auth={isAuth} />}>
                 <Route path='/settings' element={<SettingsPage />}/>
-                <Route path='/collections/create' element={<CollectionCreator />} />
+                <Route path='/:username/collections/create' element={<CollectionCreator />} />
                 <Route path='/:username/:idCollection/item/create' element={<CollectionItemCreator />} />
                 <Route path='/:username/:idCollection/edit' element={<CollectionEditor />} />
                 <Route path='/:username/:idCollection/:idItem/edit' element={<CollectionItemEditor />} />
@@ -64,7 +64,7 @@ function MainRoutes() {
                 <Route path='following' element={<FollowingPage />} />
             </Route>
 
-            <Route path='/info' element={<Info />} />
+            <Route path='/main' element={<Main />} />
             <Route path='/not_found' element={<Error404 />} />
 
 

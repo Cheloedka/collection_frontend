@@ -42,7 +42,6 @@ function CollectionBody({declareCollectionData,
                 <form onSubmit={declareCollectionData}>
 
                     <Banner
-                        isUser={true}
                         setErrorMessage={setErrorMessage}
                         mainImage={mainImage ? mainImage : null}
                         setMainImage={setMainImage}

@@ -61,8 +61,8 @@ function CommentaryList({commentaries, idPost, sort}) {
                             idCommentary={c.id}
                             content={c.content}
                             date={c.creationDate}
-                            userName={c.author.nickname}
-                            userImg={c.author.image}
+                            userName={c.author != null ? c.author.nickname : null}
+                            userImg={c.author != null ? c.author.image : null}
                             answers={c.answers}
                             idItem={c.answerToItem}
                             setDeleted={setDeleted}

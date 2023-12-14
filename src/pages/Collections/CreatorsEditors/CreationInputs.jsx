@@ -28,7 +28,7 @@ function CreationInputs({children, tittle, setTitle, about, setAbout, informatio
                     style={{minHeight: "136px"}}
                     value={information}
                     onChange={event => setInformation(event.target.value)}
-                    placeholder="Info"
+                    placeholder="Main"
                     maxLength = "500"
                 />
             </div>

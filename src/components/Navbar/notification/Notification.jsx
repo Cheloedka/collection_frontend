@@ -1,13 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {UserContext} from "../../../context";
-import Tooltip from "../../UI/tooltip/Tooltip";
 import Bell from "../../../images/icons/Notification.svg";
 import style from "./Notification.module.css";
 import style2 from "../NavigationBar.module.css";
 import {useConnectNotification} from "./useConnectNotification";
 import FadingNotification from "./FaldingNotification";
 import NotificationWindow from "./NotificationWindow";
-import notificationWindow from "./NotificationWindow";
 
 
 
@@ -46,7 +44,9 @@ function Notification() {
                 onClick={() => setNotificationsWindowOpen(prev => !prev)}
                 ref={buttonRef}
             >
-                <img src={Bell} className={style2.icon} alt={"icon"}/>
+                <div className={style2.navButton}>
+                    <img src={Bell} className={style2.icon} alt={"icon"}/>
+                </div>
                 {countNotifications > 0 ?
                     <div className={style.countNotifications}>
                         <>{countNotifications < 100 ? countNotifications : "99+"}</>

@@ -11,6 +11,7 @@ import {Link} from "react-router-dom";
 import MessageModal from "../UI/modal/MessageModal";
 import MainLoader from "../UI/loader/MainLoader";
 import {formatDate} from "../../functions/dateTimeFunctions";
+import defaultUserImage from "../../images/default.jpg"
 
 function Commentary({idCommentary, userImg, userName, date, content, answers, setDeleted,
                         countLikes, likeDto, idItem, isEdited}
@@ -127,11 +128,16 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                             <div className={style.divUserContent}>
                                 <img
                                     alt={"user picture"}
-                                    src={getUserImage(userImg)}
+                                    src={userImg ? getUserImage(userImg) : defaultUserImage}
                                     className={style.imgUser}
                                 />
                                 <span className={style.spanUsername}>
-                                <Link to={"/" + username}>{userName}</Link>
+                                    { userName
+                                        ? <Link to={"/" + username}>
+                                            {userName}
+                                          </Link>
+                                        : <div style={{color: "darkred"}}> Removed account </div>
+                                    }
                                 </span>
                                 <span className={style.spanTime}>
                                     <div>
