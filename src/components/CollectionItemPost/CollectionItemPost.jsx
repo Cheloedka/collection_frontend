@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import style from './CollectionItemPost.module.css'
 import Like from "../UI/svg/Like";
 import LikeFill from "../UI/svg/LikeFill";
@@ -11,7 +11,8 @@ import {getCollectionImage, getUserImage} from "../../functions/imageFunctions";
 import ImageModal from "../images/ImageModal";
 import {LikeFunction} from "../../hooks/likeFunctions";
 import {formatDate} from "../../functions/dateTimeFunctions";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context";
 
 function CollectionItemPost({infoName, infoImage,
                                 img, information,
@@ -22,6 +23,7 @@ function CollectionItemPost({infoName, infoImage,
                                 isLiked,
                                 commentsCount,
                                 creationTime,
+                                type,
                                 ...props}
 ) {
 
@@ -29,6 +31,8 @@ function CollectionItemPost({infoName, infoImage,
     const [count, setCount] = useState(likesCount)
     const [isOpened, setIsOpened] = useState(false)
     const [currentImage, setCurrentImage] = useState(0)
+    const {isAuth} = useContext(AuthContext)
+    const navigate = useNavigate()
 
 
 
@@ -47,21 +51,22 @@ function CollectionItemPost({infoName, infoImage,
 
     return (
         <MDiv className={style.mainDiv}>
-
-            <div className={style.divUserContent}>
+            <Link className={style.divUserContent}
+                  to={type === "COLLECTION" ? "/" + username : "/" + username + "/" + collectionId}
+            >
                 <img
                     src={getCollectionImage(infoImage)}
                     className={style.imgUser}
                 />
                 <div className={style.userInfo}>
-                    <span className={style.spanUsername}>
+                <span className={style.spanUsername}>
                     {infoName}
                 </span>
                     <span className={style.spanTime}>
                     {formatDate(creationTime)}
                 </span>
                 </div>
-            </div>
+            </Link>
 
             <div className={style.divSpan}>
                 <span className={style.span1}>{text1}</span>
@@ -106,18 +111,27 @@ function CollectionItemPost({infoName, infoImage,
 
 
                 <div className={style.divBottomPanel}>
-                        {isLike
-                            ?<div onClick={() => manageLikes(true)} className={style.divBorder + " " + style.divBorderLike}>
-                                <LikeFill />
-                                <span style={{minWidth: "10px"}}> {count} </span>
-                            </div>
-                            :
-                            <div onClick={() => manageLikes(false)} className={style.divBorder + " " + style.divBorderLike}>
+                    { isAuth ?
+                        <>
+                            {isLike
+                                ?<div onClick={() => manageLikes(true)} className={style.divBorder + " " + style.divBorderLike}>
+                                    <LikeFill />
+                                    <span style={{minWidth: "10px"}}> {count} </span>
+                                </div>
+                                :
+                                <div onClick={() => manageLikes(false)} className={style.divBorder + " " + style.divBorderLike}>
+                                    <Like />
+                                    <span style={{minWidth: "10px"}}> {count} </span>
+                                </div>
+
+                            }
+                        </>
+                        : <div onClick={() => navigate("/login")} className={style.divBorder + " " + style.divBorderLike}>
                                 <Like />
                                 <span style={{minWidth: "10px"}}> {count} </span>
-                            </div>
+                          </div>
+                    }
 
-                        }
                     <Link to={"/" + username + "/" + collectionId + "/" + countId}>
                         <div className={style.divBorder}>
                             <Comment width="20"/>

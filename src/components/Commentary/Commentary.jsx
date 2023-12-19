@@ -6,8 +6,8 @@ import CommentaryInput from "./CommentaryInput";
 import MoreOptionsDropdown from "../UI/dropdown/MoreOptionsDropdown";
 import {useFetching} from "../../hooks/useFetching";
 import CommentaryService from "../../API/CommentaryService";
-import {UserContext} from "../../context";
-import {Link} from "react-router-dom";
+import {AuthContext, UserContext} from "../../context";
+import {Link, useNavigate} from "react-router-dom";
 import MessageModal from "../UI/modal/MessageModal";
 import MainLoader from "../UI/loader/MainLoader";
 import {formatDate} from "../../functions/dateTimeFunctions";
@@ -17,13 +17,16 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                         countLikes, likeDto, idItem, isEdited}
 ) {
     const {username} = useContext(UserContext)
+    const {isAuth} = useContext(AuthContext)
+    const navigate = useNavigate()
 
-    const [isLike, setIsLike] = useState(likeDto.liked)
-    const [likeType, setLikeType] = useState(likeDto.likeType)
     const [count, setCount] = useState(countLikes)
     const [contentState, setContentState] = useState(content)
     const [modified, setModified] = useState(isEdited)
     const [newDate, setDate] = useState(date)
+
+    const [isLike, setIsLike] = useState(likeDto ? likeDto.liked : null)
+    const [likeType, setLikeType] = useState(likeDto ?likeDto.likeType : null)
 
     const [answerVisible, setAnswerVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
@@ -49,6 +52,10 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
             setCount(countLikes)
             setContentState(content)
             setDate(date)
+            if (likeDto) {
+                setIsLike(likeDto.liked)
+                setLikeType(likeDto.likeType)
+            }
         }
     }, [idCommentary])
 
@@ -109,9 +116,69 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
             setModified(true)
             setDate("")
         }
-
-
     }, [contentState])
+
+    function editModeData() {
+        if (editMode) {
+            return <>
+                <span
+                    className={style.spanAnswer}
+                    onClick={() => setEditMode(false)}
+                >
+                    Cancel
+                </span>
+                <CommentaryInput
+                    idCommentary={idCommentary}
+                    isEdit={true}
+                    setCurrentContent={setContentState}
+                    currentContent={contentState}
+                    setVisible={setEditMode}
+                />
+            </>
+        }
+        else {
+            return <>
+                <div className={style.divContent}>
+                    {contentState}
+                </div>
+
+                <div className={style.divBottomContent}>
+                    <span
+                        className={style.spanAnswer}
+                        onClick={() => setAnswerVisible(prevState => !prevState)}
+                    >
+                        {answerVisible
+                            ? <> Cancel </>
+                            : <> Answer </>
+                        }
+                    </span>
+
+                    {username === userName
+                        ? <MoreOptionsDropdown options={options} />
+                        : <></>
+                    }
+
+                    <MessageModal
+                        visible={modalVisible}
+                        setVisible={setModalVisible}
+                        acceptCallback={() => deleteFetch()}
+                    >
+                        Are you sure to delete commentary?
+                    </MessageModal>
+
+                </div>
+
+                {answerVisible ?
+                    <CommentaryInput
+                        idCommentary={idCommentary}
+                        idItem={idItem}
+                        setNewCommentaries={setNewCommentaries}
+                    />
+                    : <></>
+                }
+            </>
+        }
+    }
 
 
     const options = [
@@ -152,7 +219,11 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                             <div className={style.divLikes}>
                                 <div
                                     className={style.divLikeCommentary}
-                                    onClick={() => likeManager("up")}
+                                    onClick={() =>
+                                    { isAuth
+                                        ? likeManager("up")
+                                        : navigate("/login")
+                                    }}
                                 >
                                     {likeType === "LIKE"
                                         ? <div style={{color: "green"}}> &#94; </div>
@@ -172,79 +243,27 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
 
                                 <div
                                     className={style.divDislikeCommentary}
-                                    onClick={() => likeManager("down")}
+                                    onClick={() => { isAuth
+                                        ? likeManager("down")
+                                        : navigate("/login")
+                                    }}
                                 >
                                     {likeType === "DISLIKE"
                                         ? <div style={{color: "red"}}>
                                             &#94;
                                         </div>
-                                        : <div>
-                                            &#94;
-                                        </div>
+                                        : <div> &#94; </div>
                                     }
                                 </div>
                             </div>
                         </div>
-                        {editMode
-                            ?
-                            <>
-                            <span
-                                className={style.spanAnswer}
-                                onClick={() => setEditMode(false)}
-                            >
-                                Cancel
-                            </span>
-                                <CommentaryInput
-                                    idCommentary={idCommentary}
-                                    isEdit={true}
-                                    setCurrentContent={setContentState}
-                                    currentContent={contentState}
-                                    setVisible={setEditMode}
-                                />
-                            </>
-                            :
-                            <>
-                                <div className={style.divContent}>
-                                    {contentState}
-                                </div>
 
-                                <div className={style.divBottomContent}>
-                                <span
-                                    className={style.spanAnswer}
-                                    onClick={() => setAnswerVisible(prevState => !prevState)}
-                                >
-                                    {answerVisible
-                                        ? <> Cancel </>
-                                        : <> Answer </>
-                                    }
-                                </span>
-
-                                    {username === userName
-                                        ? <MoreOptionsDropdown options={options} />
-                                        : <></>
-                                    }
-
-                                    <MessageModal
-                                        visible={modalVisible}
-                                        setVisible={setModalVisible}
-                                        acceptCallback={() => deleteFetch()}
-                                    >
-                                        Are you sure to delete commentary?
-                                    </MessageModal>
-
-                                </div>
-
-                                {answerVisible ?
-                                    <CommentaryInput
-                                        idCommentary={idCommentary}
-                                        idItem={idItem}
-                                        setNewCommentaries={setNewCommentaries}
-                                    />
-                                    : <></>
-                                }
-                            </>
+                        { isAuth
+                            ? <>{editModeData()}</>
+                            : <div className={style.divContent}>
+                                {contentState}
+                              </div>
                         }
-
 
                     </div>
                     <div>
@@ -287,7 +306,10 @@ function Commentary({idCommentary, userImg, userName, date, content, answers, se
                                 <Link to={"/" + username}>{userName}</Link>
                             </span>
                             <span className={style.spanTime}>
-                                {date}
+                                { modified
+                                    ? <i> Modified {formatDate(newDate)} </i>
+                                    : <> {formatDate(newDate)} </>
+                                }
                             </span>
                         </div>
                     </div>

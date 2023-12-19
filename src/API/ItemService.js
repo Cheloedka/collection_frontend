@@ -57,4 +57,12 @@ export default class ItemService {
     static async getAllItemsByCollection(value, page) {
         return await this.getByType(value, page, "collection")
     }
+
+    static async getAllItemsByFollower(value, page) {
+        return await this.getByType(value, page, "friendship")
+    }
+
+    static async getAllMainItems(username, page) {
+        return await this.getByType(username, page, "main")
+    }
 }

@@ -40,11 +40,15 @@ export default class CollectionService {
     }
 
     static async isUserOwner(id) {
-        return await getRequest("collection/" + id + "/isUserOwner")
+        return await getRequest("/collection/" + id + "/isUserOwner")
     }
 
     static async deleteCollection(idCollection) {
         return await deleteRequestWithAuth("/collection/delete/" + idCollection)
+    }
+
+    static async getTop3Collection(username) {
+        return await getRequest("/collection/getTop3/" + username)
     }
 
 }

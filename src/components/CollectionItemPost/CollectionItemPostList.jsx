@@ -14,8 +14,12 @@ function CollectionItemPostList({username, idCollection, type}) {
         let response;
         if (type === "COLLECTION")
             response = await ItemService.getAllItemsByCollection(idCollection, pageNumber)
-        if (type === "USER")
+        else if (type === "USER")
             response = await ItemService.getAllItemsByUser(username, pageNumber)
+        else if (type === "FOLLOWER")
+            response = await ItemService.getAllItemsByFollower(username, pageNumber)
+        else if (type === "MAIN")
+            response = await ItemService.getAllMainItems("notAuth", pageNumber)
 
         if (response.length === 0)
             setCanLoad(false)
@@ -28,7 +32,7 @@ function CollectionItemPostList({username, idCollection, type}) {
     useEffect(() => {
         setItems([])
         clearData()
-    }, [username, idCollection])
+    }, [username, idCollection, type])
 
     return (
         <div className={style.divList}>
@@ -49,9 +53,10 @@ function CollectionItemPostList({username, idCollection, type}) {
                                 infoName={c.infoName}
                                 infoImage={c.infoImage}
                                 creationTime={c.creationTime}
-                                username={username ? username : c.username}
+                                username={c.author}
                                 countId={c.countId}
                                 collectionId={idCollection ? idCollection : c.collectionId}
+                                type={type}
                             />
                         )}
                 </>

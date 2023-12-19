@@ -48,23 +48,23 @@ function NavigationBar() {
 
         </div>
 
-        {isAuth ?
-            <div className={style.rightDiv}>
-                <Link to="/main" className={style.navButton}>
-                    <Community />
-                </Link>
-
-                <Notification />
-
-                <div className={style.dropdown}>
-                    <NavDrop/>
-                </div>
-            </div>
-            :
-            <M1Button onClick={BLogin} className={style.buttonLogin}>
-                Login
-            </M1Button>
-        }
+        <div className={style.rightDiv}>
+            <Link to="/main" className={style.navButton}>
+                <Community />
+            </Link>
+            {isAuth ?
+                <>
+                    <Notification />
+                    <div className={style.dropdown}>
+                        <NavDrop/>
+                    </div>
+                </>
+                :
+                <M1Button onClick={BLogin} className={style.buttonLogin}>
+                    Login
+                </M1Button>
+            }
+        </div>
     </Navbar>
     );
 }

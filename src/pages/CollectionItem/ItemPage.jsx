@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
@@ -18,11 +18,13 @@ import MDivWithSpans from "../../components/UI/div/MDivWithSpans";
 import CommentaryList from "../../components/Commentary/CommentaryList";
 import CommentaryInput from "../../components/Commentary/CommentaryInput";
 import MDropdown from "../../components/UI/dropdown/MDropdown";
+import {AuthContext} from "../../context";
 
 function ItemPage() {
     const params = useParams()
     const navigate = useNavigate()
     const isUser = useIsCurrentUser()
+    const {isAuth} = useContext(AuthContext)
 
     const [item, setItem] = useState()
     const [modalVisible, setModalVisible] = useState(false)
@@ -117,9 +119,12 @@ function ItemPage() {
                         mainText={"Comments"}
                         className={style.leftComments}
                     >
-                        <div className={style.divCommentaryInput}>
-                            <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={item.itemId}/>
-                        </div>
+                        { isAuth ?
+                            <div className={style.divCommentaryInput}>
+                                <CommentaryInput setNewCommentaries={setNewCommentaries} idItem={item.itemId}/>
+                            </div>
+                            : <></>
+                        }
 
                         <div className={style.dropdownSort}>
                             <MDropdown

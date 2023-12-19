@@ -35,7 +35,9 @@ function UserPage() {
 
     const [userPageFetch, isLoading, userError] = useFetching( async () => {
         let response = await UserService.userPageInfo(params.username)
-        setIsFollowers(response.follower)
+        if (response.follower) {
+            setIsFollowers(response.follower)
+        }
         setUser(response)
 
     })
@@ -46,12 +48,12 @@ function UserPage() {
         userPageFetch()
     },[params.username])
 
-    async function manageFriend(isDelete, setIsFollowers, username) {
+    async function manageFriend(isDelete) {
         let func
         if (isDelete)
-            func = () => FriendshipService.deleteFollowing(username)
+            func = () => FriendshipService.deleteFollowing(params.username)
         else
-            func = () => FriendshipService.newFollowing(username)
+            func = () => FriendshipService.newFollowing(params.username)
 
         await func()
         setIsFollowers(prev => !prev)

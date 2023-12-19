@@ -11,7 +11,7 @@ export function useLogout() {
         localStorage.removeItem('authToken')
         localStorage.removeItem('refreshToken')
         localStorage.removeItem('auth')
-        navigate('/info')
+        navigate('/main')
     }
 
     return logout
