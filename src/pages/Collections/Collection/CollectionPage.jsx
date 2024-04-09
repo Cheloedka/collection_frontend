@@ -21,6 +21,7 @@ import PlusButton from "../../../components/UI/button/PlusButton";
 import MDivWithSpans from "../../../components/UI/div/MDivWithSpans";
 import MDivWithLinkSpans from "../../../components/UI/div/MDivWithLinkSpans";
 import Tooltip from "../../../components/UI/tooltip/Tooltip";
+import OpacityErrorDiv from "../../../components/structureComponents/OpacityErrorDiv";
 
 function CollectionPage() {
     let params = useParams()
@@ -34,8 +35,9 @@ function CollectionPage() {
     const [backImage, setBackImage] = useState("")
     const topRef = useRef(null);
 
+    const [error, setError] = useState("")
 
-    const [collectionPageFetch, isLoading, error] = useFetching( async () => {
+    const [collectionPageFetch, isLoading, errorCollection] = useFetching( async () => {
         let response = await CollectionService.getCollection(params.idCollection, params.username)
         if (response.private === true && isUser === false)
             navigate("/error")
@@ -61,9 +63,9 @@ function CollectionPage() {
     },[params.idCollection])
 
     useEffect(() => {
-        if (error)
+        if (errorCollection)
             navigate("/error")
-    }, [error])
+    }, [errorCollection])
 
     async function deleteCollection() {
         await CollectionService.deleteCollection(params.idCollection)
@@ -74,12 +76,16 @@ function CollectionPage() {
     if (collection)
         return (
             <div>
+
+                <OpacityErrorDiv error={error} setError={setError}/>
+
                 <Banner
                     imageType={"collection"}
                     backImage={backImage ? getImage(backImage) : collection.backgroundImage}
                     mainImage={collection.image}
                     setBackImage={setBackImage}
                     isUser={isUser}
+                    setError={setError}
                 >
 
                     <MDiv className={style.divCollectionContent}>

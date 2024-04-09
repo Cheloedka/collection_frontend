@@ -6,7 +6,7 @@ function MainLoader({isLoading, color, size}) {
         <div style={{textAlign:"center"}}>
             <BeatLoader
                 loading={isLoading}
-                color={color ? color : "#2e294c"}
+                color={color ? color : "#ffffff"}
                 size={size ? size : "10px"}
                 speedMultiplier="1"
             />

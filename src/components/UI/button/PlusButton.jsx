@@ -6,11 +6,9 @@ import {useStyles} from "../../../hooks/useStyles";
 import Tooltip from "../tooltip/Tooltip";
 
 function PlusButton({to, className, ...props}) {
+
     const isUser = useIsCurrentUser()
-
     const allStyles = useStyles(style.main, className)
-
-
 
     return (
         <Tooltip direction={"bottom"} text={"Create new"} className={className}>

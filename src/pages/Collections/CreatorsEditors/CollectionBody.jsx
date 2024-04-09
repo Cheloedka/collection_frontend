@@ -42,7 +42,7 @@ function CollectionBody({declareCollectionData,
                 <form onSubmit={declareCollectionData}>
 
                     <Banner
-                        setErrorMessage={setErrorMessage}
+                        setError={setErrorMessage}
                         mainImage={mainImage ? mainImage : null}
                         setMainImage={setMainImage}
                         backImage={backImage ? backImage : null}
@@ -97,13 +97,15 @@ function CollectionBody({declareCollectionData,
                 </form>
 
                 <div>
-                    { !isLoading ?
-                        <MainMessage                  //if error
+                    { errorMessage
+                        ? <MainMessage                  //if error
                             type="error"
                             text={errorMessage}
                         />
-                        :<></>
+                        : <></>
+
                     }
+
                 </div>
             </div>
         </MDiv>

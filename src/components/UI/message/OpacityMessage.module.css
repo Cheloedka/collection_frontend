@@ -1,8 +1,13 @@
 .message {
+    min-width: 400px;
     transition: opacity 150ms ease-in-out;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .message:hover {
     opacity: 1 !important;
+    cursor: pointer;
 }
 

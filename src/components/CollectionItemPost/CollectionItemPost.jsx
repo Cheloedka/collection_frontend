@@ -75,7 +75,6 @@ function CollectionItemPost({infoName, infoImage,
 
             <div>
                 <div className={style.divImage}>
-                    <div className={style.divImage}>
                         {img.length > 0 ?
                             <>
                                 { currentImage > 0 ?
@@ -103,7 +102,6 @@ function CollectionItemPost({infoName, infoImage,
                             : <></>
 
                         }
-                    </div>
                 </div>
                 <div className={style.divSpan}>
                     <span className={style.span2}>{information}</span>

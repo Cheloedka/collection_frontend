@@ -1,14 +1,13 @@
 import React from 'react';
 import CollectionItem from "./CollectionItem";
 import style from './CollectionItem.module.css'
-import useIsCurrentUser from "../../../hooks/useIsCurrentUser";
 
 function CollectionItemsList({collections}) {
 
     if (!collections?.length) {
         return (
-            <div>
-                There is no any collections
+            <div className={style.notFound}>
+                No such collections
             </div>
         )
     }

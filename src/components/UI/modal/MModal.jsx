@@ -11,7 +11,7 @@ function MModal({visible, setVisible, children, className}) {
         <Modal
             show={visible}
             onHide={() => setVisible(false)}
-            className={classes}
+            className={visible ? classes : style.none}
         >
             <div className={style.modal}>
                 <CloseButton

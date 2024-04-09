@@ -1,11 +1,10 @@
 :root {
     scrollbar-color: rgba(56, 49, 86, 0.8) rgba(0, 0, 0, 0.1);
-    scrollbar-width: thin;
 }
 
 /* width */
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 19px;
 }
 
 /* Track */

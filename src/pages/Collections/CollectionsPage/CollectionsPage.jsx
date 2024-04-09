@@ -8,19 +8,23 @@ import MainLoader from "../../../components/UI/loader/MainLoader";
 import MainMessage from "../../../components/UI/message/MainMessage";
 import PlusButton from "../../../components/UI/button/PlusButton";
 import MDivWithSpans from "../../../components/UI/div/MDivWithSpans";
-import SearchDiv from "../../../components/Navbar/search/SearchDiv";
 import MDropdown from "../../../components/UI/dropdown/MDropdown";
 import MInputSearch from "../../../components/Navbar/search/MInputSearch";
+import OpacityErrorDiv from "../../../components/structureComponents/OpacityErrorDiv";
+import {useError} from "../../../hooks/useLoadingAndError";
 
 function CollectionsPage() {
     const params = useParams()
 
     const [collections, setCollections] = useState([])
+    const [error, setError] = useState("")
 
-    const [collectionsPageFetch, isLoading, error] = useFetching(async () => {
+    const [collectionsPageFetch, isLoading, errorCollections] = useFetching(async () => {
         let response = await CollectionService.getAllCollections(params.username)
         setCollections(response)
     })
+
+    useError(errorCollections, setError)
 
     useEffect(() => {
         collectionsPageFetch()
@@ -60,6 +64,9 @@ function CollectionsPage() {
 
     return (
         <div>
+
+            <OpacityErrorDiv error={error} setError={setError}/>
+
             <MDivWithSpans
                 mainText={"Collections"}
                 secondText={collections.length}
@@ -80,7 +87,7 @@ function CollectionsPage() {
                             />
                             :<></>
                         }
-                        <PlusButton to={'/collections/create'} />
+                        <PlusButton to={'create'} />
                     </div>
                 </>
                 }
@@ -94,13 +101,6 @@ function CollectionsPage() {
                 : <CollectionItemsList collections={sortedAndSearchedCollections}/>
             }
 
-            {!isLoading ?
-                <MainMessage
-                    type="error"
-                    text={error}
-                />
-                :<></>
-            }
         </div>
     );
 }

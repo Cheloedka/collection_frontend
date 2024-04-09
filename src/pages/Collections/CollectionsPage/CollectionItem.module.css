@@ -73,3 +73,10 @@
     flex-wrap: wrap;
     gap: 40px;
 }
+
+.notFound {
+    align-items: center;
+    font-size: 20px;
+    font-weight: bolder;
+    color: rgba(56, 49, 86, 0.6);
+}

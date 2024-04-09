@@ -62,49 +62,53 @@ function SearchDiv({className, showModal, setShowModal}) {
                 onClick={firstSearch}
             />
 
-            <MModal
-                visible={showModal}
-                setVisible={setShowModal}
-                className={style.modal}
-            >
-                <MInputSearch
-                    value={value}
-                    setValue={setValue}
-                    className={style.searchModal}
-                    onClick={firstSearch}
-                />
+            { showModal
+                ? <MModal
+                    visible={showModal}
+                    setVisible={setShowModal}
+                    className={style.modal}
+                >
+                    <MInputSearch
+                        value={value}
+                        setValue={setValue}
+                        className={style.searchModal}
+                        onClick={firstSearch}
+                    />
 
-                <MainMessage
-                    type={"error"}
-                    text={error}
-                />
+                    <MainMessage
+                        type={"error"}
+                        text={error}
+                    />
 
-                <SearchResponseList
-                    data={usersData}
-                    setData={setUsersData}
-                    searchValue={value}
-                    setError={setError}
-                    setIsLoading={setIsLoading}
-                    countItems = {usersLength}
-                    type={"USER"}
-                    isLoadingNewRequest={isFetchLoading}
-                    setModal={setShowModal}
-                />
+                    <SearchResponseList
+                        data={usersData}
+                        setData={setUsersData}
+                        searchValue={value}
+                        setError={setError}
+                        setIsLoading={setIsLoading}
+                        countItems = {usersLength}
+                        type={"USER"}
+                        isLoadingNewRequest={isFetchLoading}
+                        setModal={setShowModal}
+                    />
 
-                <SearchResponseList
-                    data={collectionsData}
-                    setData={setCollectionsData}
-                    searchValue={value}
-                    setError={setError}
-                    setIsLoading={setIsLoading}
-                    countItems = {collectionsLength}
-                    type={"COLLECTION"}
-                    isLoadingNewRequest={isFetchLoading}
-                    setModal={setShowModal}
-                />
+                    <SearchResponseList
+                        data={collectionsData}
+                        setData={setCollectionsData}
+                        searchValue={value}
+                        setError={setError}
+                        setIsLoading={setIsLoading}
+                        countItems = {collectionsLength}
+                        type={"COLLECTION"}
+                        isLoadingNewRequest={isFetchLoading}
+                        setModal={setShowModal}
+                    />
 
-                <MainLoader isLoading={isLoading} color={"white"} />
-            </MModal>
+                    <MainLoader isLoading={isLoading} color={"white"} />
+                </MModal>
+
+                : <></>
+            }
         </div>
     );
 }

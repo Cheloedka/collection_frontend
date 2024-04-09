@@ -5,8 +5,6 @@ import {useFetching} from "../../../hooks/useFetching";
 import style from "./Notification.module.css"
 import MainMessage from "../../UI/message/MainMessage";
 import MainLoader from "../../UI/loader/MainLoader";
-import {getNotificationContent} from "./getNotificationContent";
-import {formatDate} from "../../../functions/dateTimeFunctions";
 import NotificationItem from "./NotificationItem";
 import NotificationsListModal from "./NotificationListModal";
 
@@ -83,7 +81,6 @@ function NotificationWindow({isNotificationsWindowOpen, setNotificationsWindowOp
 
             { isModalOpen ?
                 <NotificationsListModal
-                    isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                 />
                 : <></> }

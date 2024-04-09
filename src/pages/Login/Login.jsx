@@ -15,7 +15,7 @@ import {useError} from "../../hooks/useLoadingAndError";
 function Login() {
     const {setIsAuth} = useContext(AuthContext)
 
-    const navigate = useNavigate()
+        const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
@@ -33,7 +33,7 @@ function Login() {
         localStorage.setItem('authToken', 'Bearer '  + response.access_token)
         localStorage.setItem('refreshToken', 'Bearer ' + response.refresh_token)
 
-        navigate('/')  //todo navigate to main page
+        navigate('/main')  //todo navigate to main page
     })
     useError(loginError, setErrorMessage)
 

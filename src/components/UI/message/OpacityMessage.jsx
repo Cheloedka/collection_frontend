@@ -1,21 +1,23 @@
 import {Alert} from "react-bootstrap";
 import style from './OpacityMessage.module.css'
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useInterval} from "usehooks-ts";
 
-function OpacityMessage({type, text, showElement, setShowElement, setError}) {
+function OpacityMessage({type, text, showElement, setShowElement, setError, ...props}) {
 
     const [opacity, setOpacity] = useState(1)
 
-    useEffect(() => {
-        if (showElement) {
-            setOpacity(1)
-            setTimeout(function() {
-                setOpacity(prev => (prev - 0.2))
-                setShowElement(false)
-                setError("")
-            }, 3000);
+    useInterval(() => {
+        if (opacity > 0) {
+            setOpacity(opacity - 0.02)
         }
-    },[showElement])
+        else {
+            setShowElement(false)
+            setError("")
+            setOpacity(1)
+        }
+
+    }, showElement ? 100 : null)
 
 
     const classes = []
@@ -26,7 +28,7 @@ function OpacityMessage({type, text, showElement, setShowElement, setError}) {
         secondary: "alert-secondary"
     }
     const strong = {
-        success: "OpacityMessage: ",
+        success: "Message: ",
         error: "Error: ",
     }
 
@@ -35,10 +37,11 @@ function OpacityMessage({type, text, showElement, setShowElement, setError}) {
 
     return (
         <>
-            { showElement ?
-                <div
+            { showElement
+                ? <div
                     className={style.message}
                     style={{opacity: opacity}}
+                    {...props}
                 >
                     <Alert className={classes}>
                         <strong>

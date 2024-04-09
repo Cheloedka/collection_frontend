@@ -2,6 +2,7 @@
   "name": "collection_frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -16,7 +17,7 @@
     "react-bootstrap-icons": "^1.10.3",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.3.4",
-    "react-router-dom": "^6.10.0",
+    "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
     "sockjs-client": "^1.6.1",

@@ -75,7 +75,11 @@ function CommentaryList({commentaries, idPost, sort}) {
         );
     }
     else {
-        return(<MainLoader isLoading={isLoading} color={"white"} />)
+        return (
+            <>
+                <MainLoader isLoading={isLoading} color={"white"} />
+            </>
+        )
     }
 
 }

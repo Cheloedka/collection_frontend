@@ -10,7 +10,6 @@
 
 
 .MInputSearchNav:focus {
-    border-radius: 0;
     outline: none;
 }
 

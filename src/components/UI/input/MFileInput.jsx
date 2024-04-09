@@ -6,7 +6,7 @@ function MFileInput({className, children, maxSize, setError, setShowError, accep
     function handleChange(e) {
         let file = e.target.files[0]
         if (file) {
-            if (maxSize * 1000000 > file.size)
+            if (maxSize * 10000000 > file.size)
                 setImage(file);
             else
                 setError("File is too big")
@@ -17,7 +17,7 @@ function MFileInput({className, children, maxSize, setError, setShowError, accep
         const files = e.target.files
         let pulFiles = []
         for (let i = 0; i < files.length; i++) {
-            if (maxSize * 1000000 > files[i].size)
+            if (maxSize * 10000000 > files[i].size)
                 pulFiles.push(files[i])
             else
                 setError("File is too big")

@@ -8,19 +8,16 @@ import useIsCurrentUser from "../../hooks/useIsCurrentUser";
 import {useFetching} from "../../hooks/useFetching";
 import UserService from "../../API/UserService";
 import {useParams} from "react-router-dom";
-import OpacityMessage from "../UI/message/OpacityMessage";
 import {useError} from "../../hooks/useLoadingAndError";
 import CollectionService from "../../API/CollectionService";
 import Tooltip from "../../components/UI/tooltip/Tooltip";
 
-function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackImage, children, imageType, isEdit}) {
+function Banner({setError, mainImage, setMainImage, backImage, setBackImage, children, imageType, isEdit}) {
     const isUser = useIsCurrentUser()
     const params = useParams()
     const [isOpened, setIsOpened] = useState(false)
 
     const [back, setBack] = useState("")
-    const [error, setError] = useState("")
-    const [showElement, setShowElement] = useState(false)
 
     const [backFetch, isLoading, backError] = useFetching( async () => {
         let response
@@ -32,12 +29,10 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
         }
         setBackImage(response)
     })
+
     useError(backError, setError)
 
-    useEffect(() => {
-        if (error)
-            setShowElement(true)
-    }, [error])
+
 
     useEffect(() => {
         if (back)
@@ -70,7 +65,7 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                             <MFileInput
                                 setImage={isEdit ? setBackImage : setBack}
                                 maxSize={2}
-                                setError={isEdit ? setErrorMessage : setError}
+                                setError={setError}
                             >
                                 <img
                                     src={editImgIco}
@@ -101,7 +96,7 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                             <MFileInput
                                 setImage={setMainImage}
                                 maxSize={2}
-                                setError={setErrorMessage}
+                                setError={setError}
                             >
                                 <img
                                     src={editImgIco}
@@ -112,14 +107,6 @@ function Banner({setErrorMessage, mainImage, setMainImage, backImage, setBackIma
                             : <></>
                         }
                     {children}
-
-                    <OpacityMessage
-                        type="error"
-                        text={error}
-                        setError={setError}
-                        showElement={showElement}
-                        setShowElement={setShowElement}
-                    />
                 </div>
             </div>
         </div>

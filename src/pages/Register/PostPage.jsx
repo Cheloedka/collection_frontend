@@ -21,28 +21,30 @@ function PostPage() {
     })
 
     useEffect( () => {
+        console.log("WORKED")
         setToken(params.id)
     }, [params.id])
 
     useEffect(() => {
-        if (token.token !== "") {
+        if (token) {
             fetchConfirmation()
         }
     }, [token])
 
+    useEffect(() => {
+        setModalVisible(true)
+    }, [postError])
+
     return (
         <div>
-            <LoaderAndErrorDiv isLoading={isLoading} error={postError} />
-
             <MessageModal              //if success modal, navigate to login page
                 to={"/login"}
                 visible={modalVisible}
                 setVisible={setModalVisible}
             >
+                <LoaderAndErrorDiv isLoading={isLoading} error={postError} />
                 {successMessage.current}
             </MessageModal>
-            }
-
         </div>
     );
 }

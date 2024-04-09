@@ -23,6 +23,7 @@ import CollectionItemPostList from "../../components/CollectionItemPost/Collecti
 import Tooltip from "../../components/UI/tooltip/Tooltip";
 import {useNotFoundNavigate} from "../../hooks/useNotFoundNavigate";
 import FriendshipService from "../../API/FriendshipService";
+import OpacityErrorDiv from "../../components/structureComponents/OpacityErrorDiv";
 
 function UserPage() {
     const params = useParams()
@@ -33,11 +34,14 @@ function UserPage() {
     const [user, setUser] = useState({})
     const [backImage, setBackImage] = useState("")
 
+    const [error, setError] = useState("")
+
     const [userPageFetch, isLoading, userError] = useFetching( async () => {
         let response = await UserService.userPageInfo(params.username)
-        if (response.follower) {
+        if (response.follower)
             setIsFollowers(response.follower)
-        }
+        else
+            setIsFollowers(false)
         setUser(response)
 
     })
@@ -105,11 +109,15 @@ function UserPage() {
     if (user?.username) {
         return (
             <div className={style.main}>
+
+                <OpacityErrorDiv error={error} setError={setError}/>
+
                 <Banner
                     backImage={backImage ? getImage(backImage) : getImage(user.backgroundImage)}
                     setBackImage={setBackImage}
                     mainImage={getUserImage(user.image)}
                     imageType="USER"
+                    setError={setError}
                 >
                     <MDiv className={style.divInsideBanner}>
                         <BannerInfo

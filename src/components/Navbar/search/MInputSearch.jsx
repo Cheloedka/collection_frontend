@@ -20,6 +20,7 @@ function MInputSearch({value, setValue, onClick, className}) {
             </button>
             <input
                 value={value}
+                onKeyUp={e => e.key === 'Enter' && (onClick ? onClick() : null)}
                 onChange={e => setValue(e.target.value)}
                 placeholder="Search"
                 className={style.MInputSearchNav}

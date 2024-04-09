@@ -4,11 +4,14 @@ import style from "./CollectionItemPost.module.css"
 import {useFetching} from "../../hooks/useFetching";
 import ItemService from "../../API/ItemService";
 import {usePaginate} from "../../hooks/usePaginate";
-import LoaderAndErrorDiv from "../structureComponents/LoaderAndErrorDiv";
+import MainLoader from "../UI/loader/MainLoader";
+import OpacityErrorDiv from "../structureComponents/OpacityErrorDiv";
+import {useError} from "../../hooks/useLoadingAndError";
 
 function CollectionItemPostList({username, idCollection, type}) {
 
     const [items, setItems] = useState([])
+    const [error, setError] = useState("")
 
     const [itemsFetch, isLoadingItems, errorItems] = useFetching( async () => {
         let response;
@@ -27,6 +30,8 @@ function CollectionItemPostList({username, idCollection, type}) {
             setItems(prev => [...prev, ...response])
     })
 
+    useError(errorItems, setError)
+
     const [pageNumber, triggerElement, setCanLoad, clearData, canLoad] = usePaginate(itemsFetch, isLoadingItems)
 
     useEffect(() => {
@@ -34,8 +39,22 @@ function CollectionItemPostList({username, idCollection, type}) {
         clearData()
     }, [username, idCollection, type])
 
-    return (
+
+    if (isLoadingItems && canLoad)
+        return <MainLoader />
+
+    else if (type === "FOLLOWER" && items.length <= 0) {
+        return (
+            <div style={{display: "none"}}>
+                {triggerElement}
+            </div>
+        )
+    }
+    else return (
         <div className={style.divList}>
+
+            <OpacityErrorDiv error={error} setError={setError} />
+
             { items.length > 0 ?
                 <>
                     { items
@@ -60,9 +79,8 @@ function CollectionItemPostList({username, idCollection, type}) {
                             />
                         )}
                 </>
-                : "Not found"
+                : <div className={style.notFound}> No collection items yet </div>
             }
-            <LoaderAndErrorDiv isLoading={isLoadingItems && canLoad} error={errorItems} />
             {triggerElement}
         </div>
     );

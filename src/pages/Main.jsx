@@ -31,10 +31,9 @@ function Main() {
             <LoaderAndErrorDiv isLoading={isLoading} error={error} />
             <div className={style.left}>
                 { isAuth && username ?
-                    <div>
+                    <>
                         <CollectionItemPostList username={username} type="FOLLOWER" />
-                        <div className={style.newPosts}> ------------------ New Posts -------------------- </div>
-                    </div>
+                    </>
                     : <></>
                 }
                 <CollectionItemPostList type="MAIN" />

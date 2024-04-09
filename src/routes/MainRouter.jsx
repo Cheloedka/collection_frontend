@@ -65,6 +65,7 @@ function MainRoutes() {
             </Route>
 
             <Route path='/main' element={<Main />} />
+            <Route path='/' element={<Main />} />
             <Route path='/not_found' element={<Error404 />} />
 
 

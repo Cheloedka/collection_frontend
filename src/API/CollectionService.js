@@ -3,34 +3,34 @@ import {deleteRequestWithAuth, getRequest, postBodyRequestWithAuth, putBodyReque
 export default class CollectionService {
 
     static async createCollection(collectionData) {
-        const formData = new FormData();
+        const formData = new FormData()
         for (let key in collectionData) {
-            formData.append(key, collectionData[key]);
+            formData.append(key, collectionData[key])
         }
 
-        return postBodyRequestWithAuth('/collection/new', formData);
+        return postBodyRequestWithAuth('/collection/new', formData)
     }
 
     static async getCollection(id, username) {
-        return await getRequest('/collection/' + username + '/' + id);
+        return await getRequest('/collection/' + username + '/' + id)
     }
 
     static async getAllCollections(username) {
-        return await getRequest('/collections/' + username);
+        return await getRequest('/collections/' + username)
     }
 
     static async editCollection(id, collectionData) {
-        const formData = new FormData();
+        const formData = new FormData()
         for (let key in collectionData) {
-            formData.append(key, collectionData[key]);
+            formData.append(key, collectionData[key])
             console.log(formData.get(key))
         }
-        return await postBodyRequestWithAuth("/collection/" + id + "/edit", formData);
+        return await postBodyRequestWithAuth("/collection/" + id + "/edit", formData)
     }
 
     static async changeBackImage(idCollection, file) {
-        const formData = new FormData();
-        formData.append("file", file);
+        const formData = new FormData()
+        formData.append("file", file)
 
         return await putBodyRequestWithAuth("/collection/" + idCollection + "/back", formData)
     }

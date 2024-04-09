@@ -37,10 +37,10 @@ api.interceptors.response.use((response) => {
             if (e.response.status === 403) {
                 useLogout()
             }
-            return Promise.reject(error);
+            return Promise.reject(error)
         }
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
 });
 
 
